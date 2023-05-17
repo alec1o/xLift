@@ -4,7 +4,7 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
 <br>
 
 ## Functions
-> * All clients must keep their websocket open and connected to sisma server and need a jwt to connect with the server.
+> All clients must keep their websocket open and connected to sisma server and need a jwt to connect with the server.
   - (server) search for a connected players using player id (id == jwt-sub)
   - (client) request join on room
   - (client) receive message from Matchmaking
