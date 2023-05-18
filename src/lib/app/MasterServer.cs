@@ -9,44 +9,57 @@ public class MasterServer
     public readonly IPAddress address;
     public readonly int port;
     public readonly WatsonWsServer server;
+    public readonly List<MasterClient> clients;
 
     public MasterServer(string address, int port)
     {
         this.address = IPAddress.Parse(address);
         this.port = port;
         this.server = new WatsonWsServer(address, port, false);
+        this.clients = new List<MasterClient>();
     }
 
     public void Init()
     {
-        server.ServerStopped += (a, b) =>
+        server.ServerStopped += (_, input) =>
         {
             Console.WriteLine("[WEBSOCKET STOPED]");
         };
 
-        server.ClientConnected += (a, b) =>
+        server.ClientConnected += (_, input) =>
         {
-            Console.WriteLine("Client connected: " + (new IPEndPoint(IPAddress.Parse(b.Client.Ip), b.Client.Port)).ToString());
+            Console.WriteLine("Connecting client...");
 
-            var h = b.HttpRequest.Headers;
+            var token = input.HttpRequest.Headers.Get("token");
 
-            foreach (var i in h.AllKeys)
+            if (string.IsNullOrWhiteSpace(token))
             {
-                if (string.IsNullOrWhiteSpace(i)) continue;
-
-                Console.WriteLine($"--> {i}: {h.Get(i)}");
+                // invalid token. disconnect user
+                Console.WriteLine("Error on connect...");
+                return;
             }
 
+            Console.WriteLine("Verify token...");
+            var data = MasterClient.VerifyJwt(token);
+
+            if (data == null)
+            {
+                // invalid token. disconnect user
+                Console.WriteLine("Error on connect...");
+                return;
+            }
+
+            Console.WriteLine("Client connected: " + (new IPEndPoint(IPAddress.Parse(input.Client.Ip), input.Client.Port)).ToString());
         };
 
-        server.MessageReceived += (a, b) =>
+        server.MessageReceived += (_, input) =>
         {
-            Console.WriteLine($"Client receive: {Encoding.UTF8.GetString(b.Data.ToArray())}");
+            Console.WriteLine($"Client receive: {Encoding.UTF8.GetString(input.Data.ToArray())}");
         };
 
-        server.ClientDisconnected += (a, b) =>
+        server.ClientDisconnected += (_, input) =>
         {
-            Console.WriteLine("Client disconnected: " + (new IPEndPoint(IPAddress.Parse(b.Client.Ip), b.Client.Port)).ToString());
+            Console.WriteLine("Client disconnected: " + (new IPEndPoint(IPAddress.Parse(input.Client.Ip), input.Client.Port)).ToString());
         };
 
         Task.Run(async () =>
