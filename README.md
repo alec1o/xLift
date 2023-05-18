@@ -12,6 +12,18 @@ To configure containers, bind port, game modes, it will be through a web panel.
 which will run on an exposed port... see more in the installation area
 ```
 
+## Install
+```rb
+$ git clone "https://github.com/alec1o/Sisma"
+$ cd Sisma
+
+# default config (--sisma: 127.0.0.1:10101 --web: 127.0.0.1:3000)
+$ dotnet run dev
+
+# Advanced
+$ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
+```
+
 <br>
 
 ## Authentication
@@ -238,16 +250,3 @@ which will run on an exposed port... see more in the installation area
           "message": "Facing authentication problem, try reconnecting."
         }
         ```
-  
-<br><br>
-
-## Install
-```rb
-$ git clone "https://github.com/alec1o/Sisma"
-$ cd Sisma
-# running with default config (127.0.0.1:10101)
-$ dotnet run dev
-# or 
-$ dotnet run 127.0.0.1 10101
-```
-
