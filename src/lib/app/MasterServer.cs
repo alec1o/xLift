@@ -41,15 +41,15 @@ public class MasterServer
             }
 
             Console.WriteLine("Verify token...");
-            var data = MasterClient.VerifyJwt(token);
-
-            if (data == null)
+            if (MasterClient.IsValid(token) is false)
             {
                 // invalid token. disconnect user
                 Console.WriteLine("Error on connect...");
                 server.DisconnectClient(input.Client.Guid);
                 return;
             }
+
+            clients.Add(new MasterClient(input.Client.Guid, token, null));
 
             Console.WriteLine("Client connected: " + (new IPEndPoint(IPAddress.Parse(input.Client.Ip), input.Client.Port)).ToString());
         };
