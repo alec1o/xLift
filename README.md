@@ -10,7 +10,10 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
 ```rb
 $ git clone "https://github.com/alec1o/Sisma"
 $ cd Sisma
-$ dotnet run 0.0.0.0 10101
+# running with default config (127.0.0.1:10101)
+$ dotnet run dev
+# or 
+$ dotnet run 127.0.0.1 10101
 ```
 
 ### How to have multiple game servers?
