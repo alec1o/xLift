@@ -45,6 +45,7 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
         }
         ```
 
+<br>
 
 ## Root (Admin)
 - ##### Check User Status
