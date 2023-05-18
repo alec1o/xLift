@@ -3,6 +3,8 @@
 # Sisma
 Matchmaking, Game server manager with docker (Simple Server Manager)
 
+![Sisma drawio](https://github.com/alec1o/Sisma/assets/100610503/75fd930e-720d-4698-9e00-4018feb6a72d)
+
 
 ## Root
 - ##### Check if a user is logged in
@@ -151,4 +153,4 @@ Sisma reserves all the ports in its range, that is, no other application will be
   - (client) receive message from Matchmaking
 <br>
 
-![Sisma drawio](https://github.com/alec1o/Sisma/assets/100610503/75fd930e-720d-4698-9e00-4018feb6a72d)
+
