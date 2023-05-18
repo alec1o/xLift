@@ -10,7 +10,8 @@ public class MasterServer
     public readonly int port;
     public readonly WatsonWsServer server;
     public readonly List<MasterClient> clients;
-    private readonly object _lockClients = new object();
+    public readonly object _lockClients = new object();
+    public readonly Matchmaking matchmaking;
 
     public MasterServer(string address, int port)
     {
@@ -18,6 +19,7 @@ public class MasterServer
         this.port = port;
         this.server = new WatsonWsServer(address, port, false);
         this.clients = new List<MasterClient>();
+        this.matchmaking = new Matchmaking(this);
     }
 
     public void Init()
@@ -62,6 +64,21 @@ public class MasterServer
         server.MessageReceived += (_, input) =>
         {
             Console.WriteLine($"Client receive: {Encoding.UTF8.GetString(input.Data.ToArray())}");
+
+            foreach (var client in clients)
+            {
+                if (input.Client.Guid.ToString() == client.guid.ToString())
+                {
+                    var handler = new MessageHandler(this, client, input.Data.ToArray());
+                    
+                    if (handler.IsValid)
+                    {
+                        handler.Init();
+                    }
+                    
+                    return;
+                }
+            }
         };
 
         server.ClientDisconnected += (_, input) =>
