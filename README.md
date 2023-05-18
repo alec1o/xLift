@@ -6,6 +6,47 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
 ### Install
   - git >= 2.0
   - dotnet >= 6.0
+
+### Matchmaking 
+-  ##### Join ``Join a matchmaking queue``
+    ```js
+    {
+      "sisma": "matchmaking_Join",
+      "mode": "1v1"
+    }
+    ```
+    - ###### Error ``Error joining matchmaking queue``
+      - Timeout
+        ```js
+        {
+          "sisma": "matchmaking_Timeout",
+          "message": "Match time limit exceeded, please try again."
+        }
+        ```
+      - Invalid Mode
+        ```js
+        {
+          "sisma": "matchmaking_InvalidMode",
+          "message": "The mode you selected is not available."
+        }
+        ```
+      - In Queue
+        ```js
+        {
+          "sisma": "matchmaking_InQueue",
+          "message": "You are already in a matchmaking queue, please try again later."
+        }
+        ```
+      - Unauthenticated
+        ```js
+        {
+          "sisma": "matchmaking_Unauthenticated",
+          "message": "Facing authentication problem, try disconnecting and connecting again, your token must have expired."
+        }
+        ```
+  
+  
+<br><br>
   
 ```rb
 $ git clone "https://github.com/alec1o/Sisma"
