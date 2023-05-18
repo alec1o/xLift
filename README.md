@@ -19,28 +19,49 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
       - Timeout
         ```js
         {
-          "sisma": "matchmaking_Timeout",
+          "sisma": "matchmaking_Join_Timeout",
           "message": "Match time limit exceeded, please try again."
         }
         ```
       - Invalid Mode
         ```js
         {
-          "sisma": "matchmaking_InvalidMode",
+          "sisma": "matchmaking_Join_InvalidMode",
           "message": "The mode you selected is not available."
         }
         ```
       - In Queue
         ```js
         {
-          "sisma": "matchmaking_InQueue",
+          "sisma": "matchmaking_Join_InQueue",
           "message": "You are already in a matchmaking queue, please try again later."
         }
         ```
       - Unauthenticated
         ```js
         {
-          "sisma": "matchmaking_Unauthenticated",
+          "sisma": "matchmaking_Join_Unauthenticated",
+          "message": "Facing authentication problem, try reconnecting."
+        }
+        ```
+-  ##### Unjoin ``Unjoin/Leave matchmaking queue``
+    ```js
+    {
+      "sisma": "matchmaking_Unjoin"
+    }
+    ```
+    - ###### Error ``Error unjoining/leaving queue``
+      - Not found
+        ```js
+        {
+          "sisma": "matchmaking_Unjoin_NotFound",
+          "message": "Unable to find user in match queue."
+        }
+        ```
+      - Unauthenticated
+        ```js
+        {
+          "sisma": "matchmaking_Unjoin_Unauthenticated",
           "message": "Facing authentication problem, try reconnecting."
         }
         ```
