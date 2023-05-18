@@ -7,12 +7,14 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
 
 <br>
 
-```txt
-To configure containers, bind port, game modes, it will be through a web panel.
-which will run on an exposed port... see more in the installation area
-```
+
 
 ## Install
+```txt
+To configure containers, bind port, game modes, it will be through a web panel.
+which will run on an exposed port... see more in the installation area bellow 
+```
+
 ```rb
 $ git clone "https://github.com/alec1o/Sisma"
 $ cd Sisma
