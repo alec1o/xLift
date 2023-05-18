@@ -28,7 +28,8 @@ public class Program
             return;
         }
 
-        _ = new MasterServer(address, port);
+        var master = new MasterServer(address, port);
+        master.Init();
 
         Console.WriteLine("[STARTED] KEY {ENTER} TO STOP");
         Console.ReadLine();
