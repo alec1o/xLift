@@ -3,6 +3,36 @@
 # Sisma
 Matchmaking, Game server manager with docker (Simple Server Manager)
 
+
+## Root
+- ##### Check if a user is logged in
+    ```js
+    {
+      "sisma": "root_CheckUser",
+      "sub": "user-id-here"
+    }
+    ```
+     - ###### Success
+        ```js
+        {
+          "sisma": "root_CheckUser",
+          "sub": "user-id-here",
+          "online": true
+        }
+    - ###### Error
+      - Unauthenticated
+        ```js
+        {
+          "sisma": "root_CheckUser_Unauthenticated",
+          "message": "Facing authentication problem, try reconnecting."
+        }
+      - Unauthorized
+        ```js
+        {
+          "sisma": "root_CheckUser_Unauthorized",
+          "message": "You do not have permission to access this article.."
+        }
+
 ## Matchmaking 
 -  ##### Join ``Join a matchmaking queue``
     ```js
