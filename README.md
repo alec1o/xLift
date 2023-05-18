@@ -73,6 +73,40 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
           "message": "You do not have permission to access this article.."
         }
 
+- ##### Send message
+    ```js
+    {
+      "sisma": "root_SendMessage",
+      "message": "Hello users",
+      "subs": [
+        {"sub": "user-1-id-here" },
+        {"sub": "user-2-id-here" }
+      ]
+    }
+    ```
+     - ###### Success
+        ```js
+        {
+          "sisma": "root_SendMessage_Success",
+          "subs": [
+            { "sub": "user-1-id-here", "received": true },
+            { "sub": "user-2-id-here", "received": true }
+          ]
+        }
+    - ###### Error
+      - Unauthenticated
+        ```js
+        {
+          "sisma": "root_SendMessage_Unauthenticated",
+          "message": "Facing authentication problem, try reconnecting."
+        }
+      - Unauthorized
+        ```js
+        {
+          "sisma": "root_SendMessage_Unauthorized",
+          "message": "You do not have permission to access this article.."
+        }
+
 ## Matchmaking 
 -  ##### Join ``Join a matchmaking queue``
     ```js
