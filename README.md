@@ -7,7 +7,7 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
 
 
 ## Root
-- ##### Check if a user is logged in
+- ##### Check User Status
     ```js
     {
       "sisma": "root_CheckUser",
@@ -37,6 +37,39 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
         ```js
         {
           "sisma": "root_CheckUser_Unauthorized",
+          "message": "You do not have permission to access this article.."
+        }
+        
+- ##### Disconnect users
+    ```js
+    {
+      "sisma": "root_DisconnectUser",
+      "subs": [
+        {"sub": "user-1-id-here" },
+        {"sub": "user-2-id-here" }
+      ]
+    }
+    ```
+     - ###### Success
+        ```js
+        {
+          "sisma": "root_DisconnectUser_Success",
+          "subs": [
+            { "sub": "user-1-id-here", "online": false },
+            { "sub": "user-2-id-here", "online": false }
+          ]
+        }
+    - ###### Error
+      - Unauthenticated
+        ```js
+        {
+          "sisma": "root_DisconnectUser_Unauthenticated",
+          "message": "Facing authentication problem, try reconnecting."
+        }
+      - Unauthorized
+        ```js
+        {
+          "sisma": "root_DisconnectUser_Unauthorized",
           "message": "You do not have permission to access this article.."
         }
 
