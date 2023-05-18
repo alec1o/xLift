@@ -9,15 +9,20 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
     ```js
     {
       "sisma": "root_CheckUser",
-      "sub": "user-id-here"
+      "subs": [
+        {"sub": "user-1-id-here" },
+        {"sub": "user-2-id-here" }
+      ]
     }
     ```
      - ###### Success
         ```js
         {
-          "sisma": "root_CheckUser",
-          "sub": "user-id-here",
-          "online": true
+          "sisma": "root_CheckUser_Success",
+          "subs": [
+            { "sub": "user-1-id-here", "online": true },
+            { "sub": "user-2-id-here", "online": false }
+          ]
         }
     - ###### Error
       - Unauthenticated
