@@ -36,6 +36,7 @@ public class MasterServer
             {
                 // invalid token. disconnect user
                 Console.WriteLine("Error on connect...");
+                server.DisconnectClient(input.Client.Guid);
                 return;
             }
 
@@ -46,6 +47,7 @@ public class MasterServer
             {
                 // invalid token. disconnect user
                 Console.WriteLine("Error on connect...");
+                server.DisconnectClient(input.Client.Guid);
                 return;
             }
 
