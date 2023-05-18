@@ -41,7 +41,7 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
         ```js
         {
           "sisma": "matchmaking_Unauthenticated",
-          "message": "Facing authentication problem, try disconnecting and connecting again, your token must have expired."
+          "message": "Facing authentication problem, try reconnecting."
         }
         ```
   
