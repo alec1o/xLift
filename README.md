@@ -13,7 +13,7 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
         ```js
         {
           "sub": "global-client-id",
-          "exp": "expire-date"
+          "exp": "utc-expire-date"
         }
         ```
     - ###### Step
@@ -25,6 +25,24 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
         jwt must be the same in the sisma environment variable SISMA_JWT_KEY"     
         
         1. When opening a websocket add the jwt in the request header
+
+        Header {
+            token: JWT_ENCODED_AS_STRING_HERE 
+        }
+        ```
+- ##### Root (Admin) authentication
+    - ###### Step
+        ```
+        - To connect as root (admin) you need to add an environment variable whose
+        name is SISMA_ROOT_KEY, once the value of this variable you can use to open
+        a connection with the server in root mode     
+        
+        1. When opening a websocket connection, it uses the value of the environment variable
+        SISMA_ROOT_KEY in the header of the connection opening request
+        
+        Header {
+            token: SISMA_ROOT_KEY_IS_ENVIRONMENT_VARIABLE
+        }
         ```
 
 
