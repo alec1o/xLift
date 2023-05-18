@@ -5,8 +5,9 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
 
 ![Sisma drawio](https://github.com/alec1o/Sisma/assets/100610503/75fd930e-720d-4698-9e00-4018feb6a72d)
 
+<br>
 
-## Root
+## Root (Admin)
 - ##### Check User Status
     ```js
     {
@@ -106,6 +107,8 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
           "sisma": "root_SendMessage_Unauthorized",
           "message": "You do not have permission to access this article.."
         }
+
+<br>
 
 ## Matchmaking 
 -  ##### Join ``Join a matchmaking queue``
