@@ -3,7 +3,7 @@
 # Sisma
 Matchmaking, Game server manager with docker (Simple Server Manager)
 
-### Matchmaking 
+## Matchmaking 
 -  ##### Join ``Join a matchmaking queue``
     ```js
     {
