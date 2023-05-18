@@ -15,6 +15,23 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
       "mode": "1v1"
     }
     ```
+    - ###### Success
+      - Success
+        ```js
+        {
+          "sisma": "matchmaking_Join_Success",
+          "mode": "1v1",
+          "guid": "asdf",
+          "host": {
+            "address": "127.0.0.1",
+            "ports": [
+              { "tcp_chat": 2000 },
+              { "tcp_game": 3000 },
+              { "udp_game": 4000 }
+            ]
+          }
+        }
+        ```
     - ###### Error ``Error joining matchmaking queue``
       - Timeout
         ```js
