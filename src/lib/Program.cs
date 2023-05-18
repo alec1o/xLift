@@ -13,7 +13,7 @@ public class Program
         {
             if (args[0].ToLower() == "dev")
             {
-                address = "0.0.0.0";
+                address = "127.0.0.1";
                 port = 10101;
             }
             else
