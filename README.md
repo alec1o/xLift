@@ -3,10 +3,6 @@
 # Sisma
 Matchmaking, Game server manager with docker (Simple Server Manager)
 
-### Install
-  - git >= 2.0
-  - dotnet >= 6.0
-
 ### Matchmaking 
 -  ##### Join ``Join a matchmaking queue``
     ```js
@@ -89,9 +85,9 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
         }
         ```
   
-  
 <br><br>
-  
+
+## Install
 ```rb
 $ git clone "https://github.com/alec1o/Sisma"
 $ cd Sisma
