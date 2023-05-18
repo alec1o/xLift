@@ -10,6 +10,7 @@ public class MasterServer
     public readonly int port;
     public readonly WatsonWsServer server;
     public readonly List<MasterClient> clients;
+    private readonly object _lockClients = new object();
 
     public MasterServer(string address, int port)
     {
@@ -28,30 +29,34 @@ public class MasterServer
 
         server.ClientConnected += (_, input) =>
         {
-            Console.WriteLine("Connecting client...");
-
             var token = input.HttpRequest.Headers.Get("token");
 
             if (string.IsNullOrWhiteSpace(token))
             {
                 // invalid token. disconnect user
-                Console.WriteLine("Error on connect...");
+                Console.WriteLine("[AUTH] Error Token Not Found...");
                 server.DisconnectClient(input.Client.Guid);
                 return;
             }
 
             Console.WriteLine("Verify token...");
-            if (MasterClient.IsValid(token) is false)
+            var result = MasterClient.IsValid(token);
+            if (result.isValid is false)
             {
                 // invalid token. disconnect user
-                Console.WriteLine("Error on connect...");
+                Console.WriteLine("[AUTH] Error Invalid Token...");
                 server.DisconnectClient(input.Client.Guid);
                 return;
             }
 
-            clients.Add(new MasterClient(input.Client.Guid, token, null));
+            var client = new MasterClient(input.Client.Guid, token, sub: string.Empty, result.rootAccess);
 
-            Console.WriteLine("Client connected: " + (new IPEndPoint(IPAddress.Parse(input.Client.Ip), input.Client.Port)).ToString());
+            lock (_lockClients)
+            {
+                clients.Add(client);
+                Console.WriteLine($"[AUTH] Client Connected (root: {result.rootAccess})");
+                Console.WriteLine($"[INFO] Clients: {clients.Count}");
+            }
         };
 
         server.MessageReceived += (_, input) =>
@@ -61,7 +66,21 @@ public class MasterServer
 
         server.ClientDisconnected += (_, input) =>
         {
-            Console.WriteLine("Client disconnected: " + (new IPEndPoint(IPAddress.Parse(input.Client.Ip), input.Client.Port)).ToString());
+            lock (_lockClients)
+            {
+                foreach (var client in clients)
+                {
+                    if (input.Client.Guid.ToString() == client.guid.ToString())
+                    {
+                        clients.Remove(client);
+                        Console.WriteLine("[AUTH] Client Disconnected");
+                        Console.WriteLine($"[INFO] Clients: {clients.Count}");
+                        return;
+                    }
+                }
+            }
+
+            Console.WriteLine("[INVALID TOKEN] Client Disconnected");
         };
 
         Task.Run(async () =>
