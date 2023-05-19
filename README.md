@@ -215,21 +215,21 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
         ```js
         {
           "sisma": "MATCHMAKING_JOIN_TIMEOUT",
-          "message": ""
+          "message": "Unable to start a match due to timeout, please try again."
         }
         ```
       - ###### Invalid Mode
         ```js
         {
           "sisma": "MATCHMAKING_JOIN_INVALIDMODE",
-          "message": ""
+          "message": "Game mode is not available"
         }
         ```
       - ###### In Queue
         ```js
         {
           "sisma": "MATCHMAKING_JOIN_INQUEUE",
-          "message": ""         
+          "message": "User is not in a queue"         
         }
         ```
       - ###### Unauthorized 
@@ -257,7 +257,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
         ```js
         {
           "sisma": "MATCHMAKING_UNJOIN_NOTFOUND",
-          "message": "User is not in a queue"
+          "message": "Could not find the user."
         }
         ```
       - ###### Unauthorized 
