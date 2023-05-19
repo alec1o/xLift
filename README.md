@@ -50,7 +50,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
           "exp": "utc-date"
         }
         ```
-    - ###### STEP
+    - ###### Step
         ```
         - jwt needs to have a parameter called "sub" as string "level" as int, and it's required.
         if you don't have the client, you can't connect to sisma. the "sub" must be the user
@@ -64,13 +64,13 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
             token: JWT_ENCODED_AS_STRING_HERE 
         }
         ```
-        - ###### SUCCESS 
+        - ###### Success 
             ```js
             {
               "sisma": "AUTH_USER_SUCCESS"
             }
             ```
-        - ###### ERROR 
+        - ###### Error 
             ```js
             Websocket will be disconnected
             ```
@@ -88,13 +88,13 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
             token: SISMA_ROOT_KEY_IS_ENVIRONMENT_VARIABLE
         }
         ```
-        - ###### SUCCESS 
+        - ###### Success 
             ```js
             {
               "sisma": "AUTH_ROOT_SUCCESS"
             }
             ```
-        - ###### ERROR
+        - ###### Error 
             ```js
             Websocket will be disconnected
             ```
@@ -112,7 +112,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
       ]
     }
     ```
-     - ###### SUCCESS 
+     - ###### Success 
         ```js
         {
           "sisma": "ROOT_CHECKUSER_SUCCESS",
@@ -121,8 +121,8 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
             { "sub": "user2", "online": true }
           ]
         }
-    - ###### ERROR
-      - ###### UNAUTHORIZED
+    - ###### Error 
+      - ###### Unauthorized 
         ```js
         {
           "sisma": "ROOT_CHECKUSER_UNAUTHORIZED"
@@ -138,7 +138,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
       ]
     }
     ```
-     - ###### SUCCESS 
+     - ###### Success 
         ```js
         {
           "sisma": "ROOT_DISCONNECTUSER_SUCCESS",
@@ -147,8 +147,8 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
             { "sub": "user2", "online": false }
           ]
         }
-    - ###### ERROR
-      - ###### UNAUTHORIZED 
+    - ###### Error
+      - ###### Unauthorized 
         ```js
         {
           "sisma": "ROOT_DISCONNECTUSER_UNAUTHORIZED"
@@ -165,7 +165,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
       ]
     }
     ```
-     - ###### SUCCESS
+     - ###### Success
         ```js
         {
           "sisma": "ROOT_SENDMESSAGE_SUCCESS",
@@ -174,11 +174,12 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
             { "sub": "user2", "received": true }
           ]
         }
-    - ###### ERROR
-      - ###### UNAUTHORIZED 
+    - ###### Error 
+      - ###### Unauthorized 
         ```js
         {
-          "sisma": "ROOT_SENDMESSAGE_UNAUTHORIZED"
+          "sisma": "ROOT_SENDMESSAGE_UNAUTHORIZED",
+          "message": ""
         }
 
 <br>
@@ -191,7 +192,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
       "mode": "1v1"
     }
     ```
-    - ###### SUCCESS
+    - ###### Success 
       ```js
       {
         "sisma": "MATCHMAKING_JOIN_SUCCESS",
@@ -207,29 +208,33 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
         }
       }
       ```
-    - ###### ERROR
-      - ###### TIMEOUT
+    - ###### Error 
+      - ###### Timeout 
         ```js
         {
-          "sisma": "MATCHMAKING_JOIN_TIMEOUT"
+          "sisma": "MATCHMAKING_JOIN_TIMEOUT",
+          "message": ""
         }
         ```
-      - ###### INVALID MODE
+      - ###### Invalid Mode
         ```js
         {
-          "sisma": "MATCHMAKING_JOIN_INVALIDMODE"
+          "sisma": "MATCHMAKING_JOIN_INVALIDMODE",
+          "message": ""
         }
         ```
-      - ###### IN QUEUE
+      - ###### In Queue
         ```js
         {
-          "sisma": "MATCHMAKING_JOIN_INQUEUE"
+          "sisma": "MATCHMAKING_JOIN_INQUEUE",
+          "message": ""         
         }
         ```
-      - ###### UNAUTHORIZED 
+      - ###### Unauthorized 
         ```js
         {
-          "sisma": "MATCHMAKING_JOIN_UNAUTHORIZED"
+          "sisma": "MATCHMAKING_JOIN_UNAUTHORIZED",
+          "message": ""
         }
         ```
 -  ##### UNJOIN
@@ -238,23 +243,25 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
       "sisma": "MATCHMAKING_UNJOIN"
     }
     ```
-    - ###### SUCCESS 
+    - ###### Success 
       ```js
       {
         "sisma": "MATCHMAKING_UNJOIN_SUCCESS",
         "mode": "1v1"
       }
       ```
-    - ###### ERROR
-      - ###### NOT FOUND
+    - ###### Error
+      - ###### Not found 
         ```js
         {
-          "sisma": "MATCHMAKING_UNJOIN_NOTFOUND"
+          "sisma": "MATCHMAKING_UNJOIN_NOTFOUND",
+          "message": ""
         }
         ```
-      - ###### UNAUTHORIZED 
+      - ###### Unauthorized 
         ```js
         {
-          "sisma": "MATCHMAKING_UNJOIN_UNAUTHORIZED"
+          "sisma": "MATCHMAKING_UNJOIN_UNAUTHORIZED",
+          "message": ""
         }
         ```
