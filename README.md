@@ -125,7 +125,8 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
       - ###### Unauthorized 
         ```js
         {
-          "sisma": "ROOT_CHECKUSER_UNAUTHORIZED"
+          "sisma": "ROOT_CHECKUSER_UNAUTHORIZED",
+          "message": "You do not have permission to perform this action."
         }
         
 - ##### DISCONNECT USER
@@ -151,7 +152,8 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
       - ###### Unauthorized 
         ```js
         {
-          "sisma": "ROOT_DISCONNECTUSER_UNAUTHORIZED"
+          "sisma": "ROOT_DISCONNECTUSER_UNAUTHORIZED",
+          "message": "You do not have permission to perform this action."
         }
 
 - ##### SEND MESSAGE
@@ -179,7 +181,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
         ```js
         {
           "sisma": "ROOT_SENDMESSAGE_UNAUTHORIZED",
-          "message": ""
+          "message": "You do not have permission to perform this action."
         }
 
 <br>
@@ -234,7 +236,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
         ```js
         {
           "sisma": "MATCHMAKING_JOIN_UNAUTHORIZED",
-          "message": ""
+          "message": "You do not have permission to perform this action."
         }
         ```
 -  ##### UNJOIN
@@ -255,13 +257,13 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
         ```js
         {
           "sisma": "MATCHMAKING_UNJOIN_NOTFOUND",
-          "message": ""
+          "message": "User is not in a queue"
         }
         ```
       - ###### Unauthorized 
         ```js
         {
           "sisma": "MATCHMAKING_UNJOIN_UNAUTHORIZED",
-          "message": ""
+          "message": "You do not have permission to perform this action."
         }
         ```
