@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/sword-thrasher');
+
 .app {
     position: absolute;
     display: block;
@@ -18,6 +20,63 @@
     background-image: url('/background.jpg');
 }
 
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+
+    width: 100%;
+    height: 100%;
+}
+
 .title {
-    color: red;
+    color: white;
+    font-size: 22px;
+    letter-spacing: 10px;
+    text-align: center;
+    margin: 10px;
+    font-family: "Sword Thrasher", "Kiona", "Roboto", sans-serif;
+    cursor: default;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+
+    background-color: transparent;
+    box-shadow: 0 0 10px 2px rgba(32, 80, 206, .5);
+    width: auto;
+    max-width: 450px;
+    padding: 20px 30px;
+    border-radius: 20px;
+    margin-left: 50px;
+}
+
+.input {
+    width: 300px;
+    height: 35px;
+    margin: 15px 5px;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: transparent;
+    border-right: 2px solid #2050ce;
+    border-bottom: 2px solid #2050ce;
+    font-family: "Roboto", sans-serif;
+}
+
+.input::placeholder {
+    color: white;
+    font-family: "Kiona";
+}
+
+#button {
+    font-size: 14px;
+    color: white;
+    font-family: "Kiona";
+    font-weight: bold;
+    text-transform: lowercase;
+    background-color: #2050ce;
+    border: none;
+    cursor: pointer;
 }
