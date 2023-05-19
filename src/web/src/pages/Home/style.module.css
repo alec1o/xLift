@@ -54,8 +54,8 @@
 
 .input {
     width: 300px;
-    height: 35px;
-    margin: 15px 5px;
+    height: 32px;
+    margin: 10px 5px;
     border: none;
     outline: none;
     color: white;
@@ -73,6 +73,8 @@
 #button {
     font-size: 14px;
     color: white;
+    margin-top: 20px;
+    height: 35px;
     font-family: "Kiona";
     font-weight: bold;
     text-transform: lowercase;
