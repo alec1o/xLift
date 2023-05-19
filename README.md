@@ -45,9 +45,9 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
     - ###### JWT
         ```js
         {
-          "sub": "global-client-id",
+          "sub": "user1",
           "level": 0,
-          "exp": "utc-expire-date"
+          "exp": "utc-date"
         }
         ```
     - ###### STEP
