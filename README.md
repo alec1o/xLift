@@ -118,7 +118,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
           "sisma": "ROOT_CHECKUSER_SUCCESS",
           "subs": [
             { "sub": "user1", "online": true },
-            { "sub": "user2", "online": true }
+            { "sub": "user2", "online": false }
           ]
         }
     - ###### Error 
