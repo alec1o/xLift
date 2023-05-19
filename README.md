@@ -27,6 +27,8 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
 <br>
 
 ## FAQ
+### How do I communicate with sisma? 
+> You need to use a websocket and convert all input and output data to json format, following the usage protocols seen below in the documentation.
 ### What environment should it run in?
 > Linux, Windows, Mac. Where C# runs and has docker installed. Linux is the best. 
 ### Does sisma run on multiple clusters?
