@@ -6,7 +6,8 @@ export default function Header() {
     return (
         <header className={style.header}>
             <nav className={style.nav}>
-                <a id={style.logo} href="/">SISMA</a>
+                <a id={style.logo} href="/">Sisma</a>
+                <a id={style.actor} href="https://solo.to/alec1o"><span>by</span>Alecio</a>
             </nav>
 
             <nav className={style.nav}>
