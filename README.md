@@ -171,7 +171,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
           "sisma": "ROOT_SENDMESSAGE_SUCCESS",
           "subs": [
             { "sub": "user1", "received": true },
-            { "sub": "user2", "received": true }
+            { "sub": "user2", "received": false }
           ]
         }
     - ###### Error 
