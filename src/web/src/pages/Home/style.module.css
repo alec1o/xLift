@@ -1,14 +1,21 @@
 .app {
+    position: absolute;
     display: block;
-    height: 100vh;
+    z-index: -1000;
+
     width: 100vw;
+    height: 100vh;
+
     top: 0;
     left: 0;
-    background-size: 100% auto;
-    background-image: url('/background.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    right: 0;
+    bottom: 0;
+
+    background-size: cover;
     background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-image: url('/background.jpg');
 }
 
 .title {
