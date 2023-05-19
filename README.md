@@ -7,8 +7,6 @@ Matchmaking, Game server manager with docker (Simple Server Manager)
 
 <br>
 
-
-
 ## Install
 ```txt
 To configure containers, bind port, game modes, it will be through a web panel.
@@ -25,6 +23,18 @@ $ dotnet run dev
 # Advanced
 $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
 ```
+
+<br>
+
+## FAQ
+### What environment should it run in?
+> Linux, Windows, Mac. Where C# runs and has docker installed. Linux is the best. 
+### Does sisma run on multiple clusters?
+> No. Sisma was designed to run on just one machine.
+### How to balance the game?
+> Sisma requires your player to enter an argument called "level" as a number in your jwt. so when your user wants to join a room, the user must be included in the room whose level is identical.
+### How do I adjust my "level" so that the game is competitive?
+> Well, in this case, I have to give an example. If your game has 3 levels, which are "Silver, Gold and Diamond", a good idea is to make the "silver" level level 1, all "gold and diamond" level 2. That way, all "silver" levels " will be paired with "silver" and " All "gold and diamond" will gather in the same room, and no "silver" will be joined with "gold or diamond". you can leave the levels of all users identical ex level 0, then sisma will add everyone in the same room. Notice: "User level is just a prefix and does not affect any algorithm, you can make a rank being level 1000 for example and anyone with the same level will be included in the same room, sisma will not make any kind of approximation to unite players, the level itself is a filter that can be controlled by your authentication server that creates the tokens for your players to connect to sisma. in short, the level serves only to separate users by categories" 
 
 <br>
 
