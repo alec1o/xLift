@@ -103,8 +103,8 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
 
 <br>
 
-## Root (Admin)
-- ##### Check User Status
+## ROOT (ADMIN)
+- ##### CHECK USER
     ```js
     {
       "sisma": "ROOT_CHECKUSER",
@@ -114,7 +114,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
       ]
     }
     ```
-     - ###### Success
+     - ###### SUCCESS 
         ```js
         {
           "sisma": "ROOT_CHECKUSER_SUCCESS",
@@ -123,13 +123,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
             { "sub": "user2", "online": true }
           ]
         }
-    - ###### Error
-      - Unauthenticated
-        ```js
-        {
-          "sisma": "ROOT_CHECKUSER_UNAUTHENTICATED",
-          "message": "Facing authentication problem, try reconnecting."
-        }
+    - ###### ERROR
       - Unauthorized
         ```js
         {
@@ -137,70 +131,58 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
           "message": "You do not have permission to access this article.."
         }
         
-- ##### Disconnect users
+- ##### DISCONNECT USER
     ```js
     {
-      "sisma": "ROOT_DISCONNECT_USER",
+      "sisma": "ROOT_DISCONNECTUSER",
       "subs": [
         {"sub": "user1" },
         {"sub": "user2" }
       ]
     }
     ```
-     - ###### Success
+     - ###### SUCCESS 
         ```js
         {
-          "sisma": "root_DisconnectUser_Success",
+          "sisma": "ROOT_DISCONNECTUSER_SUCCESS",
           "subs": [
-            { "sub": "user-1-id-here", "online": false },
-            { "sub": "user-2-id-here", "online": false }
+            { "sub": "user1", "online": false },
+            { "sub": "user2", "online": false }
           ]
         }
-    - ###### Error
-      - Unauthenticated
-        ```js
-        {
-          "sisma": "root_DisconnectUser_Unauthenticated",
-          "message": "Facing authentication problem, try reconnecting."
-        }
+    - ###### ERROR
       - Unauthorized
         ```js
         {
-          "sisma": "root_DisconnectUser_Unauthorized",
+          "sisma": "ROOT_DISCONNECTUSER_UNAUTHORIZED",
           "message": "You do not have permission to access this article.."
         }
 
-- ##### Send message
+- ##### SEND MESSAGE
     ```js
     {
-      "sisma": "root_SendMessage",
-      "message": "Hello users",
+      "sisma": "ROOT_SENDMESSAGE",
+      "message": "message here",
       "subs": [
-        {"sub": "user-1-id-here" },
-        {"sub": "user-2-id-here" }
+        {"sub": "user1" },
+        {"sub": "user2" }
       ]
     }
     ```
-     - ###### Success
+     - ###### SUCCESS
         ```js
         {
-          "sisma": "root_SendMessage_Success",
+          "sisma": "ROOT_SENDMESSAGE_SUCCESS",
           "subs": [
-            { "sub": "user-1-id-here", "received": true },
-            { "sub": "user-2-id-here", "received": true }
+            { "sub": "user1", "received": true },
+            { "sub": "user2", "received": true }
           ]
         }
-    - ###### Error
-      - Unauthenticated
-        ```js
-        {
-          "sisma": "root_SendMessage_Unauthenticated",
-          "message": "Facing authentication problem, try reconnecting."
-        }
+    - ###### ERROR
       - Unauthorized
         ```js
         {
-          "sisma": "root_SendMessage_Unauthorized",
+          "sisma": "ROOT_SENDMESSAGE_UNAUTHORIZED",
           "message": "You do not have permission to access this article.."
         }
 
