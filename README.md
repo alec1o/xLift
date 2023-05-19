@@ -64,6 +64,17 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
             token: JWT_ENCODED_AS_STRING_HERE 
         }
         ```
+        - Success
+            ```js
+            {
+              "sisma": "auth_User_Success",
+              "message": "Connected successfully"
+            }
+            ```
+        - Error
+            ```js
+            Websocket will be disconnected
+            ```
 - ##### Root (Admin) authentication
     - ###### Step
         ```
@@ -78,6 +89,17 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
             token: SISMA_ROOT_KEY_IS_ENVIRONMENT_VARIABLE
         }
         ```
+        - Success
+            ```js
+            {
+              "sisma": "auth_Root_Success",
+              "message": "Connected successfully"
+            }
+            ```
+        - Error
+            ```js
+            Websocket will be disconnected
+            ```
 
 <br>
 
