@@ -265,7 +265,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
       - ###### UNAUTHORIZED 
         ```js
         {
-          "sisma": "MATCHMAKING_JOIN_UNAUTHORIZED",
+          "sisma": "MATCHMAKING_UNJOIN_UNAUTHORIZED",
           "message": "You do not have permission to access this article."
         }
         ```
