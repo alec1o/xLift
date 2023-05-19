@@ -213,7 +213,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
       }
       ```
     - ###### ERROR ``Error joining matchmaking queue``
-      - ###### Timeout
+      - ###### TIMEOUT
         ```js
         {
           "sisma": "MATCHMAKING_JOIN_TIMEOUT",
@@ -244,28 +244,28 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
 -  ##### UNJOIN ``Unjoin/Leave matchmaking queue``
     ```js
     {
-      "sisma": "matchmaking_Unjoin"
+      "sisma": "MATCHMAKING_UNJOIN"
     }
     ```
-    - ###### Success
+    - ###### SUCCESS 
       ```js
       {
-        "sisma": "matchmaking_Unjoin_Success",
+        "sisma": "MATCHMAKING_UNJOIN_SUCCESS",
         "mode": "1v1"
       }
       ```
-    - ###### Error ``Error unjoining/leaving queue``
-      - Not found
+    - ###### ERROR ``Error unjoining/leaving queue``
+      - ###### NOT FOUND
         ```js
         {
-          "sisma": "matchmaking_Unjoin_NotFound",
+          "sisma": "MATCHMAKING_UNJOIN_NOTFOUND",
           "message": "Unable to find user in match queue."
         }
         ```
-      - Unauthenticated
+      - ###### UNAUTHORIZED 
         ```js
         {
-          "sisma": "matchmaking_Unjoin_Unauthenticated",
-          "message": "Facing authentication problem, try reconnecting."
+          "sisma": "MATCHMAKING_JOIN_UNAUTHORIZED",
+          "message": "You do not have permission to access this article."
         }
         ```
