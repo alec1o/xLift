@@ -3,7 +3,7 @@
 # Sisma
 Matchmaking, Game server manager with docker (Simple Server Manager)
 
-![Sisma drawio](https://github.com/alec1o/Sisma/assets/100610503/75fd930e-720d-4698-9e00-4018feb6a72d)
+![sisma diagram](https://github.com/alec1o/Sisma/assets/100610503/e2d50830-69ce-4373-abcd-7fa112d55a6e)
 
 <br>
 
