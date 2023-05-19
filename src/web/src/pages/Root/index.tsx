@@ -1,9 +1,9 @@
 import styles from './style.module.css';
 
-export default function Dash() {
+export default function Root() {
     return (
         <>
-            <h1 className={styles.title}>Dash</h1>
+            <h1 className={styles.title}>Root</h1>
         </>
     )
 }
