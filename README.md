@@ -50,7 +50,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
           "exp": "utc-expire-date"
         }
         ```
-    - ###### Step
+    - ###### STEP
         ```
         - jwt needs to have a parameter called "sub" as string "level" as int, and it's required.
         if you don't have the client, you can't connect to sisma. the "sub" must be the user
@@ -64,19 +64,19 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
             token: JWT_ENCODED_AS_STRING_HERE 
         }
         ```
-        - SUCCESS 
+        - ###### SUCCESS 
             ```js
             {
               "sisma": "AUTH_USER_SUCCESS",
               "message": "Connected successfully"
             }
             ```
-        - ERROR 
+        - ###### ERROR 
             ```js
             Websocket will be disconnected
             ```
 - ##### ROOT (ADMIN)
-    - ###### Step
+    - ###### STEP
         ```
         - To connect as root (admin) you need to add an environment variable whose
         name is SISMA_ROOT_KEY, once the value of this variable you can use to open
@@ -89,14 +89,14 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
             token: SISMA_ROOT_KEY_IS_ENVIRONMENT_VARIABLE
         }
         ```
-        - SUCCESS 
+        - ###### SUCCESS 
             ```js
             {
               "sisma": "AUTH_ROOT_SUCCESS",
               "message": "Connected successfully"
             }
             ```
-        - ERROR
+        - ###### ERROR
             ```js
             Websocket will be disconnected
             ```
