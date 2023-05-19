@@ -124,7 +124,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
           ]
         }
     - ###### ERROR
-      - Unauthorized
+      - ###### UNAUTHORIZED
         ```js
         {
           "sisma": "ROOT_CHECKUSER_UNAUTHORIZED",
@@ -151,7 +151,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
           ]
         }
     - ###### ERROR
-      - Unauthorized
+      - ###### UNAUTHORIZED 
         ```js
         {
           "sisma": "ROOT_DISCONNECTUSER_UNAUTHORIZED",
@@ -179,7 +179,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
           ]
         }
     - ###### ERROR
-      - Unauthorized
+      - ###### UNAUTHORIZED 
         ```js
         {
           "sisma": "ROOT_SENDMESSAGE_UNAUTHORIZED",
