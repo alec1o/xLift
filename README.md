@@ -67,7 +67,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
         - Success
             ```js
             {
-              "sisma": "auth_User_Success",
+              "sisma": "AUTH_USER_SUCCESS",
               "message": "Connected successfully"
             }
             ```
@@ -92,7 +92,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
         - Success
             ```js
             {
-              "sisma": "auth_Root_Success",
+              "sisma": "AUTH_ROOT_SUCCESS",
               "message": "Connected successfully"
             }
             ```
@@ -107,43 +107,43 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
 - ##### Check User Status
     ```js
     {
-      "sisma": "root_CheckUser",
+      "sisma": "ROOT_CHECKUSER",
       "subs": [
-        {"sub": "user-1-id-here" },
-        {"sub": "user-2-id-here" }
+        {"sub": "user1" },
+        {"sub": "user2" }
       ]
     }
     ```
      - ###### Success
         ```js
         {
-          "sisma": "root_CheckUser_Success",
+          "sisma": "ROOT_CHECKUSER_SUCCESS",
           "subs": [
-            { "sub": "user-1-id-here", "online": true },
-            { "sub": "user-2-id-here", "online": false }
+            { "sub": "user1", "online": true },
+            { "sub": "user2", "online": true }
           ]
         }
     - ###### Error
       - Unauthenticated
         ```js
         {
-          "sisma": "root_CheckUser_Unauthenticated",
+          "sisma": "ROOT_CHECKUSER_UNAUTHENTICATED",
           "message": "Facing authentication problem, try reconnecting."
         }
       - Unauthorized
         ```js
         {
-          "sisma": "root_CheckUser_Unauthorized",
+          "sisma": "ROOT_CHECKUSER_UNAUTHORIZED",
           "message": "You do not have permission to access this article.."
         }
         
 - ##### Disconnect users
     ```js
     {
-      "sisma": "root_DisconnectUser",
+      "sisma": "ROOT_DISCONNECT_USER",
       "subs": [
-        {"sub": "user-1-id-here" },
-        {"sub": "user-2-id-here" }
+        {"sub": "user1" },
+        {"sub": "user2" }
       ]
     }
     ```
