@@ -128,7 +128,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
         ```js
         {
           "sisma": "ROOT_CHECKUSER_UNAUTHORIZED",
-          "message": "You do not have permission to access this article.."
+          "message": "You do not have permission to access this article."
         }
         
 - ##### DISCONNECT USER
@@ -155,7 +155,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
         ```js
         {
           "sisma": "ROOT_DISCONNECTUSER_UNAUTHORIZED",
-          "message": "You do not have permission to access this article.."
+          "message": "You do not have permission to access this article."
         }
 
 - ##### SEND MESSAGE
@@ -183,25 +183,25 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
         ```js
         {
           "sisma": "ROOT_SENDMESSAGE_UNAUTHORIZED",
-          "message": "You do not have permission to access this article.."
+          "message": "You do not have permission to access this article."
         }
 
 <br>
 
-## Matchmaking 
--  ##### Join ``Join a matchmaking queue``
+## MATCHMAKING 
+-  ##### JOIN ``Join a matchmaking queue``
     ```js
     {
-      "sisma": "matchmaking_Join",
+      "sisma": "MATCHMAKING_JOIN",
       "mode": "1v1"
     }
     ```
-    - ###### Success
+    - ###### SUCCESS
       ```js
       {
-        "sisma": "matchmaking_Join_Success",
+        "sisma": "MATCHMAKING_JOIN_SUCCESS",
         "mode": "1v1",
-        "guid": "asdf",
+        "guid": "guid",
         "host": {
           "address": "127.0.0.1",
           "ports": [
@@ -212,36 +212,36 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
         }
       }
       ```
-    - ###### Error ``Error joining matchmaking queue``
-      - Timeout
+    - ###### ERROR ``Error joining matchmaking queue``
+      - ###### Timeout
         ```js
         {
-          "sisma": "matchmaking_Join_Timeout",
+          "sisma": "MATCHMAKING_JOIN_TIMEOUT",
           "message": "Match time limit exceeded, please try again."
         }
         ```
-      - Invalid Mode
+      - ###### INVALID MODE
         ```js
         {
-          "sisma": "matchmaking_Join_InvalidMode",
+          "sisma": "MATCHMAKING_JOIN_INVALIDMODE",
           "message": "The mode you selected is not available."
         }
         ```
-      - In Queue
+      - ###### IN QUEUE
         ```js
         {
-          "sisma": "matchmaking_Join_InQueue",
+          "sisma": "MATCHMAKING_JOIN_INQUEUE",
           "message": "You are already in a matchmaking queue, please try again later."
         }
         ```
-      - Unauthenticated
+      - ###### UNAUTHORIZED 
         ```js
         {
-          "sisma": "matchmaking_Join_Unauthenticated",
-          "message": "Facing authentication problem, try reconnecting."
+          "sisma": "MATCHMAKING_JOIN_UNAUTHORIZED",
+          "message": "You do not have permission to access this article."
         }
         ```
--  ##### Unjoin ``Unjoin/Leave matchmaking queue``
+-  ##### UNJOIN ``Unjoin/Leave matchmaking queue``
     ```js
     {
       "sisma": "matchmaking_Unjoin"
