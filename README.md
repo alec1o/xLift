@@ -52,11 +52,11 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
         ```
     - ###### Step
         ```
-        - jwt needs to have a parameter called "sub" as string "level" as int, and it's required. if you don't have
-        the client, you can't connect to sisma. the "sub" must be the user id in the scope
-        of your publication. your server needs to generate this jwt token and send it to the
-        user to use when connecting with sisma, "the password your program uses to encrypt
-        jwt must be the same in the sisma environment variable SISMA_JWT_KEY"     
+        - jwt needs to have a parameter called "sub" as string "level" as int, and it's required.
+        if you don't have the client, you can't connect to sisma. the "sub" must be the user
+        id in the scope of your publication. your server needs to generate this jwt token and
+        send it to the user to use when connecting with sisma, "the password your program uses
+        to encrypt jwt must be the same in the sisma environment variable SISMA_JWT_KEY"     
         
         1. When opening a websocket add the jwt in the request header
 
