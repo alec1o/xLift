@@ -67,8 +67,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
         - ###### SUCCESS 
             ```js
             {
-              "sisma": "AUTH_USER_SUCCESS",
-              "message": "Connected successfully"
+              "sisma": "AUTH_USER_SUCCESS"
             }
             ```
         - ###### ERROR 
@@ -92,8 +91,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
         - ###### SUCCESS 
             ```js
             {
-              "sisma": "AUTH_ROOT_SUCCESS",
-              "message": "Connected successfully"
+              "sisma": "AUTH_ROOT_SUCCESS"
             }
             ```
         - ###### ERROR
@@ -127,8 +125,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
       - ###### UNAUTHORIZED
         ```js
         {
-          "sisma": "ROOT_CHECKUSER_UNAUTHORIZED",
-          "message": "You do not have permission to access this article."
+          "sisma": "ROOT_CHECKUSER_UNAUTHORIZED"
         }
         
 - ##### DISCONNECT USER
@@ -154,8 +151,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
       - ###### UNAUTHORIZED 
         ```js
         {
-          "sisma": "ROOT_DISCONNECTUSER_UNAUTHORIZED",
-          "message": "You do not have permission to access this article."
+          "sisma": "ROOT_DISCONNECTUSER_UNAUTHORIZED"
         }
 
 - ##### SEND MESSAGE
@@ -182,8 +178,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
       - ###### UNAUTHORIZED 
         ```js
         {
-          "sisma": "ROOT_SENDMESSAGE_UNAUTHORIZED",
-          "message": "You do not have permission to access this article."
+          "sisma": "ROOT_SENDMESSAGE_UNAUTHORIZED"
         }
 
 <br>
@@ -212,36 +207,32 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
         }
       }
       ```
-    - ###### ERROR ``Error joining matchmaking queue``
+    - ###### ERROR
       - ###### TIMEOUT
         ```js
         {
-          "sisma": "MATCHMAKING_JOIN_TIMEOUT",
-          "message": "Match time limit exceeded, please try again."
+          "sisma": "MATCHMAKING_JOIN_TIMEOUT"
         }
         ```
       - ###### INVALID MODE
         ```js
         {
-          "sisma": "MATCHMAKING_JOIN_INVALIDMODE",
-          "message": "The mode you selected is not available."
+          "sisma": "MATCHMAKING_JOIN_INVALIDMODE"
         }
         ```
       - ###### IN QUEUE
         ```js
         {
-          "sisma": "MATCHMAKING_JOIN_INQUEUE",
-          "message": "You are already in a matchmaking queue, please try again later."
+          "sisma": "MATCHMAKING_JOIN_INQUEUE"
         }
         ```
       - ###### UNAUTHORIZED 
         ```js
         {
-          "sisma": "MATCHMAKING_JOIN_UNAUTHORIZED",
-          "message": "You do not have permission to access this article."
+          "sisma": "MATCHMAKING_JOIN_UNAUTHORIZED"
         }
         ```
--  ##### UNJOIN ``Unjoin/Leave matchmaking queue``
+-  ##### UNJOIN
     ```js
     {
       "sisma": "MATCHMAKING_UNJOIN"
@@ -254,18 +245,16 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
         "mode": "1v1"
       }
       ```
-    - ###### ERROR ``Error unjoining/leaving queue``
+    - ###### ERROR
       - ###### NOT FOUND
         ```js
         {
-          "sisma": "MATCHMAKING_UNJOIN_NOTFOUND",
-          "message": "Unable to find user in match queue."
+          "sisma": "MATCHMAKING_UNJOIN_NOTFOUND"
         }
         ```
       - ###### UNAUTHORIZED 
         ```js
         {
-          "sisma": "MATCHMAKING_UNJOIN_UNAUTHORIZED",
-          "message": "You do not have permission to access this article."
+          "sisma": "MATCHMAKING_UNJOIN_UNAUTHORIZED"
         }
         ```
