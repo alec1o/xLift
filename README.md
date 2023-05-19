@@ -41,7 +41,7 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
 <br>
 
 ## Authentication
-- ##### User authentication
+- ##### USER
     - ###### JWT
         ```js
         {
@@ -64,18 +64,18 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
             token: JWT_ENCODED_AS_STRING_HERE 
         }
         ```
-        - Success
+        - SUCCESS 
             ```js
             {
               "sisma": "AUTH_USER_SUCCESS",
               "message": "Connected successfully"
             }
             ```
-        - Error
+        - ERROR 
             ```js
             Websocket will be disconnected
             ```
-- ##### Root (Admin) authentication
+- ##### ROOT (ADMIN)
     - ###### Step
         ```
         - To connect as root (admin) you need to add an environment variable whose
@@ -89,14 +89,14 @@ $ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
             token: SISMA_ROOT_KEY_IS_ENVIRONMENT_VARIABLE
         }
         ```
-        - Success
+        - SUCCESS 
             ```js
             {
               "sisma": "AUTH_ROOT_SUCCESS",
               "message": "Connected successfully"
             }
             ```
-        - Error
+        - ERROR
             ```js
             Websocket will be disconnected
             ```
