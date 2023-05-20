@@ -1,9 +1,14 @@
-import styles from './style.module.css';
+import Header from '../../componets/Header';
+import style from './style.module.css';
+import homeStyle from '../Home/style.module.css';
 
 export default function Error() {
     return (
         <>
-            <h1 className={styles.title}>Error</h1>
+            <Header />
+            <main className={`${homeStyle.app} ${homeStyle.main}`}>
+                <h1 className={style.title}>404<span>page not found</span></h1>
+            </main>
         </>
     )
 }
