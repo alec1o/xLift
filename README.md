@@ -13,7 +13,7 @@ To configure containers, bind port, game modes, it will be through a web panel.
 which will run on an exposed port... see more in the installation area bellow 
 ```
 
-![Screenshot (13)](https://github.com/alec1o/Sisma/assets/100610503/6213f3a0-30de-4be1-a61b-f3425e1eb36a)
+![sisma web - login](https://github.com/alec1o/Sisma/assets/100610503/36c0e577-3091-45f8-a4e1-c28f49eede32)
 
 ```rb
 $ git clone "https://github.com/alec1o/Sisma"
