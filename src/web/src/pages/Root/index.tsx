@@ -78,6 +78,7 @@ export default function Root() {
         }
         else {
             // create new mode
+            // use websocket to send new mode for server
         }
     }
 
@@ -126,6 +127,19 @@ export default function Root() {
                                     <input value={(matchTimeout == 0) ? "" : matchTimeout} onChange={(e) => setMatchTimeout(Number.parseInt(e.target.value))} className={style.formText} required placeholder="match timeout" type="text" name="match_timeout" />
                                     <input value={containerImage} onChange={(e) => setContainerImage(e.target.value)} className={style.formText} required placeholder="container image" type="text" name="container_image" />
                                     <input value={containerParam} onChange={(e) => setContainerParam(e.target.value)} className={style.formText} required placeholder="container param" type="text" name="container_param" />
+
+                                    <section>
+                                        <section>
+                                            <h1>Port</h1>
+                                            <button>ADD MORE</button>
+                                        </section>
+
+                                        <article>
+                                            <input placeholder='port name' required type="text" />
+                                            <input placeholder='port value' required type="number" />
+                                            <button>REMOVE</button>
+                                        </article>
+                                    </section>
 
                                     <input type="submit" value={(guid) ? "Update" : "Register"} />
                                 </form>
