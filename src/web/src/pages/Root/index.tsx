@@ -3,6 +3,7 @@ import style from './style.module.css';
 import homeStyle from "../Home/style.module.css"
 import * as ai from "react-icons/ai"
 import { useState } from 'react';
+import { v4 as newGuid } from "uuid"
 
 export default function Root() {
 
@@ -13,6 +14,7 @@ export default function Root() {
     const [matchTimeout, setMatchTimeout] = useState(0)
     const [containerImage, setContainerImage] = useState(``)
     const [containerParam, setContainerParam] = useState(``)
+    const [containerPort, setContainerPort] = useState([] as { guid: string; name: string; value: number; }[])
 
     const [modes, setModes] = useState([{
         MODE_GUID: "@ALEC1O",
@@ -23,9 +25,9 @@ export default function Root() {
         CONTAINER_IMAGE: "game:latest",
         CONTAINER_PARAM: "--mode 1v1",
         CONTAINER_PORT: [
-            { port: 2000, name: "TcpChat" },
-            { port: 2000, name: "TcpGame" },
-            { port: 2000, name: "UdpGame" }
+            { guid: newGuid(), name: "TcpChat", value: 2000 },
+            { guid: newGuid(), name: "TcpGame", value: 3000 },
+            { guid: newGuid(), name: "UdpGame", value: 4000 }
         ]
     }])
 
@@ -46,6 +48,7 @@ export default function Root() {
                 setMatchTimeout(e.MATCH_TIMEOUT);
                 setContainerImage(e.CONTAINER_IMAGE);
                 setContainerParam(e.CONTAINER_PARAM);
+                setContainerPort(e.CONTAINER_PORT)
             }
         })
 
@@ -65,6 +68,7 @@ export default function Root() {
                     e.MATCH_TIMEOUT = matchTimeout;
                     e.CONTAINER_IMAGE = containerImage;
                     e.CONTAINER_PARAM = containerParam;
+                    e.CONTAINER_PORT = containerPort
 
                     // reset states
                     setGuid("")
@@ -74,6 +78,7 @@ export default function Root() {
                     setMatchTimeout(0);
                     setContainerImage("");
                     setContainerParam("");
+                    setContainerPort([])
                 }
             })
         }
@@ -81,6 +86,38 @@ export default function Root() {
             // create new mode
             // use websocket to send new mode for server
         }
+    }
+
+    function newPort(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+        e.preventDefault()
+        setContainerPort([...containerPort, { guid: newGuid(), name: "", value: 0 }])
+    }
+
+    function removePort(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, guid: string) {
+        e.preventDefault()
+
+        const newArray = containerPort.filter((e) => {
+            if (e.guid == guid) return false;
+            return true;
+        })
+
+        setContainerPort(newArray)
+    }
+
+    function updatePort(guid: string, value: string, isValue: boolean) {
+
+        const newArray = containerPort.map((e) => {
+            if (e.guid == guid) {
+                if (isValue) {
+                    e.value = Number.parseInt(value);
+                }
+                else {
+                    e.name = value;
+                }
+            }
+            return e;
+        })
+        setContainerPort(newArray);
     }
 
     return (
@@ -123,23 +160,25 @@ export default function Root() {
                                 <form className={style.form} action="" method="post" onSubmit={(e) => formSubmit(e)}>
                                     <input value={guid} onChange={(e) => setGuid(e.target.value)} type="text" name="guid" style={{ display: 'none' }} />
                                     <input value={modeName} onChange={(e) => setModeName(e.target.value)} className={style.formText} required placeholder="mode name" type="text" name="mode" />
-                                    <input value={(minUser == 0) ? "" : minUser} onChange={(e) => setMinUser(Number.parseInt(e.target.value))} className={style.formText} required placeholder="min user" type="number" name="min_user" />
-                                    <input value={(maxUser == 0) ? "" : maxUser} onChange={(e) => setMaxUser(Number.parseInt(e.target.value))} className={style.formText} required placeholder="max user" type="number" name="max_user" />
-                                    <input value={(matchTimeout == 0) ? "" : matchTimeout} onChange={(e) => setMatchTimeout(Number.parseInt(e.target.value))} className={style.formText} required placeholder="match timeout" type="text" name="match_timeout" />
+                                    <input value={(minUser == 0) ? "" : minUser} onChange={(e) => setMinUser(Number.parseInt(e.target.value))} className={style.formText} required placeholder="min user" type="number" name="min_user" min={0} max={1000} />
+                                    <input value={(maxUser == 0) ? "" : maxUser} onChange={(e) => setMaxUser(Number.parseInt(e.target.value))} className={style.formText} required placeholder="max user" type="number" name="max_user" min={0} max={1000} />
+                                    <input value={(matchTimeout == 0) ? "" : matchTimeout} onChange={(e) => setMatchTimeout(Number.parseInt(e.target.value))} className={style.formText} required placeholder="match timeout (milliseconds)" type="number" name="match_timeout" min={5000/* 5s*/} maxLength={(1000 * 60) * 10 /*10 min*/} />
                                     <input value={containerImage} onChange={(e) => setContainerImage(e.target.value)} className={style.formText} required placeholder="container image" type="text" name="container_image" />
                                     <input value={containerParam} onChange={(e) => setContainerParam(e.target.value)} className={style.formText} required placeholder="container param" type="text" name="container_param" />
 
                                     <section id={style.portArea}>
                                         <section id={style.portHeader}>
                                             <h1>Port</h1>
-                                            <button><ai.AiFillPlusCircle /></button>
+                                            <button onClick={(e) => newPort(e)}><ai.AiFillPlusCircle /></button>
                                         </section>
 
-                                        <article className={style.port}>
-                                            <input className={style.portText} placeholder='port name' required type="text" />
-                                            <input className={style.portText} placeholder='port value' required type="number" />
-                                            <button><ai.AiFillDelete /></button>
-                                        </article>
+                                        {containerPort.map((e) => (
+                                            <article key={e.guid} className={style.port}>
+                                                <input className={style.portText} onChange={(o) => updatePort(e.guid, o.target.value, false)} value={e.name} placeholder='port name' required type="text" minLength={1} maxLength={16} />
+                                                <input className={style.portText} onChange={(o) => updatePort(e.guid, o.target.value, true)} value={(e.value == 0) ? "" : e.value} placeholder='port value' required type="number" min={1} max={65535} />
+                                                <button onClick={(o) => removePort(o, e.guid)}><ai.AiFillDelete /></button>
+                                            </article>
+                                        ))}
                                     </section>
 
                                     <input type="submit" value={(guid) ? "Update" : "Register"} />
