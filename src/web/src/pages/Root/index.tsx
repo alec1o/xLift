@@ -5,7 +5,16 @@ import { useState } from 'react';
 
 export default function Root() {
 
+    const [guid, setGuid] = useState(``)
+    const [modeName, setModeName] = useState(``)
+    const [minUser, setMinUser] = useState(0)
+    const [maxUser, setMaxUser] = useState(0)
+    const [matchTimeout, setMatchTimeout] = useState(0)
+    const [containerImage, setContainerImage] = useState(``)
+    const [containerParam, setContainerParam] = useState(``)
+
     const [modes, setModes] = useState([{
+        MODE_GUID: "@ALEC1O",
         MODE_NAME: "1v1",
         MIN_USER: 2,
         MAX_USER: 2,
@@ -26,6 +35,52 @@ export default function Root() {
         USER_AT_MATCH: 0,
     })
 
+    function selectMode(guid: string) {
+        modes.map((e) => {
+            if (e.MODE_GUID == guid) {
+                setGuid(guid)
+                setModeName(e.MODE_NAME);
+                setMinUser(e.MIN_USER);
+                setMaxUser(e.MAX_USER);
+                setMatchTimeout(e.MATCH_TIMEOUT);
+                setContainerImage(e.CONTAINER_IMAGE);
+                setContainerParam(e.CONTAINER_PARAM);
+            }
+        })
+
+    }
+
+    function formSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+
+        if (guid) {
+            // update mode
+            modes.map((e) => {
+                if (e.MODE_GUID == guid) {
+                    // update data
+                    e.MODE_NAME = modeName;
+                    e.MIN_USER = minUser;
+                    e.MAX_USER = maxUser;
+                    e.MATCH_TIMEOUT = matchTimeout;
+                    e.CONTAINER_IMAGE = containerImage;
+                    e.CONTAINER_PARAM = containerParam;
+
+                    // reset states
+                    setGuid("")
+                    setModeName("")
+                    setMinUser(0);
+                    setMaxUser(0);
+                    setMatchTimeout(0);
+                    setContainerImage("");
+                    setContainerParam("");
+                }
+            })
+        }
+        else {
+            // create new mode
+        }
+    }
+
     return (
         <>
             <Header />
@@ -36,8 +91,8 @@ export default function Root() {
                         <h2 className={style.title}>Modes</h2>
                         <ul className={style.mainGroup}>
                             {modes.map((e) =>
-                                <li>
-                                    <article className={style.mode}>
+                                <li key={e.MODE_GUID}>
+                                    <article className={style.mode} onClick={() => selectMode(e.MODE_GUID)}>
                                         <span id={style.modeName} className={style.modeElement}>Mode: {e.MODE_NAME}</span>
                                         <div className={style.modeArea}>
                                             <span className={style.modeElement}>Image: {e.CONTAINER_IMAGE}</span>
@@ -62,6 +117,19 @@ export default function Root() {
                     <div id={style.inspector} className={style.area}>
                         <h2 className={style.title}>Inspector</h2>
                         <ul className={style.mainGroup}>
+                            <li>
+                                <form className={style.form} action="" method="post" onSubmit={(e) => formSubmit(e)}>
+                                    <input value={guid} onChange={(e) => setGuid(e.target.value)} type="text" name="guid" style={{ display: 'none' }} />
+                                    <input value={modeName} onChange={(e) => setModeName(e.target.value)} className={style.formText} required placeholder="mode name" type="text" name="mode" />
+                                    <input value={(minUser == 0) ? "" : minUser} onChange={(e) => setMinUser(Number.parseInt(e.target.value))} className={style.formText} required placeholder="min user" type="number" name="min_user" />
+                                    <input value={(maxUser == 0) ? "" : maxUser} onChange={(e) => setMaxUser(Number.parseInt(e.target.value))} className={style.formText} required placeholder="max user" type="number" name="max_user" />
+                                    <input value={(matchTimeout == 0) ? "" : matchTimeout} onChange={(e) => setMatchTimeout(Number.parseInt(e.target.value))} className={style.formText} required placeholder="match timeout" type="text" name="match_timeout" />
+                                    <input value={containerImage} onChange={(e) => setContainerImage(e.target.value)} className={style.formText} required placeholder="container image" type="text" name="container_image" />
+                                    <input value={containerParam} onChange={(e) => setContainerParam(e.target.value)} className={style.formText} required placeholder="container param" type="text" name="container_param" />
+
+                                    <input type="submit" value={(guid) ? "Update" : "Register"} />
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>

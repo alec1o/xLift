@@ -1,10 +1,12 @@
 #app {
     background: rgb(0, 0, 0);
     background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(5, 5, 15, 1) 60%, rgba(5, 5, 50, 1) 80%);
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 #inspector {
-    width: 150%;
+    width: 125%;
 }
 
 .main {
@@ -33,8 +35,8 @@
 .area {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    margin: 10px 50px;
+    width: 80%;
+    margin: 10px;
     margin-bottom: 0;
 }
 
@@ -90,4 +92,37 @@
     width: 100%;
     font-size: 18px;
     color: white;
+}
+
+.form {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form input {
+    height: 35px;
+    width: auto;
+    max-width: 500px;
+    margin: 10px;
+    outline: none;
+    border: none;
+    padding: 10px 0;
+    color: white;
+    background-color: transparent;
+    border-bottom: 2px solid #2050ce;
+    font-family: "Roboto", sans-serif;
+}
+
+.formText::placeholder {
+    color: white;
+    font-family: "Kiona";
+}
+
+.form input[type="submit"] {
+    border: none;
+    color: white;
+    font-family: "Kiona";
+    background-color: #2050ce;
+    cursor: pointer;
 }
