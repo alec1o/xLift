@@ -21,6 +21,8 @@
     display: flex;
     list-style: none;
     flex-direction: column;
+
+    border-right: 2px solid #2050ce;
 }
 
 .mainGroup li {
@@ -28,9 +30,21 @@
     margin: 10px 0;
 }
 
+.area {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 10px 50px;
+    margin-bottom: 0;
+}
+
 .title {
     color: white;
     font-size: 28px;
+    text-align: center;
+    padding-bottom: 20px;
+    padding: 10px;
+    border-bottom: 2px solid #2050ce;
 }
 
 .mode {
