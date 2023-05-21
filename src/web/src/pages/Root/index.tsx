@@ -2,6 +2,7 @@ import Header from '../../componets/Header';
 import style from './style.module.css';
 import homeStyle from "../Home/style.module.css"
 import * as ai from "react-icons/ai"
+import * as fa from "react-icons/fa"
 import { useState } from 'react';
 import { v4 as newGuid } from "uuid"
 
@@ -131,12 +132,17 @@ export default function Root() {
                         <ul className={style.mainGroup}>
                             {modes.map((e) =>
                                 <li key={e.MODE_GUID}>
-                                    <article className={style.mode} onClick={() => selectMode(e.MODE_GUID)}>
-                                        <span id={style.modeName} className={style.modeElement}>Mode: {e.MODE_NAME}</span>
-                                        <div className={style.modeArea}>
-                                            <span className={style.modeElement}>Image: {e.CONTAINER_IMAGE}</span>
-                                            <span className={style.modeElement}>Params: {e.CONTAINER_PARAM}</span>
+                                    <article className={style.mainMode} onClick={() => selectMode(e.MODE_GUID)}>
+                                        <div className={style.mode}>
+
+                                            <fa.FaDocker className={style.dockerIcon} />
+                                            <div className={style.modeArea}>
+                                                <span className={style.modeElement}>Image: <span>{e.CONTAINER_IMAGE}</span></span>
+                                                <span className={style.modeElement}>Params: <span> {e.CONTAINER_PARAM}</span></span>
+                                            </div>
                                         </div>
+
+                                        <span className={style.modeName}>{e.MODE_NAME}</span>
                                     </article>
                                 </li>
                             )}

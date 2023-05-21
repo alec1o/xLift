@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/roboto');
+
 #app {
     background: rgb(0, 0, 0);
     background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(5, 5, 15, 1) 60%, rgba(5, 5, 50, 1) 80%);
@@ -49,25 +51,37 @@
     border-bottom: 2px solid #2050ce;
 }
 
-.mode {
-    width: 200px;
-    height: 80px;
-    background-color: white;
-    border: none;
-    padding: 10px;
+.mainMode {
     display: flex;
-    box-shadow: 0 0 5px 1px white;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
+    width: 300px;
+    height: 110px;
+    box-shadow: 0 0 5px 1px #2050ce;
+    border: 2px solid #2050ce;
+    justify-content: center;
+}
+
+.mode {
+    width: 100%;
+    padding: 15px;
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: row;
     cursor: pointer;
 }
 
-#modeName {
+.modeName {
     margin: 0;
-    margin-top: 5px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
+    color: #2050ce;
+    width: 100%;
+    text-align: center;
+    margin: 5px auto;
+    transform: translateY(-15px);
 }
 
 .modeArea {
@@ -77,14 +91,32 @@
     background-color: transparent;
 }
 
+.dockerIcon {
+    display: block;
+    font-size: 52px;
+    color: #2050ce;
+    margin-right: 10px;
+}
+
 .modeElement {
     display: block;
     width: 100%;
     text-align: left;
-    font-weight: lighter;
+    font-weight: bold;
     font-size: 12px;
     padding: 2px;
-    color: black;
+    color: #2050ce;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+
+.modeElement span {
+    color: white;
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    font-size: 9px;
+    letter-spacing: 2px;
 }
 
 .states {
