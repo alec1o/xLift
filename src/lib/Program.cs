@@ -1,4 +1,6 @@
-﻿namespace Sisma;
+﻿using Sisma.Handler;
+
+namespace Sisma;
 
 public class Program
 {
@@ -28,8 +30,12 @@ public class Program
             return;
         }
 
+        Server server = new Server((address, port));
+        
+        /*
         var master = new MasterServer(address, port);
         master.Init();
+        */
 
         Console.WriteLine("[STARTED] KEY {ENTER} TO STOP");
         Console.ReadLine();
