@@ -6,21 +6,25 @@ import { useState } from 'react';
 export default function Root() {
 
     const [modes, setModes] = useState([{
-        name: "1v1",
-        minUser: 2,
-        maxUser: 2,
-        delay: 5000,
-        timeout: 10000,
-        container: "game:latest",
-        containerParam: "--mode 1v1",
-        containerPorts: [
+        MODE_NAME: "1v1",
+        MIN_USER: 2,
+        MAX_USER: 2,
+        MATCH_TIMEOUT: 10000,
+        CONTAINER_IMAGE: "game:latest",
+        CONTAINER_PARAM: "--mode 1v1",
+        CONTAINER_PORT: [
             { port: 2000, name: "TcpChat" },
             { port: 2000, name: "TcpGame" },
             { port: 2000, name: "UdpGame" }
         ]
     }])
 
-    const [states, setStates] = useState({ onlineUser: 0, userOnRoom: 0, rooms: 0 })
+    const [states, setStates] = useState({
+        ONLINE_USER: 0,
+        ONLINE_ROOM: 0,
+        ROOMS_CREATED: 0,
+        USER_AT_MATCH: 0,
+    })
 
     return (
         <>
@@ -34,9 +38,11 @@ export default function Root() {
                         {modes.map((e) =>
                             <li>
                                 <article className={style.mode}>
-                                    <h1>Mode: {e.name}</h1>
-                                    <p>Contaimer: {e.container}</p>
-                                    <p>Param: {e.containerParam}</p>
+                                    <span id={style.modeName} className={style.modeElement}>Mode: {e.MODE_NAME}</span>
+                                    <div className={style.modeArea}>
+                                        <span className={style.modeElement}>Image: {e.CONTAINER_IMAGE}</span>
+                                        <span className={style.modeElement}>Params: {e.CONTAINER_PARAM}</span>
+                                    </div>
                                 </article>
                             </li>
                         )}
@@ -45,9 +51,10 @@ export default function Root() {
                         <li>
                             <h2 className={style.title}>Status</h2>
                         </li>
-                        <li className={style.states}>Rooms: {states.rooms}</li>
-                        <li className={style.states}>Online user: {states.onlineUser}</li>
-                        <li className={style.states}>User on room: {states.userOnRoom}</li>
+                        <li className={style.states}>Rooms: {states.ONLINE_ROOM}</li>
+                        <li className={style.states}>Online user: {states.ONLINE_USER}</li>
+                        <li className={style.states}>User on room: {states.USER_AT_MATCH}</li>
+                        <li className={style.states}>rooms created: {states.ROOMS_CREATED}</li>
                     </ul>
                     <ul id={style.inspector} className={style.mainGroup}>
                         <li>
