@@ -1,6 +1,7 @@
 import Header from '../../componets/Header';
 import style from './style.module.css';
 import homeStyle from "../Home/style.module.css"
+import * as ai from "react-icons/ai"
 import { useState } from 'react';
 
 export default function Root() {
@@ -128,16 +129,16 @@ export default function Root() {
                                     <input value={containerImage} onChange={(e) => setContainerImage(e.target.value)} className={style.formText} required placeholder="container image" type="text" name="container_image" />
                                     <input value={containerParam} onChange={(e) => setContainerParam(e.target.value)} className={style.formText} required placeholder="container param" type="text" name="container_param" />
 
-                                    <section>
-                                        <section>
+                                    <section id={style.portArea}>
+                                        <section id={style.portHeader}>
                                             <h1>Port</h1>
-                                            <button>ADD MORE</button>
+                                            <button><ai.AiFillPlusCircle /></button>
                                         </section>
 
-                                        <article>
-                                            <input placeholder='port name' required type="text" />
-                                            <input placeholder='port value' required type="number" />
-                                            <button>REMOVE</button>
+                                        <article className={style.port}>
+                                            <input className={style.portText} placeholder='port name' required type="text" />
+                                            <input className={style.portText} placeholder='port value' required type="number" />
+                                            <button><ai.AiFillDelete /></button>
                                         </article>
                                     </section>
 
