@@ -14,7 +14,8 @@ which will run on an exposed port... see more in the installation area bellow
 ```
 
 ![sisma web - login](https://github.com/alec1o/Sisma/assets/100610503/36c0e577-3091-45f8-a4e1-c28f49eede32)
-![sisma web - root page](https://github.com/alec1o/Sisma/assets/100610503/24f67c40-be10-4c39-9894-4a457ae4bf47)
+![sisma web - root page](https://github.com/alec1o/Sisma/assets/100610503/8823c92d-4d1d-4724-96ec-c8a6ca078d86)
+
 
 ```rb
 $ git clone "https://github.com/alec1o/Sisma"
