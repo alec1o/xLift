@@ -37,6 +37,12 @@ namespace Sisma.Handler
             Send(json);
         }
 
+        internal void OnDisconnect()
+        {
+            Server.Clients.Remove(this);
+            Output.Show($"CLIENT {User.UID} -> DISCONNECTED");
+        }
+
         internal void OnMessage(byte[] buffer, WebSocketMessageType type)
         {
             Console.WriteLine($"Client {User.UID} -> {Encoding.UTF8.GetString(buffer)}");

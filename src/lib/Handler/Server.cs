@@ -36,6 +36,18 @@ public class Server
             }
         };
 
+        Socket.ClientDisconnected += (_, connection) =>
+        {
+            foreach (var client in Clients)
+            {
+                if (client.Connection.Client.Guid.ToString() == connection.Client.Guid.ToString())
+                {
+                    client.OnDisconnect();
+                    return;
+                }
+            }
+        };
+
         Socket.ServerStopped += (_, o) =>
         {
             Clients.Clear();
