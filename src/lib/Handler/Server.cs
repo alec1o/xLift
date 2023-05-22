@@ -1,5 +1,4 @@
 ﻿using Sisma.Models;
-using System.Net;
 using WatsonWebsocket;
 
 namespace Sisma.Handler;
@@ -22,7 +21,7 @@ public class Server
 
         Socket.ClientConnected += (_, connection) =>
         {
-            Auth(connection);
+            Client.Auth(connection, this);
         };
 
         Socket.ServerStopped += (_, o) =>
@@ -33,10 +32,5 @@ public class Server
 
         Socket.Start();
         Console.WriteLine($"[WEBSOCKET SERVER STARTED] {host}");
-    }
-
-    private void Auth(ConnectionEventArgs client)
-    {
-        Console.WriteLine($"[CLIENT] Connected ({client.Client.Ip}, {client.Client.Port})");
     }
 }
