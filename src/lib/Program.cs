@@ -31,14 +31,14 @@ public class Program
             return;
         }
 
-        Server server = new Server((address, port));
-        
-        /*
-        var master = new MasterServer(address, port);
-        master.Init();
-        */
+        Output.Show($"{nameof(Config.SISMA_JWT_KEY)} -> {Config.SISMA_JWT_KEY}");
+        Output.Show($"{nameof(Config.SISMA_ROOT_KEY)} -> {Config.SISMA_ROOT_KEY}");
 
         Console.WriteLine("[STARTED] KEY {ENTER} TO STOP");
+
+        Server server = new Server((address, port));
+        
+        // Block thread
         Console.ReadLine();
     }
 }
