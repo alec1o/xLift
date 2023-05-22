@@ -45,7 +45,18 @@ namespace Sisma.Handler
 
         internal void OnMessage(byte[] buffer, WebSocketMessageType type)
         {
-            Console.WriteLine($"Client {User.UID} -> {Encoding.UTF8.GetString(buffer)}");
+            string json = Encoding.UTF8.GetString(buffer);
+
+            Output.Show($"ON MESSAGE {User.UID} -> RAW: {json}");
+
+            var message = JsonConvert.DeserializeObject<Template.Message>(json);
+
+            if (message == null)
+            {
+                return;
+            }
+
+            Output.Show($"CLIENT {User.UID} -> MESSAGE: {message.sisma}");
         }
 
         public void Send(byte[] buffer)

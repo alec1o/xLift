@@ -8,4 +8,9 @@ public abstract class Template
         public int level = default;
         public int exp = default;
     }
+
+    public class Message
+    {
+        public string sisma = string.Empty;
+    }
 }
