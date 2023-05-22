@@ -28,5 +28,10 @@ namespace Sisma.Handler
         {
             Send(Encoding.UTF8.GetBytes(buffer));
         }
+
+        public static void Auth(ConnectionEventArgs connection, Server server)
+        {
+
+        }
     }
 }
