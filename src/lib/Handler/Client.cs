@@ -88,23 +88,23 @@ namespace Sisma.Handler
 
                     Output.Show("Token: " + json);
 
-                    var content = JsonConvert.DeserializeObject<TokenContent>(json);
+                    var auth = JsonConvert.DeserializeObject<Template.Auth>(json);
 
-                    if (content == null)
+                    if (auth == null)
                     {
                         throw new Exception("Invalid token body");
                     }
 
                     int timestamp = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
 
-                    if (content.exp < timestamp)
+                    if (auth.exp < timestamp)
                     {
                         throw new Exception($"Invalid expired: min value is {timestamp}");
                     }
 
                     Output.Show(timestamp);
 
-                    user = new User(content.sub, token, content.level, false);
+                    user = new User(auth.sub, token, auth.level, false);
                 }
                 catch (Exception e)
                 {
@@ -121,14 +121,6 @@ namespace Sisma.Handler
             server.Clients.Add(client);
 
             client.Init();
-        }
-
-        private class TokenContent
-        {
-            [AllowNull]
-            public string sub { get; set; }
-            public int level { get; set; }
-            public long exp { get; set; }
         }
     }
 }
