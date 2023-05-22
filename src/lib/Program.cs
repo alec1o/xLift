@@ -1,10 +1,11 @@
-﻿using Sisma.Handler;
+﻿using Sisma.Core;
+using Sisma.Handler;
 
 namespace Sisma;
 
 public class Program
 {
-    private const string initError = "[ERROR]\n\nExample 1:\n\tdotnet net run <ip> <port>\n\nExample 2:\n\tdotnet net run dev\n";
+    private const string HELP_MESSAGE = "[ERROR]\n\nExample 1:\n\tdotnet net run <ip> <port>\n\nExample 2:\n\tdotnet net run dev\n";
 
     private static void Main(string[] args)
     {
@@ -26,7 +27,7 @@ public class Program
         }
         catch
         {
-            Console.WriteLine(initError);
+            Console.WriteLine(HELP_MESSAGE);
             return;
         }
 
