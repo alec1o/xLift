@@ -24,6 +24,18 @@ public class Server
             Client.Auth(connection, this);
         };
 
+        Socket.MessageReceived += (_, data) =>
+        {
+            foreach (var client in Clients)
+            {
+                if (client.Connection.Client.Guid.ToString() == data.Client.Guid.ToString())
+                {
+                    client.OnMessage(data.Data.ToArray(), data.MessageType);
+                    return;
+                }
+            }
+        };
+
         Socket.ServerStopped += (_, o) =>
         {
             Clients.Clear();

@@ -37,6 +37,11 @@ namespace Sisma.Handler
             Send(json);
         }
 
+        internal void OnMessage(byte[] buffer, WebSocketMessageType type)
+        {
+            Console.WriteLine($"Client {User.UID} -> {Encoding.UTF8.GetString(buffer)}");
+        }
+
         public void Send(byte[] buffer)
         {
             Server.Socket.SendAsync(Connection.Client.Guid, buffer, WebSocketMessageType.Text);
