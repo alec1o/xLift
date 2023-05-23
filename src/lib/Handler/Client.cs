@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Sisma.Controller;
 using Sisma.Core;
 using Sisma.Models;
 using System.Diagnostics.CodeAnalysis;
@@ -17,11 +18,18 @@ namespace Sisma.Handler
         public ConnectionEventArgs Connection { get; set; }
         public Server Server { get; set; }
 
+        public readonly RootController? rootController;
+
         public Client(User user, ConnectionEventArgs connection, Server server)
         {
             User = user;
             Server = server;
             Connection = connection;
+
+            if (user.SuperUser)
+            {
+                rootController = new RootController(this);
+            }
         }
 
         private void Init()
@@ -49,14 +57,7 @@ namespace Sisma.Handler
 
             Output.Show($"ON MESSAGE {User.UID} -> RAW: {json}");
 
-            var message = JsonConvert.DeserializeObject<Template.Message>(json);
-
-            if (message == null)
-            {
-                return;
-            }
-
-            Output.Show($"CLIENT {User.UID} -> MESSAGE: {message.sisma}");
+            rootController?.OnMessage(buffer);
         }
 
         public void Send(byte[] buffer)
