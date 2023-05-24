@@ -1,8 +1,10 @@
-﻿namespace Sisma.Models;
+﻿using Sisma.Core;
+
+namespace Sisma.Models;
 
 public class Room
 {
-    public string UID { get; set; }
+    public string? UID { get; set; }
     public string Mode { get; set; }
     public string ContainerImage { get; set; }
     public string ContainerParam { get; set; }
@@ -25,6 +27,58 @@ public class Room
         this.MaxUser = maxUser;
         this.RamMemoryLimit = ramMemoryLimit;
         this.CpuLimit = cpuLimit;
+    }
+
+    public static bool IsValid(Room? room)
+    {
+        if (room == null) return false;
+
+        if (room.MatchTimeout <= 0) return false;
+        if (room.RamMemoryLimit < 0) return false;
+        if (room.CpuLimit < 0) return false;
+        if (room.MinUser <= 0) return false;
+        if (room.MaxUser <= 0) return false;
+
+
+        if (string.IsNullOrWhiteSpace(room.Mode)) return false;
+        if (string.IsNullOrWhiteSpace(room.ContainerImage)) return false;
+        if (string.IsNullOrWhiteSpace(room.ContainerParam)) return false;
+
+        // FIX NULL VALUE
+        room.UID = room.UID ?? string.Empty;
+
+        room.UID = room.UID.Trim();
+        room.Mode = room.Mode.Trim();
+        room.ContainerImage = room.ContainerImage.Trim();
+        room.ContainerParam = room.ContainerParam.Trim();
+
+        if (room.ContainerPorts == null || room.ContainerPorts.Length <= 0) return false;
+
+        try
+        {
+            List<int> ports = new List<int>();
+
+            foreach (var port in room.ContainerPorts)
+            {
+                port.Name = port.Name.Trim();
+                if (string.IsNullOrEmpty(port.Name)) return false;
+                if (port.Value <= 0 || port.Value > 65535) return false;
+
+                foreach (var value in ports)
+                {
+                    if (value == port.Value) return false;
+                }
+
+                ports.Add(port.Value);
+            }
+        }
+        catch (Exception e)
+        {
+            Output.Show(e);
+            return false;
+        }
+
+        return true;
     }
 }
 
