@@ -57,6 +57,11 @@ public static class RoomDatabase
 
             byte[] buffer = Encoding.UTF8.GetBytes(json);
 
+            if (File.Exists(DATABASE_PATH))
+            {
+                File.Delete(DATABASE_PATH);
+            }
+
             using var file = File.OpenWrite(DATABASE_PATH);
 
             file.Write(buffer, 0, buffer.Length);
