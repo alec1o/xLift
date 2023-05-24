@@ -58,7 +58,7 @@ public class RootController
         var json = Encoding.UTF8.GetString(buffer);
         var request = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
 
-        (string? sub, bool online, bool error) result = new(null, false, false);
+        (string? sub, User? user, bool error) result = new(null, null, false);
 
         if (request != null)
         {
@@ -72,7 +72,7 @@ public class RootController
                     {
                         if (client.User.UID == result.sub)
                         {
-                            result.online = true;
+                            result.user = client.User;
                             break;
                         }
                     }
@@ -83,7 +83,7 @@ public class RootController
 
         result.error = string.IsNullOrWhiteSpace(result.sub);
 
-        Dictionary<string, dynamic> response = new();
+        Dictionary<string, dynamic?> response = new();
 
         response.Add("sisma", "USER_GET.RESULT");
         response.Add("success", !result.error);
@@ -94,8 +94,8 @@ public class RootController
         }
         else
         {
-            response.Add("sub", result.sub ?? string.Empty);
-            response.Add("online", result.online);
+            response.Add("user", result.user);
+            response.Add("exist", result.user != null);
         }
 
         Client.Send(JsonConvert.SerializeObject(response));
@@ -104,22 +104,12 @@ public class RootController
 
     private bool User_GetAll()
     {
-        var subs = new List<Dictionary<string, dynamic>>();
-
-        foreach (var client in Client.Server.Clients)
-        {
-            if (client.User.SuperUser) continue;
-
-            var sub = new Dictionary<string, dynamic>();
-            sub.Add("sub", client.User.UID);
-            sub.Add("online", true);
-            subs.Add(sub);
-        }
-
         Dictionary<string, dynamic> response = new();
+        var users = Client.Server.Clients.Where(x => x.User.SuperUser == false).ToArray();
+
         response.Add("sisma", "USER_GETALL.RESULT");
-        response.Add("subs", subs);
-        response.Add("length", subs.Count);
+        response.Add("users", users);
+        response.Add("length", users.Length);
 
         Client.Send(JsonConvert.SerializeObject(response));
 
@@ -131,7 +121,7 @@ public class RootController
         var json = Encoding.UTF8.GetString(buffer);
         var request = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
 
-        (string? sub, bool error) result = new(null, false);
+        (string? sub, User? user, bool error) result = new(null, null, false);
 
         if (request != null)
         {
@@ -145,6 +135,7 @@ public class RootController
                     {
                         if (client.User.UID == result.sub)
                         {
+                            result.user = client.User;
                             client.Server.Socket.DisconnectClient(client.Connection.Client.Guid);
                             break;
                         }
@@ -156,7 +147,7 @@ public class RootController
 
         result.error = string.IsNullOrWhiteSpace(result.sub);
 
-        Dictionary<string, dynamic> response = new();
+        Dictionary<string, dynamic?> response = new();
 
         response.Add("sisma", "USER_DESTROY.RESULT");
         response.Add("success", !result.error);
@@ -167,8 +158,8 @@ public class RootController
         }
         else
         {
-            response.Add("sub", result.sub ?? string.Empty);
-            response.Add("destroyed", true);
+            response.Add("user", result.user);
+            response.Add("destroyed", result.user != null);
         }
 
         Client.Send(JsonConvert.SerializeObject(response));
@@ -180,7 +171,7 @@ public class RootController
         var json = Encoding.UTF8.GetString(buffer);
         var request = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
 
-        (string? sub, string? message, bool forwarded, bool error) result = new(null, null, false, false);
+        (string? sub, string? message, User? user, bool error) result = new(null, null, null, false);
 
         if (request != null)
         {
@@ -196,7 +187,7 @@ public class RootController
                         if (client.User.UID == result.sub)
                         {
                             client.Send(result.message);
-                            result.forwarded = true;
+                            result.user = client.User;
                             break;
                         }
                     }
@@ -207,7 +198,7 @@ public class RootController
 
         result.error = string.IsNullOrWhiteSpace(result.sub) || string.IsNullOrWhiteSpace(result.message);
 
-        Dictionary<string, dynamic> response = new();
+        Dictionary<string, dynamic?> response = new();
 
         response.Add("sisma", "USER_FORWARD.RESULT");
         response.Add("success", !result.error);
@@ -218,8 +209,8 @@ public class RootController
         }
         else
         {
-            response.Add("sub", result.sub ?? string.Empty);
-            response.Add("forwarded", result.forwarded);
+            response.Add("user", result.user);
+            response.Add("forwarded", result.user != null);
         }
 
         Client.Send(JsonConvert.SerializeObject(response));
@@ -302,7 +293,7 @@ public class RootController
         var json = Encoding.UTF8.GetString(buffer);
         var request = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
 
-        (string? uid, bool error) result = new(null, false);
+        (string? uid, Room? room, bool error) result = new(null, null, false);
 
         if (request != null)
         {
@@ -327,6 +318,8 @@ public class RootController
 
                             if (room.UID.Trim() == result.uid)
                             {
+                                result.room = room;
+
                                 // REMOVE ROOM FROM MEMORY
                                 Client.Server.Rooms.Remove(room);
 
@@ -337,7 +330,7 @@ public class RootController
                                 {
                                     rooms = rooms.Where(x => x.UID != result.uid).ToList();
                                     RoomDatabase.Save(rooms);
-                                }                                
+                                }
 
                                 break;
                             }
@@ -350,7 +343,7 @@ public class RootController
 
         result.error = string.IsNullOrWhiteSpace(result.uid);
 
-        Dictionary<string, dynamic> response = new();
+        Dictionary<string, dynamic?> response = new();
 
         response.Add("sisma", "ROOM_DESTROY.RESULT");
         response.Add("success", !result.error);
@@ -361,7 +354,8 @@ public class RootController
         }
         else
         {
-            response.Add("UID", result.uid ?? string.Empty);
+            response.Add("room", result.room);
+            response.Add("destroyed", result.room != null);
         }
 
         Client.Send(JsonConvert.SerializeObject(response));
