@@ -9,10 +9,10 @@ public class User
 
     public User(string uid, string token, int level, bool superUser)
     {
-        UID = uid;
-        Level = level;
-        Token = token;
-        SuperUser = superUser;
+        this.UID = uid;
+        this.Level = level;
+        this.Token = token;
+        this.SuperUser = superUser;
     }
 }
 
