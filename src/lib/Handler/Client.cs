@@ -2,7 +2,6 @@
 using Sisma.Controller;
 using Sisma.Core;
 using Sisma.Models;
-using System.Diagnostics.CodeAnalysis;
 using System.Net.WebSockets;
 using System.Text;
 using WatsonWebsocket;

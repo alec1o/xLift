@@ -3,8 +3,6 @@ using Sisma.Core;
 using Sisma.Database;
 using Sisma.Handler;
 using Sisma.Models;
-using System;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Sisma.Controller;
