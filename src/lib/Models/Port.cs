@@ -7,7 +7,7 @@ public class Port
 
     public Port(string name, int value)
     {
-        Name = name;
-        Value = value;
+        this.Name = name;
+        this.Value = value;
     }
 }
