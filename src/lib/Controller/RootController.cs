@@ -37,7 +37,7 @@ public class RootController
                     // ROOM
                     case "ROOM_GET": return Room_Get();
                     case "ROOM_GETALL": return Room_GetAll();
-                    case "ROOM_DESTROY": return Room_Destroy();
+                    case "ROOM_DESTROY": return Room_Destroy(ref buffer);
                     case "ROOM_REGISTER": return Room_Register(ref buffer);
 
                     // MATCH
@@ -252,9 +252,75 @@ public class RootController
         return true;
     }
 
-    private bool Room_Destroy()
+    private bool Room_Destroy(ref byte[] buffer)
     {
-        throw new NotImplementedException();
+        var json = Encoding.UTF8.GetString(buffer);
+        var request = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+
+        (string? uid, bool error) result = new(null, false);
+
+        if (request != null)
+        {
+            try
+            {
+                result.uid = request.Where(x => x.Key == "UID").First().Value;
+
+                if (result.uid != null)
+                {
+                    result.uid.Trim();
+                }
+
+                if (!string.IsNullOrWhiteSpace(result.uid))
+                {
+                    lock (roomLock)
+                    {
+                        var serverRooms = Client.Server.Rooms.ToArray();
+
+                        foreach (var room in serverRooms)
+                        {
+                            if (room.UID == null) continue;
+
+                            if (room.UID.Trim() == result.uid)
+                            {
+                                // REMOVE ROOM FROM MEMORY
+                                Client.Server.Rooms.Remove(room);
+
+                                // REMOVE ROOM FROM DATABASE
+                                var rooms = RoomDatabase.Load();
+
+                                if (rooms != null)
+                                {
+                                    rooms = rooms.Where(x => x.UID != result.uid).ToList();
+                                    RoomDatabase.Save(rooms);
+                                }                                
+
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e) { Output.Show(e); }
+        }
+
+        result.error = string.IsNullOrWhiteSpace(result.uid);
+
+        Dictionary<string, dynamic> response = new();
+
+        response.Add("sisma", "ROOM_DESTROY.RESULT");
+        response.Add("success", !result.error);
+
+        if (result.error)
+        {
+            response.Add(ERROR_KEY, ERROR_VALUE);
+        }
+        else
+        {
+            response.Add("UID", result.uid ?? string.Empty);
+        }
+
+        Client.Send(JsonConvert.SerializeObject(response));
+        return result.error;
     }
 
     private bool Room_Register(ref byte[] buffer)
