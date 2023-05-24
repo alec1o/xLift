@@ -9,6 +9,7 @@ namespace Sisma.Controller;
 
 public class RootController
 {
+    private readonly static object roomLock = new object();
     public readonly Client Client;
     private const string ERROR_KEY = "error";
     private const string ERROR_VALUE = "Bad request";
@@ -236,7 +237,17 @@ public class RootController
 
     private bool Room_GetAll()
     {
-        throw new NotImplementedException();
+        lock (roomLock)
+        {
+            Dictionary<string, dynamic> response = new();
+            response.Add("sisma", "ROOM_GETALL.RESULT");
+            response.Add("rooms", Client.Server.Rooms);
+            response.Add("length", Client.Server.Rooms.Count);
+
+            Client.Send(JsonConvert.SerializeObject(response));
+        }
+
+        return true;
     }
 
     private bool Room_Destroy()
