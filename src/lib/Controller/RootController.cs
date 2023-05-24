@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Sisma.Core;
 using Sisma.Handler;
+using System;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Sisma.Controller;
@@ -26,7 +28,7 @@ public class RootController
                     // USER
                     case "USER_GET": return User_Get(ref buffer);
                     case "USER_GETALL": return User_GetAll();
-                    case "USER_DESTROY": return User_Destroy();
+                    case "USER_DESTROY": return User_Destroy(ref buffer);
                     case "USER_FORWARD": return User_Forward();
 
                     // ROOM
@@ -123,9 +125,53 @@ public class RootController
         return true;
     }
 
-    private bool User_Destroy()
+    private bool User_Destroy(ref byte[] buffer)
     {
-        throw new NotImplementedException();
+        var json = Encoding.UTF8.GetString(buffer);
+        var request = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+
+        (string? sub, bool error) result = new(null, false);
+
+        if (request != null)
+        {
+            try
+            {
+                result.sub = request.Where(x => x.Key == "sub").First().Value;
+
+                if (!string.IsNullOrWhiteSpace(result.sub))
+                {
+                    foreach (var client in Client.Server.Clients)
+                    {
+                        if (client.User.UID == result.sub)
+                        {
+                            client.Server.Socket.DisconnectClient(client.Connection.Client.Guid);
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception e) { Output.Show(e); }
+        }
+
+        result.error = string.IsNullOrWhiteSpace(result.sub);
+
+        Dictionary<string, dynamic> response = new();
+
+        response.Add("sisma", "USER_DESTROY.RESULT");
+        response.Add("success", !result.error);
+
+        if (result.error)
+        {
+            response.Add(ERROR_KEY, ERROR_VALUE);
+        }
+        else
+        {
+            response.Add("sub", result.sub ?? string.Empty);
+            response.Add("destroyed", true);
+        }
+
+        Client.Send(JsonConvert.SerializeObject(response));
+        return result.error;
     }
 
     private bool User_Forward()
