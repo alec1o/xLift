@@ -353,6 +353,7 @@ public class RootController
                         }
                     }
 
+                    // ROOM NOT FOUND, REGISTER AS ROOM
                     if (result.error == false)
                     {
                         // REGISTER NEW ROOM
