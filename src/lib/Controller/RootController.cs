@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Sisma.Core;
+using Sisma.Database;
 using Sisma.Handler;
+using Sisma.Models;
 using System;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -36,7 +38,7 @@ public class RootController
                     case "ROOM_GET": return Room_Get();
                     case "ROOM_GETALL": return Room_GetAll();
                     case "ROOM_DESTROY": return Room_Destroy();
-                    case "ROOM_REGISTER": return Room_Register();
+                    case "ROOM_REGISTER": return Room_Register(ref buffer);
 
                     // MATCH
                     case "MATCH_GET": return Match_Get();
@@ -255,9 +257,82 @@ public class RootController
         throw new NotImplementedException();
     }
 
-    private bool Room_Register()
+    private bool Room_Register(ref byte[] buffer)
     {
-        throw new NotImplementedException();
+        var json = Encoding.UTF8.GetString(buffer);
+
+        (Room? room, bool error, string errorMessage) result = new(null, false, ERROR_VALUE);
+
+        try
+        {
+            lock (roomLock)
+            {
+                result.room = JsonConvert.DeserializeObject<Room>(json);
+
+                if (result.room != null && Room.IsValid(result.room))
+                {
+                    var rooms = RoomDatabase.Load();
+
+                    if (rooms != null)
+                    {
+                        foreach (var room in rooms)
+                        {
+                            // FIND ROOM IN DATABASE
+                            if (room.Mode.ToLower() == result.room.Mode.ToLower())
+                            {
+                                result.errorMessage = "Mode name is reserved, try another name";
+                                result.error = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (result.error == false)
+                    {
+                        // REGISTER NEW ROOM
+                        result.room.UID = Guid.NewGuid().ToString();
+
+                        // SAVE ROOM IN DATABASE
+                        rooms = rooms ?? new List<Room>();
+
+                        rooms.Add(result.room);
+
+                        if (RoomDatabase.Save(rooms))
+                        {
+                            Client.Server.Rooms.Add(result.room);
+                        }
+                        else
+                        {
+                            result.error = true;
+                            result.errorMessage = "Internal error when saving the room";
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception e) { Output.Show(e); }
+
+        if (result.error == false)
+        {
+            result.error = !Room.IsValid(result.room);
+        }
+
+        Dictionary<string, dynamic?> response = new();
+
+        response.Add("sisma", "ROOM_REGISTER.RESULT");
+        response.Add("success", !result.error);
+
+        if (result.error)
+        {
+            response.Add(ERROR_KEY, result.errorMessage);
+        }
+        else
+        {
+            response.Add("room", result.room);
+        }
+
+        Client.Send(JsonConvert.SerializeObject(response));
+        return result.error;
     }
 
     #endregion
