@@ -29,7 +29,7 @@ public class RootController
                     case "USER_GET": return User_Get(ref buffer);
                     case "USER_GETALL": return User_GetAll();
                     case "USER_DESTROY": return User_Destroy(ref buffer);
-                    case "USER_FORWARD": return User_Forward();
+                    case "USER_FORWARD": return User_Forward(ref buffer);
 
                     // ROOM
                     case "ROOM_GET": return Room_Get();
@@ -174,9 +174,55 @@ public class RootController
         return result.error;
     }
 
-    private bool User_Forward()
+    private bool User_Forward(ref byte[] buffer)
     {
-        throw new NotImplementedException();
+        var json = Encoding.UTF8.GetString(buffer);
+        var request = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+
+        (string? sub, string? message, bool forwarded, bool error) result = new(null, null, false, false);
+
+        if (request != null)
+        {
+            try
+            {
+                result.sub = request.Where(x => x.Key == "sub").First().Value;
+                result.message = request.Where(x => x.Key == "message").First().Value;
+
+                if (!string.IsNullOrWhiteSpace(result.sub) && !string.IsNullOrWhiteSpace(result.message))
+                {
+                    foreach (var client in Client.Server.Clients)
+                    {
+                        if (client.User.UID == result.sub)
+                        {
+                            client.Send(result.message);
+                            result.forwarded = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception e) { Output.Show(e); }
+        }
+
+        result.error = string.IsNullOrWhiteSpace(result.sub) || string.IsNullOrWhiteSpace(result.message);
+
+        Dictionary<string, dynamic> response = new();
+
+        response.Add("sisma", "USER_FORWARD.RESULT");
+        response.Add("success", !result.error);
+
+        if (result.error)
+        {
+            response.Add(ERROR_KEY, ERROR_VALUE);
+        }
+        else
+        {
+            response.Add("sub", result.sub ?? string.Empty);
+            response.Add("forwarded", result.forwarded);
+        }
+
+        Client.Send(JsonConvert.SerializeObject(response));
+        return result.error;
     }
 
     #endregion
