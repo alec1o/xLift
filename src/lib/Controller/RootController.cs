@@ -63,7 +63,7 @@ public class RootController
             {
                 result.sub = request.Where(x => x.Key == "sub").First().Value;
 
-                if (!Error())
+                if (!string.IsNullOrWhiteSpace(result.sub))
                 {
                     foreach (var client in Client.Server.Clients)
                     {
@@ -101,7 +101,26 @@ public class RootController
 
     private bool User_GetAll()
     {
-        throw new NotImplementedException();
+        var subs = new List<Dictionary<string, dynamic>>();
+
+        foreach (var client in Client.Server.Clients)
+        {
+            if (client.User.SuperUser) continue;
+
+            var sub = new Dictionary<string, dynamic>();
+            sub.Add("sub", client.User.UID);
+            sub.Add("online", true);
+            subs.Add(sub);
+        }
+
+        Dictionary<string, dynamic> response = new();
+        response.Add("sisma", "USER_GETALL.RESULT");
+        response.Add("subs", subs);
+        response.Add("length", subs.Count);
+
+        Client.Send(JsonConvert.SerializeObject(response));
+
+        return true;
     }
 
     private bool User_Destroy()
