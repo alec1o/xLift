@@ -41,8 +41,11 @@ public class RootController
                     // MATCH
                     case "MATCH_GET": return Match_Get();
                     case "MATCH_GETALL": return Match_GetAll();
+
+#if false
                     case "MATCH_DESTROY": return Match_Destroy();
                     case "MATCH_REGISTER": return Match_Register();
+#endif
                 }
             }
         }
@@ -455,6 +458,7 @@ public class RootController
         throw new NotImplementedException();
     }
 
+#if false    
     private bool Match_Destroy()
     {
         throw new NotImplementedException();
@@ -464,6 +468,7 @@ public class RootController
     {
         throw new NotImplementedException();
     }
+#endif
 
     #endregion
 }
