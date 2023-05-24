@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Sisma.Core;
 using Sisma.Handler;
-using Sisma.Models;
 using System.Text;
 
 namespace Sisma.Controller;
@@ -56,15 +55,12 @@ public class RootController
         var json = Encoding.UTF8.GetString(buffer);
         var request = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
 
-        (string? sisma, string? sub, bool online, bool error) result = new(null, null, false, false);
-
-        bool Error() => (string.IsNullOrEmpty(result.sisma) || string.IsNullOrWhiteSpace(result.sub));
+        (string? sub, bool online, bool error) result = new(null, false, false);
 
         if (request != null)
         {
             try
             {
-                result.sisma = request.Where(x => x.Key == "sisma").First().Value;
                 result.sub = request.Where(x => x.Key == "sub").First().Value;
 
                 if (!Error())
@@ -82,12 +78,12 @@ public class RootController
             catch (Exception e) { Output.Show(e); }
         }
 
-        result.error = Error();
+        result.error = string.IsNullOrWhiteSpace(result.sub);
 
         Dictionary<string, dynamic> response = new();
 
         response.Add("sisma", "USER_GET.RESULT");
-        response.Add("success", result.error);
+        response.Add("success", !result.error);
 
         if (result.error)
         {
