@@ -1,4 +1,5 @@
-﻿using Sisma.Models;
+﻿using Sisma.Database;
+using Sisma.Models;
 using WatsonWebsocket;
 
 namespace Sisma.Handler;
@@ -14,7 +15,7 @@ public class Server
     public Server((string address, int port) host)
     {
         Host = host;
-        Rooms = new List<Room>();
+        Rooms = RoomDatabase.Load() ?? new List<Room>();
         Matches = new List<Match>();
         Clients = new List<Client>();
         Socket = new WatsonWsServer(host.address, host.port, false);
