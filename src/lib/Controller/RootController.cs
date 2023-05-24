@@ -33,7 +33,7 @@ public class RootController
                     case "USER_FORWARD": return User_Forward(ref buffer);
 
                     // ROOM
-                    case "ROOM_GET": return Room_Get();
+                    case "ROOM_GET": return Room_Get(ref buffer);
                     case "ROOM_GETALL": return Room_GetAll();
                     case "ROOM_DESTROY": return Room_Destroy(ref buffer);
                     case "ROOM_REGISTER": return Room_Register(ref buffer);
@@ -230,9 +230,56 @@ public class RootController
 
     #region ROOM
 
-    private bool Room_Get()
+    private bool Room_Get(ref byte[] buffer)
     {
-        throw new NotImplementedException();
+        var json = Encoding.UTF8.GetString(buffer);
+        var request = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+
+        (string? uid, Room? room, bool error) result = new(null, null, false);
+
+        if (request != null)
+        {
+            try
+            {
+                result.uid = request.Where(x => x.Key == "UID").First().Value;
+
+                result.uid = (result.uid == null) ? null : result.uid.Trim();
+
+                if (!string.IsNullOrWhiteSpace(result.uid))
+                {
+                    foreach (var room in Client.Server.Rooms)
+                    {
+                        if (room.UID == result.uid)
+                        {
+                            result.room = room;
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception e) { Output.Show(e); }
+        }
+
+        result.error = string.IsNullOrWhiteSpace(result.uid);
+
+        Dictionary<string, dynamic?> response = new();
+
+        response.Add("sisma", "ROOM_GET.RESULT");
+        response.Add("success", !result.error);
+
+        if (result.error)
+        {
+            response.Add(ERROR_KEY, ERROR_VALUE);
+        }
+        else
+        {
+            response.Add("room", result.room);
+            response.Add("exist", result.room != null);
+        }
+
+        Client.Send(JsonConvert.SerializeObject(response));
+
+        return result.error;
     }
 
     private bool Room_GetAll()
