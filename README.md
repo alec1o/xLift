@@ -11,7 +11,7 @@
 > <sub>[SISMA](https://github.com/alec1o/sisma) _Is a Matchmaking, Game server manager with docker_</sub>
 
 <h6 align="center">
-  <img align="center" src="https://github.com/alec1o/Sisma/assets/100610503/80cf8623-2383-4894-825b-50e247cb462a" width="100%">
+  <img align="center" src="https://github.com/alec1o/Sisma/assets/100610503/ed306784-398f-4802-94bd-bd230e113477" width="100%">
 <h6>
 
 
