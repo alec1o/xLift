@@ -502,7 +502,16 @@ public class RootController
 
     private bool Match_GetAll()
     {
-        throw new NotImplementedException();
+        Dictionary<string, dynamic> response = new();
+        var matches = Client.Server.Matches.ToArray();
+
+        response.Add("sisma", "MATCH_GETALL.RESULT");
+        response.Add("matches", matches);
+        response.Add("length", matches.Length);
+
+        Client.Send(JsonConvert.SerializeObject(response));
+
+        return true;
     }
 
 #if false    
