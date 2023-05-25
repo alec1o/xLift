@@ -39,7 +39,7 @@ public class RootController
                     case "ROOM_REGISTER": return Room_Register(ref buffer);
 
                     // MATCH
-                    case "MATCH_GET": return Match_Get();
+                    case "MATCH_GET": return Match_Get(ref buffer);
                     case "MATCH_GETALL": return Match_GetAll();
 
 #if false
@@ -448,9 +448,56 @@ public class RootController
 
     #region MATCH
 
-    private bool Match_Get()
+    private bool Match_Get(ref byte[] buffer)
     {
-        throw new NotImplementedException();
+        var json = Encoding.UTF8.GetString(buffer);
+        var request = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+
+        (string? uid, Match? match, bool error) result = new(null, null, false);
+
+        if (request != null)
+        {
+            try
+            {
+                result.uid = request.Where(x => x.Key == "UID").First().Value;
+
+                result.uid = (result.uid == null) ? null : result.uid.Trim();
+
+                if (!string.IsNullOrWhiteSpace(result.uid))
+                {
+                    foreach (var match in Client.Server.Matches)
+                    {
+                        if (match.UID == result.uid)
+                        {
+                            result.match = match;
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception e) { Output.Show(e); }
+        }
+
+        result.error = string.IsNullOrWhiteSpace(result.uid);
+
+        Dictionary<string, dynamic?> response = new();
+
+        response.Add("sisma", "MATCH_GET.RESULT");
+        response.Add("success", !result.error);
+
+        if (result.error)
+        {
+            response.Add(ERROR_KEY, ERROR_VALUE);
+        }
+        else
+        {
+            response.Add("match", result.match);
+            response.Add("exist", result.match != null);
+        }
+
+        Client.Send(JsonConvert.SerializeObject(response));
+
+        return result.error;
     }
 
     private bool Match_GetAll()
