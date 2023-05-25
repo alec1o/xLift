@@ -108,11 +108,11 @@ public class RootController
     private bool User_GetAll()
     {
         Dictionary<string, dynamic> response = new();
-        var users = Client.Server.Clients.Where(x => x.User.SuperUser == false).ToArray();
+        List<User> users = Client.Server.Clients.Where(x => x.User.SuperUser == false).Select(x => x.User).ToList();
 
         response.Add("sisma", "USER_GETALL.RESULT");
         response.Add("users", users);
-        response.Add("length", users.Length);
+        response.Add("length", users.Count);
 
         Client.Send(JsonConvert.SerializeObject(response));
 
