@@ -6,18 +6,14 @@
   powered by <a href="https://github.com/alec1o">ALEC1O</a><sub/>
 </h6>
 
-<!--
-<h6 align="center">
-  <img align="center" src="" width="128px">
-<h6>
--->
 
 ##### About
 > <sub>[SISMA](https://github.com/alec1o/sisma) _Is a Matchmaking, Game server manager with docker_</sub>
 
-<br>
+<h6 align="center">
+  <img align="center" src="https://github.com/alec1o/Sisma/assets/100610503/80cf8623-2383-4894-825b-50e247cb462a" width="100%">
+<h6>
 
-![sisma diagram](https://github.com/alec1o/Sisma/assets/100610503/e2d50830-69ce-4373-abcd-7fa112d55a6e)
 
 <br>
 
