@@ -1,7 +1,21 @@
-> # IN DEVELOPMENT
+<h6 align="end">IN DEVELOPMENT</h6>
+<h1 align="center"><a href="https://github.com/alec1o/sisma">Sisma</a></h1>
 
-# Sisma
-Matchmaking, Game server manager with docker (Simple Server Manager)
+<h6 align="center"><sub>
+  powered by <a href="https://github.com/alec1o">ALEC1O</a><sub/>
+</h6>
+
+<!--
+<h6 align="center">
+  <img align="center" src="" width="128px">
+<h6>
+-->
+
+##### About
+> <sub>[SISMA](https://github.com/alec1o/sisma) _Is a Matchmaking, Game server manager with docker_</sub>
+
+##### Name origin
+> <h6><code>SI</code>MPLE <code>S</code>ERVER <code>MA</code>NAGER</h6>
 
 ![sisma diagram](https://github.com/alec1o/Sisma/assets/100610503/e2d50830-69ce-4373-abcd-7fa112d55a6e)
 
