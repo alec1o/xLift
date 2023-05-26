@@ -3,11 +3,10 @@ import style from './style.module.css';
 import homeStyle from "../Home/style.module.css"
 import * as ai from "react-icons/ai"
 import * as fa from "react-icons/fa"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { v4 as newGuid } from "uuid"
 
 export default function Root() {
-
     const [guid, setGuid] = useState(``)
     const [modeName, setModeName] = useState(``)
     const [minUser, setMinUser] = useState(0)
@@ -16,6 +15,38 @@ export default function Root() {
     const [containerImage, setContainerImage] = useState(``)
     const [containerParam, setContainerParam] = useState(``)
     const [containerPort, setContainerPort] = useState([] as { guid: string; name: string; value: number; }[])
+
+    useEffect(() => {
+
+        const url = localStorage.getItem("url")
+
+        if (!url) {
+            window.location.href = "/"
+            return;
+        }
+
+        const ws = new WebSocket(url)
+
+        ws.onopen = (e) => {
+        }
+
+        ws.onmessage = (e) => {
+            const json = JSON.parse(e.data as string);
+
+            const { sisma } = json;
+
+            if (sisma == "AUTH_USER") {
+                window.location.href = "/root"
+                return
+            }
+        }
+
+        ws.onclose = (_) => {
+            window.location.href = "/"
+            return
+        }
+
+    }, [])
 
     const [modes, setModes] = useState([{
         MODE_GUID: "@ALEC1O",
