@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Header from '../../componets/Header';
 import style from './style.module.css';
-import { redirect } from 'react-router-dom';
 
 export default function Home() {
 
