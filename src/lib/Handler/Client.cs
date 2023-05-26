@@ -2,6 +2,7 @@
 using Sisma.Controller;
 using Sisma.Core;
 using Sisma.Models;
+using System.Net.Http.Headers;
 using System.Net.WebSockets;
 using System.Text;
 using WatsonWebsocket;
@@ -71,7 +72,37 @@ namespace Sisma.Handler
 
         public static void Auth(ConnectionEventArgs connection, Server server)
         {
-            string token = connection.HttpRequest.Headers.Get("token") ?? string.Empty;
+            string token = string.Empty;
+
+            try
+            {
+                var valid = AuthenticationHeaderValue.TryParse(connection.HttpRequest.Headers.Get("Authorization"), out var header);
+
+                if (valid)
+                {
+                    if (header != null)
+                    {
+                        if (!string.IsNullOrWhiteSpace(header.Scheme) && !string.IsNullOrWhiteSpace(header.Parameter))
+                        {
+                            string base64 = (header.Parameter ?? string.Empty).Trim();
+
+                            if (!string.IsNullOrEmpty(base64))
+                            {
+                                var list = Encoding.ASCII.GetString(Convert.FromBase64String(base64)).ToList();
+
+                                if (list != null && list.Count >= 2)
+                                {
+                                    list.RemoveAt(list.Count - 1);
+                                    token = new string(list.ToArray());
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Console.WriteLine(token);
+            }
+            catch (Exception e) { Console.WriteLine(e); }
 
             if (string.IsNullOrWhiteSpace(token))
             {
