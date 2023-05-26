@@ -20,6 +20,12 @@
     background-image: url('/background.jpg');
 }
 
+.error {
+    margin-top: -75px;
+    position: absolute;
+    color: #ce2050;
+}
+
 .main {
     display: flex;
     align-items: center;
