@@ -74,38 +74,24 @@ namespace Sisma.Handler
         {
             string token = string.Empty;
 
-            try
+            var path = connection.HttpRequest.Url?.AbsolutePath;
+
+            if (!string.IsNullOrWhiteSpace(path) && path.Length > 1)
             {
-                var valid = AuthenticationHeaderValue.TryParse(connection.HttpRequest.Headers.Get("Authorization"), out var header);
-
-                Output.Show(connection.HttpRequest.Headers.Get("Authorization") ?? string.Empty);
-                Output.Show(valid);
-
-                if (valid)
+                foreach (var c in path.ToArray())
                 {
-                    if (header != null)
+                    if (c != ' ' && c != '/')
                     {
-                        if (!string.IsNullOrWhiteSpace(header.Scheme) && !string.IsNullOrWhiteSpace(header.Parameter))
-                        {
-                            string base64 = (header.Parameter ?? string.Empty).Trim();
-
-                            if (!string.IsNullOrEmpty(base64))
-                            {
-                                var list = Encoding.ASCII.GetString(Convert.FromBase64String(base64)).ToList();
-
-                                if (list != null && list.Count >= 2)
-                                {
-                                    list.RemoveAt(list.Count - 1);
-                                    token = new string(list.ToArray());
-                                }
-                            }
-                        }
+                        token += c;
                     }
                 }
 
                 Output.Show(token);
             }
-            catch (Exception e) { Output.Show(e); }
+            else
+            {
+                Output.Show("Invalid token");
+            }
 
             if (string.IsNullOrWhiteSpace(token))
             {
