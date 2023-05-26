@@ -78,6 +78,9 @@ namespace Sisma.Handler
             {
                 var valid = AuthenticationHeaderValue.TryParse(connection.HttpRequest.Headers.Get("Authorization"), out var header);
 
+                Output.Show(connection.HttpRequest.Headers.Get("Authorization") ?? string.Empty);
+                Output.Show(valid);
+
                 if (valid)
                 {
                     if (header != null)
@@ -100,9 +103,9 @@ namespace Sisma.Handler
                     }
                 }
 
-                Console.WriteLine(token);
+                Output.Show(token);
             }
-            catch (Exception e) { Console.WriteLine(e); }
+            catch (Exception e) { Output.Show(e); }
 
             if (string.IsNullOrWhiteSpace(token))
             {
