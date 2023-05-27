@@ -9,7 +9,8 @@ export default function App() {
             <Routes>
                 <Route path='*' element={<Error />} />
                 <Route path="/" element={<Home />} />
-                <Route path="/root" element={<Root />} />
+                <Route path="/root" element={
+                    <Root wss={new WebSocket(localStorage.getItem("url") as string)} />} />
             </Routes>
         </BrowserRouter>
     )

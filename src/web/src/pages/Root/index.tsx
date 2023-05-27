@@ -3,8 +3,12 @@ import style from './style.module.css';
 import homeStyle from "../Home/style.module.css"
 import * as ai from "react-icons/ai"
 import * as fa from "react-icons/fa"
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { v4 as newGuid } from "uuid"
+
+interface IProps {
+    wss: WebSocket
+}
 
 interface IPort {
     UID: string
@@ -25,9 +29,77 @@ interface IRoom {
     ContainerCpu: number
 }
 
-let url = localStorage.getItem("url") as string
+export default function Root({ wss }: IProps) {
 
-export default function Root() {
+    function print(message: string, timeout = 5000) {
+        setErrorMessage(message)
+        setTimeout(() => {
+            if (errorMessage == message || errorMessage == "") setErrorMessage("")
+        }, timeout)
+    }
+
+    wss.onopen = _ => {
+        print("Connected")
+        wss.send(JSON.stringify({ sisma: "ROOM_GETALL" }))
+    }
+
+    wss.onclose = _ => {
+        print("Disconnected")
+        window.location.href = "/"
+    }
+
+    wss.onmessage = (e) => {
+        const data = JSON.parse(e.data);
+
+        const { sisma } = data;
+
+        if (sisma == "AUTH_USER") {
+            // connected as user, redirect to main page. only admin
+            window.location.href = "/"
+        }
+        else if (sisma == "ROOM_GETALL.RESULT") {
+            const { error, rooms } = data;
+
+            if (rooms) {
+                const myRooms: IRoom[] = rooms
+
+                myRooms.map((room) => {
+                    room.ContainerPorts.map((port) => {
+                        port.UID = newGuid()
+                        return port
+                    })
+                    return room
+                })
+
+                setRoomOrMode(myRooms)
+                setStates({ Users: states.Users, Rooms: myRooms.length, Matches: states.Matches })
+            }
+            else if (error) {
+                print(`ROOM_GETALL: ${error}`)
+            }
+        }
+        else if (sisma == "ROOM_REGISTER.RESULT") {
+            const { error, room } = data;
+
+            if (room) {
+                const myRoom: IRoom = room
+
+                myRoom.ContainerPorts.map((p) => {
+                    p.UID = newGuid()
+                    return p
+                })
+
+                setRoomOrMode([...roomOrMode, myRoom])
+                setStates({ Users: states.Users, Rooms: states.Rooms + 1, Matches: states.Matches })
+            }
+            else if (error) {
+                print(`ROOM_REGISTER: ${error}`)
+            }
+        }
+        else if (sisma == "ROOM_DESTROY") {
+            // TODO
+        }
+    }
 
     const [uid, setGuid] = useState(``)
     const [modeName, setModeName] = useState(``)
@@ -40,10 +112,6 @@ export default function Root() {
     const [containerParam, setContainerParam] = useState(``)
     const [containerPort, setContainerPort] = useState([] as IPort[])
 
-    useEffect(() => {
-        InitWebsocket()
-    }, [])
-
     const [errorMessage, setErrorMessage] = useState(``)
 
     const [roomOrMode, setRoomOrMode] = useState([] as IRoom[])
@@ -53,62 +121,6 @@ export default function Root() {
         Rooms: 0,
         Matches: 0,
     })
-
-    function InitWebsocket() {
-        if (!url) {
-            window.location.href = "/"
-            return;
-        }
-
-        const ws = new WebSocket(url)
-
-        ws.onopen = (_) => {
-            setErrorMessage("CONNECTED")
-
-            setTimeout(() => {
-                setErrorMessage('')
-                const data = { "sisma": "ROOM_GETALL" }
-                ws.send(JSON.stringify(data))
-            }, 1000)
-        }
-
-        ws.onmessage = (e) => {
-            const json = JSON.parse(e.data as string);
-
-            const { sisma } = json;
-
-            if (sisma == "AUTH_USER") {
-                window.location.href = "/root"
-                return
-            }
-
-            if (sisma == "ROOM_GETALL.RESULT") {
-                const { error, rooms } = json
-
-                if (rooms) {
-
-                    const r: IRoom[] = rooms
-
-                    // generate uid for ports
-                    r.map((e) => {
-                        e.ContainerPorts.map((p) => {
-                            p.UID = newGuid()
-                            return p
-                        })
-                        return e
-                    })
-
-                    setRoomOrMode(r)
-                    setStates({ Users: states.Users, Rooms: r.length, Matches: states.Matches })
-                }
-            }
-        }
-
-        ws.onclose = (_) => {
-            window.location.href = "/"
-            return
-        }
-    }
 
     function selectMode(uid: string) {
         roomOrMode.map((e) => {
@@ -151,72 +163,22 @@ export default function Root() {
             })
         }
         else {
-            const ws = new WebSocket(url)
-            let sended = false;
-
-            ws.onopen = (_) => {
-                // create new mode
-                const data = {
-                    "sisma": "ROOM_REGISTER",
-                    "Mode": modeName,
-                    "ContainerImage": containerImage,
-                    "ContainerParam": containerParam,
-                    "ContainerPorts": containerPort,
-                    "MatchTimeout": matchTimeout,
-                    "ContainerRam": containerRam,
-                    "ContainerCpu": containerCpu,
-                    "MinUser": minUser,
-                    "MaxUser": maxUser
-                }
-
-                // use websocket to send new mode for server
-                ws.send(JSON.stringify(data))
-                sended = true;
+            // create new mode
+            const data = {
+                "sisma": "ROOM_REGISTER",
+                "Mode": modeName,
+                "ContainerImage": containerImage,
+                "ContainerParam": containerParam,
+                "ContainerPorts": containerPort,
+                "MatchTimeout": matchTimeout,
+                "ContainerRam": containerRam,
+                "ContainerCpu": containerCpu,
+                "MinUser": minUser,
+                "MaxUser": maxUser
             }
 
-            ws.onmessage = (e) => {
-                const json = JSON.parse(e.data as string);
-
-                const { sisma } = json;
-
-                if (sisma == "ROOM_REGISTER.RESULT") {
-                    const { room, error } = json
-
-                    if (room) {
-                        const r: IRoom = room
-
-                        // generate uid for ports
-                        r.ContainerPorts.map((p) => {
-                            p.UID = newGuid()
-                            return p
-                        })
-
-                        setRoomOrMode([...roomOrMode, r])
-                        setStates({ Users: states.Users, Rooms: states.Rooms + 1, Matches: states.Matches })
-                    }
-                    else if (error) {
-                        setErrorMessage(error)
-                        setTimeout(() => {
-                            if (error == errorMessage) {
-                                setErrorMessage(``);
-                            }
-                        }, 5000)
-                    }
-
-                    ws.close()
-                }
-
-                ws.onclose = (_) => {
-                    if (!sended) {
-                        setErrorMessage("CONNECTION CLOSED")
-
-                        setTimeout(() => {
-                            window.location.href = "/"
-                            return
-                        }, 5000)
-                    }
-                }
-            }
+            // use websocket to send new mode for server
+            wss.send(JSON.stringify(data))
 
             // clear input
             resetData()
