@@ -19,6 +19,7 @@ namespace Sisma.Handler
         public Server Server { get; set; }
 
         public readonly RootController? rootController;
+        public readonly UserController? userController;
 
         public Client(User user, ConnectionEventArgs connection, Server server)
         {
@@ -29,6 +30,10 @@ namespace Sisma.Handler
             if (user.SuperUser)
             {
                 rootController = new RootController(this);
+            }
+            else
+            {
+                userController = new UserController(this);
             }
         }
 
