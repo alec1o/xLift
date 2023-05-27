@@ -114,6 +114,7 @@ export default function Root({ wss }: IProps) {
                 })
 
                 setRoomOrMode(rooms)
+                setStates({ Users: states.Users, Matches: states.Matches, Rooms: states.Rooms - 1 })
             }
             else if (error) {
                 print(`ROOM_DESTROY: ${error}`)
