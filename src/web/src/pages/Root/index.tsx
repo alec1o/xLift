@@ -183,46 +183,36 @@ export default function Root({ wss }: IProps) {
     function formSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
+        const data = {
+            "sisma": "ROOM_REGISTER",
+            "Mode": modeName,
+            "ContainerImage": containerImage,
+            "ContainerParam": containerParam,
+            "ContainerPorts": containerPort,
+            "MatchTimeout": matchTimeout,
+            "ContainerRam": containerRam,
+            "ContainerCpu": containerCpu,
+            "MinUser": minUser,
+            "MaxUser": maxUser
+        }
+
         if (uid) {
             // update mode
             roomOrMode.map((e) => {
                 if (e.UID == uid) {
-                    // update data
-                    e.Mode = modeName;
-                    e.MinUser = minUser;
-                    e.MaxUser = maxUser;
-                    e.MatchTimeout = matchTimeout;
-                    e.ContainerImage = containerImage;
-                    e.ContainerParam = containerParam;
-                    e.ContainerPorts = containerPort
-                    e.ContainerRam = containerRam
-                    e.ContainerCpu = containerCpu
-
-                    resetData()
+                    // delete old room. -> using websocket
+                    wss.send(JSON.stringify({ sisma: "ROOM_DESTROY", UID: uid }))
                 }
             })
         }
-        else {
-            // create new mode
-            const data = {
-                "sisma": "ROOM_REGISTER",
-                "Mode": modeName,
-                "ContainerImage": containerImage,
-                "ContainerParam": containerParam,
-                "ContainerPorts": containerPort,
-                "MatchTimeout": matchTimeout,
-                "ContainerRam": containerRam,
-                "ContainerCpu": containerCpu,
-                "MinUser": minUser,
-                "MaxUser": maxUser
-            }
 
-            // use websocket to send new mode for server
-            wss.send(JSON.stringify(data))
+        // register new room. -> using websocket
+        // -> new register have 0s delay.
+        // -> update existent register have 50ms delay because sisma require destroy old register. for prevent bugs have delay
+        setTimeout(() => wss.send(JSON.stringify(data)), (uid) ? 50 : 0)
 
-            // clear input
-            resetData()
-        }
+        // clear input
+        resetData()
     }
 
     function resetData() {
