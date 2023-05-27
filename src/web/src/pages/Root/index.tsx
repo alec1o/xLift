@@ -96,8 +96,19 @@ export default function Root({ wss }: IProps) {
                 print(`ROOM_REGISTER: ${error}`)
             }
         }
-        else if (sisma == "ROOM_DESTROY") {
-            // TODO
+        else if (sisma == "ROOM_DESTROY.RESULT") {
+            const { error, room } = data
+
+            if (room) {
+                const rooms: IRoom[] = roomOrMode.filter((e) => {
+                    return (e.UID != (room as IRoom).UID)
+                })
+
+                setRoomOrMode(rooms)
+            }
+            else if (error) {
+                print(`ROOM_DESTROY: ${error}`)
+            }
         }
     }
 
@@ -231,6 +242,12 @@ export default function Root({ wss }: IProps) {
         setContainerPort(newArray);
     }
 
+    function deleteMode(uid: string) {
+        if (uid) {
+            wss.send(JSON.stringify({ sisma: "ROOM_DESTROY", UID: uid }))
+        }
+    }
+
     return (
         <>
             <Header />
@@ -273,6 +290,7 @@ export default function Root({ wss }: IProps) {
                         <ul className={style.mainGroup}>
                             <li>
                                 <form className={style.form} action="" method="post" onSubmit={(e) => formSubmit(e)}>
+
                                     <input value={uid} onChange={(e) => setGuid(e.target.value)} type="text" name="guid" style={{ display: 'none' }} />
                                     <input value={modeName} onChange={(e) => setModeName(e.target.value)} className={style.formText} required placeholder="mode name" type="text" name="mode" />
                                     <input value={(minUser == 0) ? "" : minUser} onChange={(e) => setMinUser(Number.parseInt(e.target.value))} className={style.formText} required placeholder="min user" type="number" name="min_user" min={0} max={1000} />
@@ -294,10 +312,17 @@ export default function Root({ wss }: IProps) {
                                                 <input className={style.portText} onChange={(o) => updatePort(e.UID, o.target.value, false)} value={e.Name} placeholder='port name' required type="text" minLength={1} maxLength={16} />
                                                 <input className={style.portText} onChange={(o) => updatePort(e.UID, o.target.value, true)} value={(e.Value == 0) ? "" : e.Value} placeholder='port value' required type="number" min={1} max={65535} />
                                                 <button onClick={(o) => removePort(o, e.UID)}><ai.AiFillDelete /></button>
+
                                             </article>
                                         ))}
                                     </section>
-
+                                    <div className={style.buttonArea}>
+                                        {(uid) ? <>
+                                            <span id={style.buttonDelete} className={style.button} onClick={_ => deleteMode(uid)}><ai.AiFillDelete />Delete {(modeName) ? `(${modeName})` : ``}</span>
+                                            <span id={style.buttonRestore} className={style.button} onClick={_ => resetData()}><ai.AiFillPlusCircle />New room (mode)</span>
+                                        </> : <></>
+                                        }
+                                    </div>
                                     <input type="submit" value={(uid) ? "Update" : "Register"} />
                                 </form>
                             </li>

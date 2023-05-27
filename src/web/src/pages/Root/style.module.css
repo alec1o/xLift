@@ -95,6 +95,56 @@
     transform: translateY(-15px);
 }
 
+.buttonArea {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: end;
+    width: 100%;
+    max-width: 500px;
+    margin: 10px;
+}
+
+.button {
+    height: 35px;
+    margin: 10px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    width: 100%;
+    background-color: #2050ce;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.button svg {
+    font-size: 22px;
+    margin: 0 10px;
+    color: white;
+}
+
+#buttonRestore {
+    margin-right: 0;
+}
+
+#buttonDelete {
+    margin-left: 0;
+    background-color: #ce2050;
+}
+
+
+.delete svg {
+    color: #ce2050;
+    font-size: 22px;
+    cursor: pointer;
+}
+
 .modeArea {
     padding: 5px;
     padding-top: 0;
@@ -168,6 +218,7 @@
     font-family: "Kiona";
     background-color: #2050ce;
     cursor: pointer;
+    font-weight: bold;
 }
 
 #portArea {
