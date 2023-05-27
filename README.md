@@ -12,7 +12,7 @@
 <br>
 
 ##### Documentation
-> <sub>Consult the documentation for a better understanding and clarification of doubts [HERE](https://alec1o.github.io/Sisma/)</sub>
+> <sub>Consult the documentation for a better understanding and clarification of doubts <a target="_blank" href="https://alec1o.github.io/Sisma/">HERE</a></sub>
 
 <br>
   
