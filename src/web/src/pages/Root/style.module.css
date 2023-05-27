@@ -11,6 +11,17 @@
     width: 125%;
 }
 
+.error {
+    position: fixed;
+    width: 100%;
+    margin: 0 auto;
+    top: 90px;
+    font-size: 16px;
+    padding: 10px;
+    color: white;
+    background-color: #ce2050;
+}
+
 .main {
     width: 100%;
     margin: 0 auto;

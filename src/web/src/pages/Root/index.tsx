@@ -30,6 +30,11 @@ export default function Root() {
         const ws = new WebSocket(url)
 
         ws.onopen = (e) => {
+            setError("CONNECTED")
+
+            setTimeout(() => {
+                setError('')
+            }, 5000)
         }
 
         ws.onmessage = (e) => {
@@ -49,6 +54,8 @@ export default function Root() {
         }
 
     }, [])
+
+    const [error, setError] = useState(``)
 
     const [modes, setModes] = useState([{
         MODE_GUID: "@ALEC1O",
@@ -165,8 +172,8 @@ export default function Root() {
         <>
             <Header />
             <main id={style.app} className={homeStyle.app}>
+                {(error) ? <p className={style.error}>{error}</p> : <>/</>}
                 <div className={style.main}>
-
                     <div className={style.area}>
                         <h2 className={style.title}>ROOM (Mode)</h2>
                         <ul className={style.mainGroup}>
