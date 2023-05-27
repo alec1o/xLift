@@ -6,8 +6,30 @@ import * as fa from "react-icons/fa"
 import { useEffect, useState } from 'react';
 import { v4 as newGuid } from "uuid"
 
+interface IPort {
+    UID: string
+    Name: string
+    Value: number
+}
+
+interface IRoom {
+    UID: string
+    ContainerImage: string
+    ContainerParam: string
+    ContainerPorts: IPort[]
+    MatchTimeout: number
+    MaxUser: number
+    MinUser: number
+    Mode: string
+    ContainerRam: number
+    ContainerCpu: number
+}
+
+let url = localStorage.getItem("url") as string
+
 export default function Root() {
-    const [guid, setGuid] = useState(``)
+
+    const [uid, setGuid] = useState(``)
     const [modeName, setModeName] = useState(``)
     const [minUser, setMinUser] = useState(0)
     const [maxUser, setMaxUser] = useState(0)
@@ -16,12 +38,23 @@ export default function Root() {
     const [containerCpu, setContainerCpu] = useState(0)
     const [containerImage, setContainerImage] = useState(``)
     const [containerParam, setContainerParam] = useState(``)
-    const [containerPort, setContainerPort] = useState([] as { guid: string; name: string; value: number; }[])
+    const [containerPort, setContainerPort] = useState([] as IPort[])
 
     useEffect(() => {
+        InitWebsocket()
+    }, [])
 
-        const url = localStorage.getItem("url")
+    const [errorMessage, setErrorMessage] = useState(``)
 
+    const [roomOrMode, setRoomOrMode] = useState([] as IRoom[])
+
+    const [states, setStates] = useState({
+        Users: 0,
+        Rooms: 0,
+        Matches: 0,
+    })
+
+    function InitWebsocket() {
         if (!url) {
             window.location.href = "/"
             return;
@@ -29,12 +62,14 @@ export default function Root() {
 
         const ws = new WebSocket(url)
 
-        ws.onopen = (e) => {
-            setError("CONNECTED")
+        ws.onopen = (_) => {
+            setErrorMessage("CONNECTED")
 
             setTimeout(() => {
-                setError('')
-            }, 5000)
+                setErrorMessage('')
+                const data = { "sisma": "ROOM_GETALL" }
+                ws.send(JSON.stringify(data))
+            }, 1000)
         }
 
         ws.onmessage = (e) => {
@@ -46,53 +81,48 @@ export default function Root() {
                 window.location.href = "/root"
                 return
             }
+
+            if (sisma == "ROOM_GETALL.RESULT") {
+                const { error, rooms } = json
+
+                if (rooms) {
+
+                    const r: IRoom[] = rooms
+
+                    // generate uid for ports
+                    r.map((e) => {
+                        e.ContainerPorts.map((p) => {
+                            p.UID = newGuid()
+                            return p
+                        })
+                        return e
+                    })
+
+                    setRoomOrMode(r)
+                    setStates({ Users: states.Users, Rooms: r.length, Matches: states.Matches })
+                }
+            }
         }
 
         ws.onclose = (_) => {
             window.location.href = "/"
             return
         }
+    }
 
-    }, [])
-
-    const [error, setError] = useState(``)
-
-    const [modes, setModes] = useState([{
-        MODE_GUID: "@ALEC1O",
-        MODE_NAME: "1v1",
-        MIN_USER: 2,
-        MAX_USER: 2,
-        MATCH_TIMEOUT: 10000,
-        CONTAINER_RAM: 200,
-        CONTAINER_CPU: 100,
-        CONTAINER_IMAGE: "game:latest",
-        CONTAINER_PARAM: "--mode 1v1",
-        CONTAINER_PORT: [
-            { guid: newGuid(), name: "TcpChat", value: 2000 },
-            { guid: newGuid(), name: "TcpGame", value: 3000 },
-            { guid: newGuid(), name: "UdpGame", value: 4000 }
-        ]
-    }])
-
-    const [states, setStates] = useState({
-        USERS: 0,
-        ROOMS: 0,
-        MATCHES: 0,
-    })
-
-    function selectMode(guid: string) {
-        modes.map((e) => {
-            if (e.MODE_GUID == guid) {
-                setGuid(guid)
-                setModeName(e.MODE_NAME);
-                setMinUser(e.MIN_USER);
-                setMaxUser(e.MAX_USER);
-                setMatchTimeout(e.MATCH_TIMEOUT);
-                setContainerImage(e.CONTAINER_IMAGE);
-                setContainerParam(e.CONTAINER_PARAM);
-                setContainerPort(e.CONTAINER_PORT)
-                setContainerRam(e.CONTAINER_RAM)
-                setContainerCpu(e.CONTAINER_CPU)
+    function selectMode(uid: string) {
+        roomOrMode.map((e) => {
+            if (e.UID == uid) {
+                setGuid(uid)
+                setModeName(e.Mode);
+                setMinUser(e.MinUser);
+                setMaxUser(e.MaxUser);
+                setMatchTimeout(e.MatchTimeout);
+                setContainerImage(e.ContainerImage);
+                setContainerParam(e.ContainerParam);
+                setContainerPort(e.ContainerPorts)
+                setContainerCpu(e.ContainerCpu)
+                setContainerRam(e.ContainerRam)
             }
         })
 
@@ -101,51 +131,122 @@ export default function Root() {
     function formSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        if (guid) {
+        if (uid) {
             // update mode
-            modes.map((e) => {
-                if (e.MODE_GUID == guid) {
+            roomOrMode.map((e) => {
+                if (e.UID == uid) {
                     // update data
-                    e.MODE_NAME = modeName;
-                    e.MIN_USER = minUser;
-                    e.MAX_USER = maxUser;
-                    e.MATCH_TIMEOUT = matchTimeout;
-                    e.CONTAINER_IMAGE = containerImage;
-                    e.CONTAINER_PARAM = containerParam;
-                    e.CONTAINER_PORT = containerPort
-                    e.CONTAINER_RAM = containerRam
-                    e.CONTAINER_CPU = containerCpu
+                    e.Mode = modeName;
+                    e.MinUser = minUser;
+                    e.MaxUser = maxUser;
+                    e.MatchTimeout = matchTimeout;
+                    e.ContainerImage = containerImage;
+                    e.ContainerParam = containerParam;
+                    e.ContainerPorts = containerPort
+                    e.ContainerRam = containerRam
+                    e.ContainerCpu = containerCpu
 
-                    // reset states
-                    setGuid("")
-                    setModeName("")
-                    setMinUser(0);
-                    setMaxUser(0);
-                    setMatchTimeout(0);
-                    setContainerImage("");
-                    setContainerParam("");
-                    setContainerCpu(0)
-                    setContainerRam(0)
-                    setContainerPort([])
+                    resetData()
                 }
             })
         }
         else {
-            // create new mode
-            // use websocket to send new mode for server
+            const ws = new WebSocket(url)
+            let sended = false;
+
+            ws.onopen = (_) => {
+                // create new mode
+                const data = {
+                    "sisma": "ROOM_REGISTER",
+                    "Mode": modeName,
+                    "ContainerImage": containerImage,
+                    "ContainerParam": containerParam,
+                    "ContainerPorts": containerPort,
+                    "MatchTimeout": matchTimeout,
+                    "ContainerRam": containerRam,
+                    "ContainerCpu": containerCpu,
+                    "MinUser": minUser,
+                    "MaxUser": maxUser
+                }
+
+                // use websocket to send new mode for server
+                ws.send(JSON.stringify(data))
+                sended = true;
+            }
+
+            ws.onmessage = (e) => {
+                const json = JSON.parse(e.data as string);
+
+                const { sisma } = json;
+
+                if (sisma == "ROOM_REGISTER.RESULT") {
+                    const { room, error } = json
+
+                    if (room) {
+                        const r: IRoom = room
+
+                        // generate uid for ports
+                        r.ContainerPorts.map((p) => {
+                            p.UID = newGuid()
+                            return p
+                        })
+
+                        setRoomOrMode([...roomOrMode, r])
+                        setStates({ Users: states.Users, Rooms: states.Rooms + 1, Matches: states.Matches })
+                    }
+                    else if (error) {
+                        setErrorMessage(error)
+                        setTimeout(() => {
+                            if (error == errorMessage) {
+                                setErrorMessage(``);
+                            }
+                        }, 5000)
+                    }
+
+                    ws.close()
+                }
+
+                ws.onclose = (_) => {
+                    if (!sended) {
+                        setErrorMessage("CONNECTION CLOSED")
+
+                        setTimeout(() => {
+                            window.location.href = "/"
+                            return
+                        }, 5000)
+                    }
+                }
+            }
+
+            // clear input
+            resetData()
         }
+    }
+
+    function resetData() {
+        // reset states
+        setGuid("")
+        setModeName("")
+        setMinUser(0);
+        setMaxUser(0);
+        setMatchTimeout(0);
+        setContainerImage("");
+        setContainerParam("");
+        setContainerCpu(0)
+        setContainerRam(0)
+        setContainerPort([])
     }
 
     function newPort(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault()
-        setContainerPort([...containerPort, { guid: newGuid(), name: "", value: 0 }])
+        setContainerPort([...containerPort, { UID: newGuid(), Name: "", Value: 0 }])
     }
 
     function removePort(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, guid: string) {
         e.preventDefault()
 
         const newArray = containerPort.filter((e) => {
-            if (e.guid == guid) return false;
+            if (e.UID == guid) return false;
             return true;
         })
 
@@ -155,12 +256,12 @@ export default function Root() {
     function updatePort(guid: string, value: string, isValue: boolean) {
 
         const newArray = containerPort.map((e) => {
-            if (e.guid == guid) {
+            if (e.UID == guid) {
                 if (isValue) {
-                    e.value = Number.parseInt(value);
+                    e.Value = Number.parseInt(value);
                 }
                 else {
-                    e.name = value;
+                    e.Name = value;
                 }
             }
             return e;
@@ -172,24 +273,24 @@ export default function Root() {
         <>
             <Header />
             <main id={style.app} className={homeStyle.app}>
-                {(error) ? <p className={style.error}>{error}</p> : <>/</>}
+                {(errorMessage) ? <p className={style.error}>{errorMessage}</p> : <>/</>}
                 <div className={style.main}>
                     <div className={style.area}>
                         <h2 className={style.title}>ROOM (Mode)</h2>
                         <ul className={style.mainGroup}>
-                            {modes.map((e) =>
-                                <li key={e.MODE_GUID}>
-                                    <article className={style.mainMode} onClick={() => selectMode(e.MODE_GUID)}>
+                            {roomOrMode.map((e) =>
+                                <li key={e.UID}>
+                                    <article className={style.mainMode} onClick={() => selectMode(e.UID)}>
                                         <div className={style.mode}>
 
                                             <fa.FaDocker className={style.dockerIcon} />
                                             <div className={style.modeArea}>
-                                                <span className={style.modeElement}>Image: <span>{e.CONTAINER_IMAGE}</span></span>
-                                                <span className={style.modeElement}>Params: <span> {e.CONTAINER_PARAM}</span></span>
+                                                <span className={style.modeElement}>Image: <span>{e.ContainerImage}</span></span>
+                                                <span className={style.modeElement}>Params: <span> {e.ContainerParam}</span></span>
                                             </div>
                                         </div>
 
-                                        <span className={style.modeName}>{e.MODE_NAME}</span>
+                                        <span className={style.modeName}>{e.Mode}</span>
                                     </article>
                                 </li>
                             )}
@@ -197,11 +298,11 @@ export default function Root() {
                     </div>
 
                     <div className={style.area}>
-                        <h2 className={style.title}>Status</h2>
+                        <h2 className={style.title}>States</h2>
                         <ul className={style.mainGroup}>
-                            <li className={style.states}>Users: {states.USERS}</li>
-                            <li className={style.states}>Matches: {states.MATCHES}</li>
-                            <li className={style.states}>Rooms (modes): {states.ROOMS}</li>
+                            <li className={style.states}>Users: {states.Users}</li>
+                            <li className={style.states}>Matches: {states.Matches}</li>
+                            <li className={style.states}>Rooms (modes): {states.Rooms}</li>
                         </ul>
                     </div>
 
@@ -210,7 +311,7 @@ export default function Root() {
                         <ul className={style.mainGroup}>
                             <li>
                                 <form className={style.form} action="" method="post" onSubmit={(e) => formSubmit(e)}>
-                                    <input value={guid} onChange={(e) => setGuid(e.target.value)} type="text" name="guid" style={{ display: 'none' }} />
+                                    <input value={uid} onChange={(e) => setGuid(e.target.value)} type="text" name="guid" style={{ display: 'none' }} />
                                     <input value={modeName} onChange={(e) => setModeName(e.target.value)} className={style.formText} required placeholder="mode name" type="text" name="mode" />
                                     <input value={(minUser == 0) ? "" : minUser} onChange={(e) => setMinUser(Number.parseInt(e.target.value))} className={style.formText} required placeholder="min user" type="number" name="min_user" min={0} max={1000} />
                                     <input value={(maxUser == 0) ? "" : maxUser} onChange={(e) => setMaxUser(Number.parseInt(e.target.value))} className={style.formText} required placeholder="max user" type="number" name="max_user" min={0} max={1000} />
@@ -227,15 +328,15 @@ export default function Root() {
                                         </section>
 
                                         {containerPort.map((e) => (
-                                            <article key={e.guid} className={style.port}>
-                                                <input className={style.portText} onChange={(o) => updatePort(e.guid, o.target.value, false)} value={e.name} placeholder='port name' required type="text" minLength={1} maxLength={16} />
-                                                <input className={style.portText} onChange={(o) => updatePort(e.guid, o.target.value, true)} value={(e.value == 0) ? "" : e.value} placeholder='port value' required type="number" min={1} max={65535} />
-                                                <button onClick={(o) => removePort(o, e.guid)}><ai.AiFillDelete /></button>
+                                            <article key={e.UID} className={style.port}>
+                                                <input className={style.portText} onChange={(o) => updatePort(e.UID, o.target.value, false)} value={e.Name} placeholder='port name' required type="text" minLength={1} maxLength={16} />
+                                                <input className={style.portText} onChange={(o) => updatePort(e.UID, o.target.value, true)} value={(e.Value == 0) ? "" : e.Value} placeholder='port value' required type="number" min={1} max={65535} />
+                                                <button onClick={(o) => removePort(o, e.UID)}><ai.AiFillDelete /></button>
                                             </article>
                                         ))}
                                     </section>
 
-                                    <input type="submit" value={(guid) ? "Update" : "Register"} />
+                                    <input type="submit" value={(uid) ? "Update" : "Register"} />
                                 </form>
                             </li>
                         </ul>
