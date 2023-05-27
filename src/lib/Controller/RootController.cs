@@ -11,8 +11,21 @@ public class RootController
 {
     private readonly static object roomLock = new object();
     public readonly Client Client;
+
+    private const string SISMA_KEY = "sisma";
+    private const string SUCCESS_KEY = "success";
+    private const string ROOM_KEY = "room";
+    private const string ROOMS_KEY = "rooms";
+    private const string MATCH_KEY = "match";
+    private const string MATCHES_KEY = "matches";
+    private const string EXIST_KEY = "exist";
     private const string ERROR_KEY = "error";
-    private const string ERROR_VALUE = "Bad request";
+    private const string DESTROYED_KEY = "destroyed";
+    private const string LENGTH_KEY = "length";
+    private const string USER_KEY = "user";
+    private const string USERS_KEY = "users";
+    private const string FORWARDED_KEY = "forwarded";
+    private const string DEFAULT_ERROR_MESSAGE = "Bad request";
 
     public RootController(Client client) { this.Client = client; }
 
@@ -88,17 +101,17 @@ public class RootController
 
         Dictionary<string, dynamic?> response = new();
 
-        response.Add("sisma", "USER_GET.RESULT");
-        response.Add("success", !result.error);
+        response.Add(SISMA_KEY, "USER_GET.RESULT");
+        response.Add(SUCCESS_KEY, !result.error);
 
         if (result.error)
         {
-            response.Add(ERROR_KEY, ERROR_VALUE);
+            response.Add(ERROR_KEY, DEFAULT_ERROR_MESSAGE);
         }
         else
         {
-            response.Add("user", result.user);
-            response.Add("exist", result.user != null);
+            response.Add(USER_KEY, result.user);
+            response.Add(EXIST_KEY, result.user != null);
         }
 
         Client.Send(JsonConvert.SerializeObject(response));
@@ -110,9 +123,10 @@ public class RootController
         Dictionary<string, dynamic> response = new();
         List<User> users = Client.Server.Clients.Where(x => x.User.SuperUser == false).Select(x => x.User).ToList();
 
-        response.Add("sisma", "USER_GETALL.RESULT");
-        response.Add("users", users);
-        response.Add("length", users.Count);
+        response.Add(SISMA_KEY, "USER_GETALL.RESULT");
+        response.Add(SUCCESS_KEY, true);
+        response.Add(USERS_KEY, users);
+        response.Add(LENGTH_KEY, users.Count);
 
         Client.Send(JsonConvert.SerializeObject(response));
 
@@ -152,17 +166,17 @@ public class RootController
 
         Dictionary<string, dynamic?> response = new();
 
-        response.Add("sisma", "USER_DESTROY.RESULT");
-        response.Add("success", !result.error);
+        response.Add(SISMA_KEY, "USER_DESTROY.RESULT");
+        response.Add(SUCCESS_KEY, !result.error);
 
         if (result.error)
         {
-            response.Add(ERROR_KEY, ERROR_VALUE);
+            response.Add(ERROR_KEY, DEFAULT_ERROR_MESSAGE);
         }
         else
         {
-            response.Add("user", result.user);
-            response.Add("destroyed", result.user != null);
+            response.Add(USER_KEY, result.user);
+            response.Add(DESTROYED_KEY, result.user != null);
         }
 
         Client.Send(JsonConvert.SerializeObject(response));
@@ -203,17 +217,17 @@ public class RootController
 
         Dictionary<string, dynamic?> response = new();
 
-        response.Add("sisma", "USER_FORWARD.RESULT");
-        response.Add("success", !result.error);
+        response.Add(SISMA_KEY, "USER_FORWARD.RESULT");
+        response.Add(SUCCESS_KEY, !result.error);
 
         if (result.error)
         {
-            response.Add(ERROR_KEY, ERROR_VALUE);
+            response.Add(ERROR_KEY, DEFAULT_ERROR_MESSAGE);
         }
         else
         {
-            response.Add("user", result.user);
-            response.Add("forwarded", result.user != null);
+            response.Add(USER_KEY, result.user);
+            response.Add(FORWARDED_KEY, result.user != null);
         }
 
         Client.Send(JsonConvert.SerializeObject(response));
@@ -258,17 +272,17 @@ public class RootController
 
         Dictionary<string, dynamic?> response = new();
 
-        response.Add("sisma", "ROOM_GET.RESULT");
-        response.Add("success", !result.error);
+        response.Add(SISMA_KEY, "ROOM_GET.RESULT");
+        response.Add(SUCCESS_KEY, !result.error);
 
         if (result.error)
         {
-            response.Add(ERROR_KEY, ERROR_VALUE);
+            response.Add(ERROR_KEY, DEFAULT_ERROR_MESSAGE);
         }
         else
         {
-            response.Add("room", result.room);
-            response.Add("exist", result.room != null);
+            response.Add(ROOM_KEY, result.room);
+            response.Add(EXIST_KEY, result.room != null);
         }
 
         Client.Send(JsonConvert.SerializeObject(response));
@@ -281,9 +295,10 @@ public class RootController
         lock (roomLock)
         {
             Dictionary<string, dynamic> response = new();
-            response.Add("sisma", "ROOM_GETALL.RESULT");
-            response.Add("rooms", Client.Server.Rooms);
-            response.Add("length", Client.Server.Rooms.Count);
+            response.Add(SISMA_KEY, "ROOM_GETALL.RESULT");
+            response.Add(SUCCESS_KEY, true);
+            response.Add(ROOMS_KEY, Client.Server.Rooms);
+            response.Add(LENGTH_KEY, Client.Server.Rooms.Count);
 
             Client.Send(JsonConvert.SerializeObject(response));
         }
@@ -348,17 +363,17 @@ public class RootController
 
         Dictionary<string, dynamic?> response = new();
 
-        response.Add("sisma", "ROOM_DESTROY.RESULT");
-        response.Add("success", !result.error);
+        response.Add(SISMA_KEY, "ROOM_DESTROY.RESULT");
+        response.Add(SUCCESS_KEY, !result.error);
 
         if (result.error)
         {
-            response.Add(ERROR_KEY, ERROR_VALUE);
+            response.Add(ERROR_KEY, DEFAULT_ERROR_MESSAGE);
         }
         else
         {
-            response.Add("room", result.room);
-            response.Add("destroyed", result.room != null);
+            response.Add(ROOM_KEY, result.room);
+            response.Add(DESTROYED_KEY, result.room != null);
         }
 
         Client.Send(JsonConvert.SerializeObject(response));
@@ -369,7 +384,7 @@ public class RootController
     {
         var json = Encoding.UTF8.GetString(buffer);
 
-        (Room? room, bool error, string errorMessage) result = new(null, false, ERROR_VALUE);
+        (Room? room, bool error, string errorMessage) result = new(null, false, DEFAULT_ERROR_MESSAGE);
 
         try
         {
@@ -428,8 +443,8 @@ public class RootController
 
         Dictionary<string, dynamic?> response = new();
 
-        response.Add("sisma", "ROOM_REGISTER.RESULT");
-        response.Add("success", !result.error);
+        response.Add(SISMA_KEY, "ROOM_REGISTER.RESULT");
+        response.Add(SUCCESS_KEY, !result.error);
 
         if (result.error)
         {
@@ -437,7 +452,7 @@ public class RootController
         }
         else
         {
-            response.Add("room", result.room);
+            response.Add(ROOM_KEY, result.room);
         }
 
         Client.Send(JsonConvert.SerializeObject(response));
@@ -482,17 +497,17 @@ public class RootController
 
         Dictionary<string, dynamic?> response = new();
 
-        response.Add("sisma", "MATCH_GET.RESULT");
-        response.Add("success", !result.error);
+        response.Add(SISMA_KEY, "MATCH_GET.RESULT");
+        response.Add(SUCCESS_KEY, !result.error);
 
         if (result.error)
         {
-            response.Add(ERROR_KEY, ERROR_VALUE);
+            response.Add(ERROR_KEY, DEFAULT_ERROR_MESSAGE);
         }
         else
         {
-            response.Add("match", result.match);
-            response.Add("exist", result.match != null);
+            response.Add(MATCH_KEY, result.match);
+            response.Add(EXIST_KEY, result.match != null);
         }
 
         Client.Send(JsonConvert.SerializeObject(response));
@@ -505,9 +520,10 @@ public class RootController
         Dictionary<string, dynamic> response = new();
         var matches = Client.Server.Matches.ToArray();
 
-        response.Add("sisma", "MATCH_GETALL.RESULT");
-        response.Add("matches", matches);
-        response.Add("length", matches.Length);
+        response.Add(SISMA_KEY, "MATCH_GETALL.RESULT");
+        response.Add(SUCCESS_KEY, true);
+        response.Add(MATCHES_KEY, matches);
+        response.Add(LENGTH_KEY, matches.Length);
 
         Client.Send(JsonConvert.SerializeObject(response));
 
