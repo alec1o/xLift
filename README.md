@@ -6,9 +6,13 @@
   powered by <a href="https://github.com/alec1o">ALEC1O</a><sub/>
 </h6>
 
-
 ##### About
 > <sub>[SISMA](https://github.com/alec1o/sisma) _Is a Matchmaking, Game server manager with docker_</sub>
+
+<br>
+
+##### Documentation
+> <sub>Consult the documentation for a better understanding and clarification of doubts [HERE](/docs)</sub>
 
 <br>
   
@@ -43,27 +47,10 @@
     <image width="49%" src="https://github.com/alec1o/Sisma/assets/100610503/5c30440e-70c9-4536-820b-ceb6a07807f8" alt="sisma web - root page update existent room (mode)" />
 </div>
 
-
-## Install
-```txt
-To configure containers, bind port, game modes, it will be through a web panel.
-which will run on an exposed port...
-```
-
-```rb
-$ git clone "https://github.com/alec1o/Sisma"
-$ cd Sisma
-
-# default config (--sisma: 127.0.0.1:10101 --web: 127.0.0.1:3000)
-$ dotnet run dev
-
-# Advanced
-$ dotnet run --sisma "127.0.0.0:10101" --web "127.0.0.1:80"
-```
-
 <br>
 
-## FAQ
+##### FAQ
+  
 ### How do I communicate with sisma? 
 > You need to use a websocket and convert all input and output data to json format, following the usage protocols seen below in the documentation.
 ### What environment should it run in?
