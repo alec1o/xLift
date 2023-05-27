@@ -54,7 +54,7 @@
 ###### How do I communicate with sisma? 
 > <sub>You need to use a websocket and convert all input and output data to json format, following the usage protocols seen below in the documentation.</sub>
 ###### What environment should it run in?
-> <sun>Linux, Windows, Mac. Where C# runs and has docker installed. Linux is the best.</sub>
+> <sub>Linux, Windows, Mac. Where C# runs and has docker installed. Linux is the best.</sub>
 ###### Does sisma run on multiple clusters?
 > <sub>No. Sisma was designed to run on just one machine.</sub>
 ###### How to balance the game?
