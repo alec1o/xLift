@@ -41,6 +41,15 @@ export default function Root({ wss }: IProps) {
     wss.onopen = _ => {
         print("Connected")
         wss.send(JSON.stringify({ sisma: "ROOM_GETALL" }))
+
+        setTimeout(() => {
+            setInterval(() => {
+                // sync user
+                wss.send(JSON.stringify({ sisma: "USER_GETALL" }))
+                // sync matches
+                wss.send(JSON.stringify({ sisma: "MATCH_GETALL" }))
+            }, 5000 /*5s*/)
+        })
     }
 
     wss.onclose = _ => {
@@ -108,6 +117,26 @@ export default function Root({ wss }: IProps) {
             }
             else if (error) {
                 print(`ROOM_DESTROY: ${error}`)
+            }
+        }
+        else if (sisma == "USER_GETALL.RESULT") {
+            const { error, length } = data
+
+            if (length == 0 || length != undefined) {
+                setStates({ Users: length, Matches: states.Matches, Rooms: states.Rooms })
+            }
+            else if (error) {
+                print(`USER_GETALL: ${error}`)
+            }
+        }
+        else if (sisma == "MATCH_GETALL.RESULT") {
+            const { error, length } = data
+
+            if (length == 0 || length != undefined) {
+                setStates({ Users: states.Users, Matches: length, Rooms: states.Rooms })
+            }
+            else if (error) {
+                print(`USER_GETALL: ${error}`)
             }
         }
     }
