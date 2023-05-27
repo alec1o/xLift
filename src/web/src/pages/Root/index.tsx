@@ -12,6 +12,8 @@ export default function Root() {
     const [minUser, setMinUser] = useState(0)
     const [maxUser, setMaxUser] = useState(0)
     const [matchTimeout, setMatchTimeout] = useState(0)
+    const [containerRam, setContainerRam] = useState(0)
+    const [containerCpu, setContainerCpu] = useState(0)
     const [containerImage, setContainerImage] = useState(``)
     const [containerParam, setContainerParam] = useState(``)
     const [containerPort, setContainerPort] = useState([] as { guid: string; name: string; value: number; }[])
@@ -54,6 +56,8 @@ export default function Root() {
         MIN_USER: 2,
         MAX_USER: 2,
         MATCH_TIMEOUT: 10000,
+        CONTAINER_RAM: 200,
+        CONTAINER_CPU: 100,
         CONTAINER_IMAGE: "game:latest",
         CONTAINER_PARAM: "--mode 1v1",
         CONTAINER_PORT: [
@@ -64,10 +68,9 @@ export default function Root() {
     }])
 
     const [states, setStates] = useState({
-        ONLINE_USER: 0,
-        ONLINE_ROOM: 0,
-        ROOMS_CREATED: 0,
-        USER_AT_MATCH: 0,
+        USERS: 0,
+        ROOMS: 0,
+        MATCHES: 0,
     })
 
     function selectMode(guid: string) {
@@ -81,6 +84,8 @@ export default function Root() {
                 setContainerImage(e.CONTAINER_IMAGE);
                 setContainerParam(e.CONTAINER_PARAM);
                 setContainerPort(e.CONTAINER_PORT)
+                setContainerRam(e.CONTAINER_RAM)
+                setContainerCpu(e.CONTAINER_CPU)
             }
         })
 
@@ -101,6 +106,8 @@ export default function Root() {
                     e.CONTAINER_IMAGE = containerImage;
                     e.CONTAINER_PARAM = containerParam;
                     e.CONTAINER_PORT = containerPort
+                    e.CONTAINER_RAM = containerRam
+                    e.CONTAINER_CPU = containerCpu
 
                     // reset states
                     setGuid("")
@@ -110,6 +117,8 @@ export default function Root() {
                     setMatchTimeout(0);
                     setContainerImage("");
                     setContainerParam("");
+                    setContainerCpu(0)
+                    setContainerRam(0)
                     setContainerPort([])
                 }
             })
@@ -159,7 +168,7 @@ export default function Root() {
                 <div className={style.main}>
 
                     <div className={style.area}>
-                        <h2 className={style.title}>Modes</h2>
+                        <h2 className={style.title}>ROOM (Mode)</h2>
                         <ul className={style.mainGroup}>
                             {modes.map((e) =>
                                 <li key={e.MODE_GUID}>
@@ -183,10 +192,9 @@ export default function Root() {
                     <div className={style.area}>
                         <h2 className={style.title}>Status</h2>
                         <ul className={style.mainGroup}>
-                            <li className={style.states}>Rooms: {states.ONLINE_ROOM}</li>
-                            <li className={style.states}>Online user: {states.ONLINE_USER}</li>
-                            <li className={style.states}>User on room: {states.USER_AT_MATCH}</li>
-                            <li className={style.states}>rooms created: {states.ROOMS_CREATED}</li>
+                            <li className={style.states}>Users: {states.USERS}</li>
+                            <li className={style.states}>Matches: {states.MATCHES}</li>
+                            <li className={style.states}>Rooms (modes): {states.ROOMS}</li>
                         </ul>
                     </div>
 
@@ -200,6 +208,8 @@ export default function Root() {
                                     <input value={(minUser == 0) ? "" : minUser} onChange={(e) => setMinUser(Number.parseInt(e.target.value))} className={style.formText} required placeholder="min user" type="number" name="min_user" min={0} max={1000} />
                                     <input value={(maxUser == 0) ? "" : maxUser} onChange={(e) => setMaxUser(Number.parseInt(e.target.value))} className={style.formText} required placeholder="max user" type="number" name="max_user" min={0} max={1000} />
                                     <input value={(matchTimeout == 0) ? "" : matchTimeout} onChange={(e) => setMatchTimeout(Number.parseInt(e.target.value))} className={style.formText} required placeholder="match timeout (milliseconds)" type="number" name="match_timeout" min={5000/* 5s*/} maxLength={(1000 * 60) * 10 /*10 min*/} />
+                                    <input value={(containerRam == 0) ? "" : containerRam} onChange={(e) => setContainerRam(Number.parseInt(e.target.value))} className={style.formText} required placeholder="container ram (Megabyte)" type="number" name="container_ram" min={0} />
+                                    <input value={(containerCpu == 0) ? "" : containerCpu} onChange={(e) => setContainerCpu(Number.parseInt(e.target.value))} className={style.formText} required placeholder="container cpu (priority)" type="number" name="container_cpu" min={0} />
                                     <input value={containerImage} onChange={(e) => setContainerImage(e.target.value)} className={style.formText} required placeholder="container image" type="text" name="container_image" />
                                     <input value={containerParam} onChange={(e) => setContainerParam(e.target.value)} className={style.formText} required placeholder="container param" type="text" name="container_param" />
 
