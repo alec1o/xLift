@@ -50,14 +50,13 @@
 <br>
 
 ##### FAQ
-  
-###### How do I communicate with sisma? 
-> <sub>You need to use a websocket and convert all input and output data to json format, following the usage protocols seen below in the documentation.</sub>
-###### What environment should it run in?
-> <sub>Linux, Windows, Mac. Where C# runs and has docker installed. Linux is the best.</sub>
-###### Does sisma run on multiple clusters?
-> <sub>No. Sisma was designed to run on just one machine.</sub>
-###### How to balance the game?
-> <sub>Sisma requires your player to enter an argument called "level" as a number in your jwt. so when your user wants to join a room, the user must be included in the room whose level is identical.</sub>
-###### How do I adjust my "level" so that the game is competitive?
-> <sub>Well, in this case, I have to give an example. If your game has 3 levels, which are "Silver, Gold and Diamond", a good idea is to make the "silver" level level 1, all "gold and diamond" level 2. That way, all "silver" levels " will be paired with "silver" and " All "gold and diamond" will gather in the same room, and no "silver" will be joined with "gold or diamond". you can leave the levels of all users identical ex level 0, then sisma will add everyone in the same room. Notice: "User level is just a prefix and does not affect any algorithm, you can make a rank being level 1000 for example and anyone with the same level will be included in the same room, sisma will not make any kind of approximation to unite players, the level itself is a filter that can be controlled by your authentication server that creates the tokens for your players to connect to sisma. in short, the level serves only to separate users by categories"</sub>
+- ###### How do I communicate with sisma? 
+  > <sub>You need to use a websocket and convert all input and output data to json format, following the usage protocols seen below in the documentation.</sub>
+- ###### What environment should it run in?
+  > <sub>Linux, Windows, Mac. Where C# runs and has docker installed. Linux is the best.</sub>
+- ###### Does sisma run on multiple clusters?
+  > <sub>No. Sisma was designed to run on just one machine.</sub>
+- ###### How to balance the game?
+  > <sub>Sisma requires your player to enter an argument called "level" as a number in your jwt. so when your user wants to join a room, the user must be included in the room whose level is identical.</sub>
+- ###### How do I adjust my "level" so that the game is competitive?
+  > <sub>Well, in this case, I have to give an example. If your game has 3 levels, which are "Silver, Gold and Diamond", a good idea is to make the "silver" level level 1, all "gold and diamond" level 2. That way, all "silver" levels " will be paired with "silver" and " All "gold and diamond" will gather in the same room, and no "silver" will be joined with "gold or diamond". you can leave the levels of all users identical ex level 0, then sisma will add everyone in the same room. Notice: "User level is just a prefix and does not affect any algorithm, you can make a rank being level 1000 for example and anyone with the same level will be included in the same room, sisma will not make any kind of approximation to unite players, the level itself is a filter that can be controlled by your authentication server that creates the tokens for your players to connect to sisma. in short, the level serves only to separate users by categories"</sub>
