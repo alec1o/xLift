@@ -10,11 +10,28 @@
 ##### About
 > <sub>[SISMA](https://github.com/alec1o/sisma) _Is a Matchmaking, Game server manager with docker_</sub>
 
-<h6 align="center">
- 
-<h6>
+<br>
+  
+##### Install
+> <sub>A guide how to install the system.</sub>
+- ###### Paths ``Configure environment variables``
+    ###### ``SISMA_ROOT_KEY`` Is the token you will use to communicate with the sisma web/console and run the root (admin) endpoint
+    ###### ``SISMA_JWT_KEY`` Is the jwt key that your server used to create client jwt, sisma needs the same key to verify user tokens that connect to sisma
 
-
+- ###### Console
+  ```sh
+  $ git clone "https://github.com/alec1o/sisma/"
+  $ cd sisma/src/web/
+  $ yarn dev --host "http://127.0.0.1:3000/"
+  ```
+  
+- ###### Sisma
+  ```sh
+  $ git clone "https://github.com/alec1o/sisma/"
+  $ cd sisma/src/lib/
+  $ dotnet run 127.0.0.1 10101
+  ```
+  
 <br>
 
 ##### Console
