@@ -11,22 +11,27 @@
 > <sub>[SISMA](https://github.com/alec1o/sisma) _Is a Matchmaking, Game server manager with docker_</sub>
 
 <h6 align="center">
-  <img align="center" src="https://github.com/alec1o/Sisma/assets/100610503/ed306784-398f-4802-94bd-bd230e113477" width="100%">
+ 
 <h6>
 
 
 <br>
 
+##### Console
+> <sub>Console, is a web panel where you can observe the status and create rooms (modes). _Rooms are a prefab that will be used to create matches_.</sub>
+<div align="center">
+    <image width="49%" src="https://github.com/alec1o/Sisma/assets/100610503/ed306784-398f-4802-94bd-bd230e113477" alt="sisma diagram architecture">
+    <image width="49%" src="https://github.com/alec1o/Sisma/assets/100610503/3cb143bb-f536-4371-b4a3-504e31e329e2" alt="sisma web - login" />
+    <image width="49%" src="https://github.com/alec1o/Sisma/assets/100610503/78ba0156-1c7c-40e9-9086-a6b90036cf72" alt="sisma web - root page create new room (mode)" />
+    <image width="49%" src="https://github.com/alec1o/Sisma/assets/100610503/5c30440e-70c9-4536-820b-ceb6a07807f8" alt="sisma web - root page update existent room (mode)" />
+</div>
+
+
 ## Install
 ```txt
 To configure containers, bind port, game modes, it will be through a web panel.
-which will run on an exposed port... see more in the installation area bellow 
+which will run on an exposed port...
 ```
-<div>
-    <image width="49%" src="https://github.com/alec1o/Sisma/assets/100610503/36c0e577-3091-45f8-a4e1-c28f49eede32" alt="sisma web - login" />
-    <image  width="49%" src="https://github.com/alec1o/Sisma/assets/100610503/8823c92d-4d1d-4724-96ec-c8a6ca078d86" alt="sisma web - root page" />
-</div>
-
 
 ```rb
 $ git clone "https://github.com/alec1o/Sisma"
