@@ -10,12 +10,12 @@ public class Room
     public string ContainerParam { get; set; }
     public Port[] ContainerPorts { get; set; }
     public int MatchTimeout { get; set; }
-    public int RamMemoryLimit { get; set; }
-    public int CpuLimit { get; set; }
+    public int ContainerRam { get; set; }
+    public int ContainerCpu { get; set; }
     public int MinUser { get; set; }
     public int MaxUser { get; set; }
 
-    public Room(string uid, string mode, int minUser, int maxUser, int matchTimeout, string containerImage, string containerParam, Port[] containerPorts, int ramMemoryLimit, int cpuLimit)
+    public Room(string uid, string mode, int minUser, int maxUser, int matchTimeout, string containerImage, string containerParam, Port[] containerPorts, int containerRam, int containerCpu)
     {
         this.UID = uid;
         this.Mode = mode;
@@ -25,8 +25,8 @@ public class Room
         this.MatchTimeout = matchTimeout;
         this.MinUser = minUser;
         this.MaxUser = maxUser;
-        this.RamMemoryLimit = ramMemoryLimit;
-        this.CpuLimit = cpuLimit;
+        this.ContainerRam = containerRam;
+        this.ContainerCpu = containerCpu;
     }
 
     public static bool IsValid(Room? room)
@@ -34,8 +34,8 @@ public class Room
         if (room == null) return false;
 
         if (room.MatchTimeout <= 0) return false;
-        if (room.RamMemoryLimit < 0) return false;
-        if (room.CpuLimit < 0) return false;
+        if (room.ContainerRam < 0) return false;
+        if (room.ContainerCpu < 0) return false;
         if (room.MinUser <= 0) return false;
         if (room.MaxUser <= 0) return false;
 
