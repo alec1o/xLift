@@ -22,8 +22,6 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore --project src/lib/Sisma.csproj  
-    - name: Debug dir
-      run: ls -la;
     - name: Build
       run: dotnet build --no-restore --project src/lib/Sisma.csproj  
     - name: Test
