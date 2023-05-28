@@ -56,6 +56,10 @@ public class Server
         };
 
         Socket.Start();
+        
+        // Start matchmaking system
+        Matchmaking.Init(this);
+
         Console.WriteLine($"[WEBSOCKET SERVER STARTED] {host}");
     }
 }
