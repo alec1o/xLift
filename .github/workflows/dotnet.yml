@@ -21,9 +21,6 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore --project src/lib/Sisma.csproj  
+      run: dotnet restore --project src/lib/
     - name: Build
-      run: dotnet build --no-restore --project src/lib/Sisma.csproj  
-    - name: Test
-      run: echo "100%"
-      #run:  dotnet test --no-build --verbosity normal
+      run: dotnet build --no-restore src/lib/
