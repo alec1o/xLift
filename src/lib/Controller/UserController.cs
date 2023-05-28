@@ -40,11 +40,43 @@ public class UserController
 
     private bool Match_Enter(ref byte[] buffer)
     {
-        throw new NotImplementedException();
+        Output.Show("MATCH_ENTER");
+
+        var json = Encoding.UTF8.GetString(buffer);
+        var request = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+
+        if (request == null)
+        {
+            //
+            Output.Show("NULL MATCH_ENTER REQUEST");
+            return false;
+        }
+        else
+        {
+            var mode = request.GetValueOrDefault("mode", string.Empty) ?? string.Empty;
+            Output.Show("MATCH_ENTER " + mode);
+
+            if (mode != null)
+            {
+                foreach (var room in Client.Server.Rooms)
+                {
+                    if (room.Mode == mode)
+                    {
+                        Matchmaking.AddUserInQueue(Client, room);
+                        return true;
+                    }
+                }
+
+                Output.Show("MATCH_ENTER NOT FOUND MODE: " + mode);
+            }
+
+            return true;
+        }
     }
 
     private bool Match_Exit(ref byte[] buffer)
     {
-        throw new NotImplementedException();
+        Matchmaking.RemoveUserInQueue(Client);
+        return true;
     }
 }
