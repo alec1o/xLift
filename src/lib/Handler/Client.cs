@@ -63,6 +63,7 @@ namespace Sisma.Handler
             Output.Show($"ON MESSAGE {User.UID} -> RAW: {json}");
 
             rootController?.OnMessage(buffer);
+            userController?.OnMessage(buffer);
         }
 
         public void Send(byte[] buffer)
