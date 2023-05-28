@@ -24,6 +24,8 @@ jobs:
       run: cd src/lib/ 
     - name: Restore dependencies
       run: dotnet restore
+    - name: Debug dir
+      run: ls -la;
     - name: Build
       run: dotnet build --no-restore
     - name: Test
