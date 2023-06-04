@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu&display=swap');
+@import url('https://fonts.cdnfonts.com/css/syn-nova');
+@import url('https://fonts.cdnfonts.com/css/kiona-2');
+
 
 * {
     margin: 0;
@@ -9,6 +12,8 @@
     border: none;
     cursor: default;
     border-radius: 0;
+    list-style: none;
+    text-decoration: none;
     font-family: "Ubuntu", "Roboto", Arial;
 }
 
@@ -20,7 +25,8 @@ a {
 }
 
 body {
-    width: 100vw;
+    width: 100%;
+    height: auto;
     min-height: 100vh;
     background-color: rgb(20, 23, 28);
 }
