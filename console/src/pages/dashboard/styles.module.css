@@ -66,13 +66,33 @@
 }
 
 .MenuTabLink svg {
-    padding: 2px;
+    padding: 1px;
     margin-right: 5px;
     transform: translateY(2px);
 }
 
+.LED {
+    /* animation */
+    background: linear-gradient(-45deg, #5020ce, #ce2050, #2050ce, #20ce50);
+    animation: ColorAnimation 7s linear infinite alternate;
+    background-size: 400% 400%;
+
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
 /* ID */
+
+#poweredby {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+
+#poweredby>a {
+    text-align: center;
+    margin-bottom: 50px;
+}
 
 #init {
     display: flex;
@@ -95,8 +115,9 @@
     height: auto;
     min-height: 100%;
     grid-template-rows: auto 1fr auto;
-    background-color: rgb(20, 25, 30);
     display: grid;
+    width: 100%;
+    background-color: rgb(10, 15, 30);
 }
 
 #menuLink {
