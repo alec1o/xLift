@@ -1,6 +1,9 @@
 {
   "extends": "next",
   "rules": {
-    "indent": 2
+    "indent": [
+      "error",
+      4
+    ]
   }
 }
