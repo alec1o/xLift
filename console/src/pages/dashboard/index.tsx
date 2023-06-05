@@ -4,6 +4,7 @@ import { BiUserPin, BiJoystick, BiPackage } from "react-icons/bi"
 import { FiCpu } from "react-icons/fi"
 import { SiGitbook } from "react-icons/si"
 import { VscPulse, VscGlobe, VscGithubInverted } from "react-icons/vsc"
+import Link from "next/link"
 
 export default function Dashboard() {
 
@@ -78,25 +79,25 @@ export default function Dashboard() {
                     <section className={style.MenuTab}>
                         <span className={style.MenuTabName}>Inspector</span>
 
-                        <a className={`${style.MenuTabLink} ${users ? style.LEDText : ''}`} onClick={() => activeUsers()}><BiUserPin /> Users</a>
-                        <a className={`${style.MenuTabLink} ${matches ? style.LEDText : ''}`} onClick={() => activeMatches()}><BiJoystick /> Matches</a>
-                        <a className={`${style.MenuTabLink} ${dashboard ? style.LEDText : ''}`} onClick={() => activeDashboard()}><VscPulse /> Dashboard</a>
+                        <button className={`${style.MenuTabLink} ${users ? style.LEDText : ''}`} onClick={() => activeUsers()}><BiUserPin /> Users</button>
+                        <button className={`${style.MenuTabLink} ${matches ? style.LEDText : ''}`} onClick={() => activeMatches()}><BiJoystick /> Matches</button>
+                        <button className={`${style.MenuTabLink} ${dashboard ? style.LEDText : ''}`} onClick={() => activeDashboard()}><VscPulse /> Dashboard</button>
                     </section>
                     <section className={style.MenuTab}>
                         <span className={style.MenuTabName}>Internal</span>
 
-                        <a className={`${style.MenuTabLink} ${prefabs ? style.LEDText : ''}`} onClick={() => activePrefabs()}>< BiPackage /> Prefabs</a>
-                        <a className={`${style.MenuTabLink} ${cluster ? style.LEDText : ''}`} onClick={() => activeCluster()}><VscGlobe /> Cluster</a>
-                        <a className={`${style.MenuTabLink} ${setting ? style.LEDText : ''}`} onClick={() => activeSetting()}><FiCpu /> Setting</a>
+                        <button className={`${style.MenuTabLink} ${prefabs ? style.LEDText : ''}`} onClick={() => activePrefabs()}>< BiPackage /> Prefabs</button>
+                        <button className={`${style.MenuTabLink} ${cluster ? style.LEDText : ''}`} onClick={() => activeCluster()}><VscGlobe /> Cluster</button>
+                        <button className={`${style.MenuTabLink} ${setting ? style.LEDText : ''}`} onClick={() => activeSetting()}><FiCpu /> Setting</button>
                     </section>
                     <section id={style.poweredby} className={style.MenuTab}>
                         <section className={style.MenuTab}>
                             <span className={style.MenuTabName}>More</span>
-                            <a className={style.MenuTabLink} href="#">< VscGithubInverted /> GitHub</a>
-                            <a className={style.MenuTabLink} href="#">< SiGitbook /> Documentation</a>
+                            <Link className={style.MenuTabLink} href="https://github.com/alec1o/Sisma/" target="_blank">< VscGithubInverted /> GitHub</Link>
+                            <Link className={style.MenuTabLink} href="https://sisma.docs.kezero.com/" target="_blank">< SiGitbook /> Documentation</Link>
                         </section>
 
-                        <a className={`${style.MenuTabLink} ${style.LED}`} href="#">Powered by @alec1o</a>
+                        <Link className={`${style.MenuTabLink} ${style.LED}`} href="https://solo.to/alec1o/" target="_blank">Powered by @alec1o</Link>
                     </section>
                 </nav>
             </menu>
