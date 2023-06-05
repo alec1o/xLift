@@ -1,0 +1,84 @@
+.Main {
+    position: relative;
+    height: 100%;
+    max-height: calc(100% - 100px);
+    margin: 50px;
+    padding: 25px;
+    width: calc(100% - 100px);
+    background-color: rgb(10, 20, 40);
+    overflow-y: auto;
+}
+
+.FilterSection {
+    position: relative;
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.FilterSection>form {
+    position: relative;
+    display: flex;
+}
+
+.FilterSection>form input {
+    padding: 10px;
+    margin: 5px;
+}
+
+.FilterFormJoiner {
+    color: white;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.SearchSection {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.ResultSection {
+    flex-direction: column;
+    display: flex;
+    height: 100%;
+    max-height: calc(100% - 100px);
+    overflow-y: auto;
+}
+
+.TableSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.TableSection>form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.TableSection>form>section {
+    margin: 10px;
+    color: white;
+}
+
+.Table {
+    border-collapse: collapse;
+}
+
+.Table>tr {
+    height: 50px;
+    border-bottom: 2px solid black;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.Table>tr>th {
+    padding: 10px;
+    text-align: left;
+    background-color: transparent;
+    color: white;
+}
