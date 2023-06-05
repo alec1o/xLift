@@ -59,10 +59,11 @@
 
 .MenuTabLink {
     font-size: 16px;
-    margin: 15px 25px;
+    margin: 5px;
     font-family: "Kiona";
     text-transform: capitalize;
     color: white;
+    padding: 10px 10px;
 }
 
 .MenuTabLink svg {
@@ -75,10 +76,14 @@
     /* animation */
     background: linear-gradient(-45deg, #5020ce, #ce2050, #2050ce, #20ce50);
     animation: ColorAnimation 7s linear infinite alternate;
-    background-size: 400% 400%;
+    background-size: 200% 200%;
 
     background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.LEDText {
+    margin-left: 20px;
 }
 
 /* ID */
