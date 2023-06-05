@@ -5,6 +5,7 @@ import { FiCpu } from "react-icons/fi"
 import { SiGitbook } from "react-icons/si"
 import { VscPulse, VscGlobe, VscGithubInverted } from "react-icons/vsc"
 import Link from "next/link"
+import Users from "./Users"
 
 export default function Dashboard() {
 
@@ -105,7 +106,7 @@ export default function Dashboard() {
                 <header id={style.header}></header>
                 <main id={style.main}>
                     {
-                        users ? <>users</> :
+                        users ? <Users /> :
                             matches ? <>matches</> :
                                 dashboard ? <>dashboard</> :
                                     prefabs ? <>prefabs</> :
