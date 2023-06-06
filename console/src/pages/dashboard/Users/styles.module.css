@@ -1,3 +1,57 @@
+.Title {
+    display: inline;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-family: "Kiona";
+    letter-spacing: 3px;
+}
+
+.FindUser {
+    display: flex;
+    align-items: center;
+}
+
+.FindUser button {
+    font-size: 22px;
+    background: none;
+    padding: 5px;
+    color: white;
+}
+
+.FindUser button * {
+    cursor: pointer;
+}
+
+.FindUser input {
+    height: 30px;
+    background: none;
+    margin: 5px;
+    color: white;
+    font-size: 14px;
+}
+
+.FindUser input[type=search] {
+    padding-left: 10px;
+    padding-bottom: 5px;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
+    font-size: 12px;
+    font-weight: 400;
+    cursor: text;
+}
+
+.FindUser input[type=search]::placeholder {
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 2px;
+    font-family: "Kiona";
+}
+
+.FindUser input[type=submit] {
+    padding: 5px;
+    font-size: 15px;
+}
+
 .LocateArea {
     display: flex;
     align-items: center !important;
@@ -15,7 +69,7 @@
     align-items: center;
     justify-content: center;
     background: none;
-    font-size: 18px;
+    font-size: 22px;
     padding: 5px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
@@ -30,9 +84,9 @@
 }
 
 .LocateButton span {
-    font-size: 14px;
+    font-size: 12px;
     letter-spacing: 5px;
-    text-transform: uppercase;
+    font-family: "Kiona";
 }
 
 .LocateRow {
@@ -43,7 +97,9 @@
     cursor: pointer;
     text-align: center;
     background: rgb(10, 20, 40);
-    text-transform: uppercase;
+    text-transform: lowercase;
+    letter-spacing: 4px;
+    font-family: "Kiona";
 }
 
 .LocateRow option {
@@ -92,7 +148,9 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+    margin: 20px 0;
 }
+
 
 .ResultSection {
     flex-direction: column;

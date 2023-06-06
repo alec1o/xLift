@@ -1,6 +1,5 @@
 import style from "./styles.module.css"
-import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai"
-import { TbArrowWaveLeftDown, TbArrowWaveRightDown, TbChevronDownLeft, TbChevronDownRight, TbChevronLeft, TbChevronRight, TbChevronsDownLeft, TbChevronsDownRight, TbChevronsLeft, TbChevronsRight, TbChevronsUpRight } from "react-icons/tb"
+import { TbChevronLeft, TbChevronRight, TbChevronsLeft, TbChevronsRight, TbSearch } from "react-icons/tb"
 export default function Users() {
     return (
         <>
@@ -20,10 +19,12 @@ export default function Users() {
                 </section>
                 <section className={style.ResultSection}>
                     <section className={style.SearchSection}>
-                        <h2>Users</h2>
-                        <form>
-                            <input type="search" />
-                            <input type="submit" value="Search" />
+                        <h2 className={style.Title}>Users</h2>
+                        <form className={style.FindUser}>
+                            <input type="search" placeholder="Search" />
+                            <button type="submit">
+                                <TbSearch />
+                            </button>
                         </form>
                     </section>
                     <section className={style.TableSection}>
