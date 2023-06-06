@@ -14,7 +14,8 @@
     border-radius: 0;
     list-style: none;
     text-decoration: none;
-    font-family: "Ubuntu", "Roboto", Arial;
+    font-family: "Kiona", "Roboto", Arial;
+    letter-spacing: 1px;
 }
 
 button,
