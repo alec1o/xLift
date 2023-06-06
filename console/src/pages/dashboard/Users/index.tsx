@@ -4,25 +4,12 @@ export default function Users() {
     return (
         <>
             <main className={style.Main}>
-                <section className={style.FilterSection}>
-                    <form>
-                        <div className={style.FilterFormJoiner}>
-                            <label htmlFor="start">Start At</label>
-                            <input type="datetime-local" name="start" />
-                        </div>
-                        <div className={style.FilterFormJoiner}>
-                            <label htmlFor="end">End At</label>
-                            <input type="datetime-local" name="end" />
-                        </div>
-                        <input type="submit" value="Search" />
-                    </form>
-                </section>
                 <section className={style.ResultSection}>
                     <section className={style.SearchSection}>
                         <h2 className={style.Title}>Users</h2>
                         <form className={style.FindUser}>
                             <input type="search" placeholder="Search" />
-                            <button type="submit">
+                            <button title="Enter JWT.sub" type="submit">
                                 <TbSearch />
                             </button>
                         </form>
@@ -30,14 +17,14 @@ export default function Users() {
                     <section className={style.TableSection}>
                         <table className={style.Table}>
                             <tr>
-                                <th>Sub</th>
-                                <th>Time</th>
-                                <th>Status</th>
+                                <th title="User: ID - JWT.sub" className={style.TableID}>ID</th>
+                                <th title="User: Token - JWT" className={style.TableToken}>Token</th>
+                                <th title="User: Time - TIMER" className={style.TableTime}>Time</th>
                             </tr>
                             <tr>
-                                <th>123</th>
-                                <th><input type="datetime-local" name="" /></th>
-                                <th>Online</th>
+                                <th title="Copy" className={style.TableID_Value}>123</th>
+                                <th title="Copy" className={style.TableToken_Value}>ey...</th>
+                                <th title="Copy" className={style.TableTime_Value}>1h</th>
                             </tr>
                         </table>
 

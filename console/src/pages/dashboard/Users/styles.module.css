@@ -1,9 +1,35 @@
+.TableID {
+    width: 20%;
+}
+
+.TableToken {
+    width: 70%;
+}
+
+.TableTime {
+    width: 10%;
+}
+
+.TableID,
+.TableToken,
+.TableTime {
+    font-size: 14px;
+    background-color: #2050ce !important;
+}
+
+.TableID_Value,
+.TableToken_Value,
+.TableTime_Value {
+    font-size: 12px;
+    font-family: "Roboto", sans-serif;
+    text-transform: none;
+    cursor: copy;
+}
+
 .Title {
     display: inline;
     font-size: 20px;
     text-transform: uppercase;
-    font-family: "Kiona";
-    letter-spacing: 3px;
 }
 
 .FindUser {
@@ -43,8 +69,6 @@
 .FindUser input[type=search]::placeholder {
     text-transform: uppercase;
     color: white;
-    letter-spacing: 2px;
-    font-family: "Kiona";
 }
 
 .FindUser input[type=submit] {
@@ -85,8 +109,6 @@
 
 .LocateButton span {
     font-size: 12px;
-    letter-spacing: 5px;
-    font-family: "Kiona";
 }
 
 .LocateRow {
@@ -98,8 +120,6 @@
     text-align: center;
     background: rgb(10, 20, 40);
     text-transform: lowercase;
-    letter-spacing: 4px;
-    font-family: "Kiona";
 }
 
 .LocateRow option {
@@ -126,23 +146,6 @@
     flex-direction: column;
 }
 
-.FilterSection>form {
-    position: relative;
-    display: flex;
-}
-
-.FilterSection>form input {
-    padding: 10px;
-    margin: 5px;
-}
-
-.FilterFormJoiner {
-    color: white;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
 .SearchSection {
     position: relative;
     display: flex;
@@ -150,7 +153,6 @@
     width: 100%;
     margin: 20px 0;
 }
-
 
 .ResultSection {
     flex-direction: column;
@@ -184,7 +186,7 @@
 
 .Table>tr {
     height: 50px;
-    border-bottom: 2px solid black;
+    border: 2px solid #2050ce;
     background-color: rgba(0, 0, 0, 0.25);
 }
 
