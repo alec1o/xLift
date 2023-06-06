@@ -1,3 +1,57 @@
+.LocateArea {
+    display: flex;
+    align-items: center !important;
+    justify-content: space-around !important;
+    width: 100%;
+}
+
+.LocateButton {
+    display: flex;
+    align-items: center;
+}
+
+.LocateButton button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    font-size: 18px;
+    padding: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.LocateButton button:hover {
+    transform: scale(1.25);
+}
+
+.LocateButton button * {
+    cursor: inherit;
+}
+
+.LocateButton span {
+    font-size: 14px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+
+.LocateRow {
+    height: 50px;
+    padding: 10px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    background: rgb(10, 20, 40);
+    text-transform: uppercase;
+}
+
+.LocateRow option {
+    height: 50px;
+    width: 100px;
+    font-size: 16px;
+}
+
 .Main {
     position: relative;
     height: 100%;

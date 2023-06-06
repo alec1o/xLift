@@ -1,5 +1,6 @@
 import style from "./styles.module.css"
-
+import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai"
+import { TbArrowWaveLeftDown, TbArrowWaveRightDown, TbChevronDownLeft, TbChevronDownRight, TbChevronLeft, TbChevronRight, TbChevronsDownLeft, TbChevronsDownRight, TbChevronsLeft, TbChevronsRight, TbChevronsUpRight } from "react-icons/tb"
 export default function Users() {
     return (
         <>
@@ -39,8 +40,8 @@ export default function Users() {
                             </tr>
                         </table>
 
-                        <form>
-                            <select>
+                        <form className={style.LocateArea}>
+                            <select className={style.LocateRow}>
                                 <option value="00">All</option>
                                 <option value="05">05 row</option>
                                 <option value="10">10 row</option>
@@ -49,14 +50,13 @@ export default function Users() {
                                 <option value="30">30 row</option>
                                 <option value="50">50 row</option>
                             </select>
-                            <section>
-                                <button>--:</button>
-                                <button>-:</button>
+                            <section className={style.LocateButton}>
+                                <button><TbChevronsLeft /></button>
+                                <button><TbChevronLeft /></button>
                                 <span>1/10</span>
-                                <button>:-</button>
-                                <button>:--</button>
+                                <button><TbChevronRight /></button>
+                                <button><TbChevronsRight /></button>
                             </section>
-                            <input type="submit" value="Apply" />
                         </form>
                     </section>
                 </section>
