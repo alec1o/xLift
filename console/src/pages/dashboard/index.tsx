@@ -7,6 +7,7 @@ import { VscPulse, VscGlobe, VscGithubInverted } from "react-icons/vsc"
 import Link from "next/link"
 import Users from "./Users"
 import Rooms from "./Rooms"
+import Clusters from "./Clusters"
 
 export default function Dashboard() {
 
@@ -89,8 +90,8 @@ export default function Dashboard() {
                         <span className={style.MenuTabName}>Internal</span>
 
                         <button className={`${style.MenuTabLink} ${rooms ? style.LEDText : ''}`} onClick={() => activeRooms()}>< BiPackage /> Rooms</button>
-                        <button className={`${style.MenuTabLink} ${cluster ? style.LEDText : ''}`} onClick={() => activeCluster()}><VscGlobe /> Cluster</button>
-                        <button className={`${style.MenuTabLink} ${setting ? style.LEDText : ''}`} onClick={() => activeSetting()}><FiCpu /> Setting</button>
+                        <button className={`${style.MenuTabLink} ${cluster ? style.LEDText : ''}`} onClick={() => activeCluster()}><VscGlobe /> Clusters</button>
+                        <button className={`${style.MenuTabLink} ${setting ? style.LEDText : ''}`} onClick={() => activeSetting()}><FiCpu /> Settings</button>
                     </section>
                     <section id={style.poweredby} className={style.MenuTab}>
                         <section className={style.MenuTab}>
@@ -111,7 +112,7 @@ export default function Dashboard() {
                             matches ? <>matches</> :
                                 dashboard ? <>dashboard</> :
                                     rooms ? <Rooms /> :
-                                        cluster ? <>cluster</> :
+                                        cluster ? <Clusters /> :
                                             setting ? <>setting</> :
                                                 <>{activeDashboard()}</>
                     }
