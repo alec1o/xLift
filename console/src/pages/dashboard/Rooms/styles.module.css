@@ -159,6 +159,7 @@
     flex-direction: column;
     justify-content: space-around;
     height: 100%;
+    padding: 5px;
 }
 
 .instance p {

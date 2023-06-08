@@ -45,8 +45,8 @@ export default function Rooms() {
                         <input required type="number" placeholder="matchmaking timeout (ms)" min={1} />
                         <input required type="text" placeholder="container image" minLength={3} />
                         <input required type="text" placeholder="container params" minLength={3} />
-                        <input required type="number" placeholder="max container cpu(priority)" min={1} />
-                        <input required type="number" placeholder="max container ram(mb)" min={1} />
+                        <input required type="number" placeholder="max container cpu (priority)" min={1} />
+                        <input required type="number" placeholder="max container ram (mb)" min={1} />
                         <input type="submit" value="Register" />
                     </div>
                     <ul className={style.portArea}>
