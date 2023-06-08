@@ -6,13 +6,14 @@ import { SiGitbook } from "react-icons/si"
 import { VscPulse, VscGlobe, VscGithubInverted } from "react-icons/vsc"
 import Link from "next/link"
 import Users from "./Users"
+import Rooms from "./Rooms"
 
 export default function Dashboard() {
 
     const [users, setUsers] = useState(false)
     const [matches, setMatches] = useState(false)
     const [dashboard, setDashboard] = useState(false)
-    const [prefabs, setPrefabs] = useState(false)
+    const [rooms, setPrefabs] = useState(false)
     const [cluster, setCluster] = useState(false)
     const [setting, setSetting] = useState(false)
 
@@ -43,7 +44,7 @@ export default function Dashboard() {
         setSetting(false)
     }
 
-    function activePrefabs() {
+    function activeRooms() {
         setUsers(false)
         setMatches(false)
         setDashboard(false)
@@ -87,7 +88,7 @@ export default function Dashboard() {
                     <section className={style.MenuTab}>
                         <span className={style.MenuTabName}>Internal</span>
 
-                        <button className={`${style.MenuTabLink} ${prefabs ? style.LEDText : ''}`} onClick={() => activePrefabs()}>< BiPackage /> Prefabs</button>
+                        <button className={`${style.MenuTabLink} ${rooms ? style.LEDText : ''}`} onClick={() => activeRooms()}>< BiPackage /> Rooms</button>
                         <button className={`${style.MenuTabLink} ${cluster ? style.LEDText : ''}`} onClick={() => activeCluster()}><VscGlobe /> Cluster</button>
                         <button className={`${style.MenuTabLink} ${setting ? style.LEDText : ''}`} onClick={() => activeSetting()}><FiCpu /> Setting</button>
                     </section>
@@ -109,7 +110,7 @@ export default function Dashboard() {
                         users ? <Users /> :
                             matches ? <>matches</> :
                                 dashboard ? <>dashboard</> :
-                                    prefabs ? <>prefabs</> :
+                                    rooms ? <Rooms /> :
                                         cluster ? <>cluster</> :
                                             setting ? <>setting</> :
                                                 <>{activeDashboard()}</>

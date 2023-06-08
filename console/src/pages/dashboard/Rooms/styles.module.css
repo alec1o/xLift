@@ -1,0 +1,174 @@
+.main {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.content {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    padding: 50px;
+}
+
+.output {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 40% !important;
+}
+
+.form {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    border: 2px solid #2050ce;
+    border-right: none;
+    border-bottom: none;
+}
+
+.form input {
+    width: 80%;
+    height: 40px;
+    background-color: transparent;
+    border-bottom: 2px solid rgba(32, 80, 206, .5);
+    margin: 10px;
+    color: white;
+    cursor: text;
+    font-size: 14px;
+    font-family: "Roboto", Arial;
+}
+
+.form input::placeholder {
+    color: #dddddd;
+    font-family: "Kiona", "Roboto", Arial;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.form input[type="submit"] {
+    border: none;
+    background-color: #2050ce;
+    cursor: pointer;
+    height: 50px;
+    margin-top: 20px;
+    font-size: 16px;
+    font-family: "SYN Nova", "Kiona", Arial;
+    text-transform: uppercase;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    transform: translateY(10px);
+}
+
+
+.inputArea,
+.portArea {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    padding-bottom: 0;
+    width: 50%;
+    margin: 10px;
+}
+
+.portArea li {
+    display: flex;
+    flex-direction: row;
+}
+
+.portArea li input {
+    padding: 0;
+    border-left: none;
+    width: 100%;
+}
+
+.portArea li button {
+    background-color: transparent;
+    font-size: 18px;
+    height: auto;
+    width: auto;
+}
+
+.subTitle {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    font-family: "SYN Nova", "Kiona", Arial;
+}
+
+.subTitle button {
+    background-color: transparent;
+    font-size: 18px;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.createColor {
+    color: #20ce50;
+}
+
+.deleteColor {
+    color: #ce2050;
+}
+
+.output {
+    margin-right: 50px;
+    margin-bottom: 0;
+    padding: 20px;
+    border: 2px solid #2050ce;
+    border-bottom: none;
+    border-right: none;
+}
+
+.instance {
+    cursor: pointer;
+    background-color: rgba(32, 80, 206, .25);
+    height: 100px;
+    margin: 10px;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 10px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.instance h1 {
+    text-align: center;
+    color: #20ce50;
+    font-size: 20px;
+    width: 100%;
+    padding: 5px;
+    background-color: rgb(10, 20, 40);
+
+}
+
+.instance .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+}
+
+.instance p {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-family: "Roboto", sans-serif;
+}
+
+.instance svg {
+    font-size: 18px;
+    margin: 3px 10px;
+}
