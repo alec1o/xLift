@@ -1,9 +1,9 @@
-import style from "./styles.module.css"
-import mainStyle from "../styles.module.css"
-import { AiOutlineSisternode, AiFillDelete } from "react-icons/ai"
-import { TbCirclePlus } from "react-icons/tb"
-import { SiDocker } from "react-icons/si"
-import { DiTerminal } from "react-icons/di"
+import style from "./styles.module.css";
+import mainStyle from "../styles.module.css";
+import { AiOutlineSisternode, AiFillDelete } from "react-icons/ai";
+import { TbCirclePlus } from "react-icons/tb";
+import { SiDocker } from "react-icons/si";
+import { DiTerminal } from "react-icons/di";
 
 export default function Rooms() {
     return (
@@ -62,5 +62,5 @@ export default function Rooms() {
                 </form >
             </div>
         </main >
-    )
+    );
 }

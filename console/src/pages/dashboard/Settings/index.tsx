@@ -1,5 +1,5 @@
-import style from "../Rooms/styles.module.css"
-import mainStyle from "../styles.module.css"
+import style from "../Rooms/styles.module.css";
+import mainStyle from "../styles.module.css";
 
 export default function Settings() {
 
@@ -16,5 +16,5 @@ export default function Settings() {
                 </form >
             </div>
         </main >
-    )
+    );
 }

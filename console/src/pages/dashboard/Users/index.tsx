@@ -1,6 +1,6 @@
-import style from "./styles.module.css"
-import mainStyle from "../styles.module.css"
-import { TbChevronLeft, TbChevronRight, TbChevronsLeft, TbChevronsRight, TbSearch } from "react-icons/tb"
+import style from "./styles.module.css";
+import mainStyle from "../styles.module.css";
+import { TbChevronLeft, TbChevronRight, TbChevronsLeft, TbChevronsRight, TbSearch } from "react-icons/tb";
 export default function Users() {
     return (
         <>
@@ -51,5 +51,5 @@ export default function Users() {
                 </section>
             </main>
         </>
-    )
+    );
 }

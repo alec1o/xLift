@@ -3,5 +3,5 @@ export default function Home() {
         <>
             <h2>Sisma</h2>
         </>
-    )
+    );
 }

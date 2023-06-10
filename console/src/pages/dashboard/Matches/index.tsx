@@ -1,6 +1,7 @@
-import style from "../Users/styles.module.css"
-import mainStyle from "../styles.module.css"
-import { TbChevronLeft, TbChevronRight, TbChevronsLeft, TbChevronsRight, TbSearch } from "react-icons/tb"
+import style from "../Users/styles.module.css";
+import mainStyle from "../styles.module.css";
+import { TbChevronLeft, TbChevronRight, TbChevronsLeft, TbChevronsRight, TbSearch } from "react-icons/tb";
+
 export default function Matches() {
     return (
         <>
@@ -26,7 +27,7 @@ export default function Matches() {
                             </tr>
                             <tr>
                                 <th>123</th>
-                                <th className={style.NormalFont} >["udp: 127.0.0.1:2201", "tcp: 127.0.0.1:2202,"chat-tcp: 127.0.0.1:2203"]</th>
+                                <th className={style.NormalFont}>{JSON.stringify([{ "udp": "127.0.0.1:2201" }, { "tcp": "127.0.0.1:2202" }, { "chat-tcp": "127.0.0.1:2203" }])}</th>
                                 <th>1v1</th>
                                 <th>2</th>
                                 <th>1h</th>
@@ -55,5 +56,5 @@ export default function Matches() {
                 </section>
             </main>
         </>
-    )
+    );
 }

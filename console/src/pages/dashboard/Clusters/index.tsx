@@ -1,9 +1,9 @@
-import style from "../Rooms/styles.module.css"
-import mainStyle from "../styles.module.css"
-import { AiFillDelete } from "react-icons/ai"
-import { TbCirclePlus } from "react-icons/tb"
-import { RiCpuLine } from "react-icons/ri"
-import { MdSignalWifi4Bar as WifiOn, MdSignalWifiBad as WifiOff } from "react-icons/md"
+import style from "../Rooms/styles.module.css";
+import mainStyle from "../styles.module.css";
+import { AiFillDelete } from "react-icons/ai";
+import { TbCirclePlus } from "react-icons/tb";
+import { RiCpuLine } from "react-icons/ri";
+import { MdSignalWifi4Bar as WifiOn, MdSignalWifiBad as WifiOff } from "react-icons/md";
 
 export default function Clusters() {
 
@@ -32,7 +32,7 @@ export default function Clusters() {
                             <button className={style.deleteColor}><AiFillDelete /></button>
                         </h2>
                         <input required type="text" placeholder="worker name" minLength={3} />
-                        <input required type="text" placeholder="ip address (ipv4/ipv6)" minLength={3} />
+                        <input required type="text" placeholder="ip address (ipv4/ipv6/domain)" minLength={3} />
                         <input required type="number" placeholder="port" min={1} />
                         <input required type="number" placeholder="ram (mb)" min={512} />
                         <input type="submit" value="Register" />
@@ -40,5 +40,5 @@ export default function Clusters() {
                 </form >
             </div>
         </main >
-    )
+    );
 }
