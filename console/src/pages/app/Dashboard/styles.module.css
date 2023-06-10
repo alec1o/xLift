@@ -1,0 +1,78 @@
+#main {
+    padding: 50px;
+}
+
+.Title {
+    font-family: "SYN Nova", "Kiona", Arial;
+    font-size: 22px;
+    text-transform: uppercase;
+}
+
+.volume {
+    width: inherit;
+    height: inherit;
+}
+
+.volume circle {
+    fill: none;
+    stroke: black;
+    stroke-width: 20px;
+    stroke-dasharray: calc(80px * calc(3.14 * 2));
+}
+
+.volume circle:nth-child(1) {
+    stroke-dashoffset: 0;
+    stroke: #ce2050;
+}
+
+.volume circle:nth-child(2) {
+    stroke-dashoffset: calc(calc(80px * calc(3.14 * 2)) * -.45);
+    stroke: #2050ce;
+}
+
+.circle {
+    margin: 20px;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    z-index: 10;
+}
+
+.circle p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    color: #ce2050;
+    font-size: 20px;
+    font-weight: bold;
+    transform: translate3d(50px, -154px, 0);
+}
+
+.dashCircle {
+    display: flex;
+    align-items: center;
+}
+
+.values {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.values p {
+    padding: 5px;
+    font-size: 12px;
+    color: #2050ce;
+    font-weight: bold;
+}
+
+.values p:nth-child(2) {
+    color: #ce2050;
+}
+
+.values p:nth-child(3) {
+    color: #20ce50;
+}
