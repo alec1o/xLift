@@ -9,6 +9,7 @@ import Users from "./Users"
 import Rooms from "./Rooms"
 import Clusters from "./Clusters"
 import Matches from "./Matches"
+import Settings from "./Settings"
 
 export default function Dashboard() {
 
@@ -114,7 +115,7 @@ export default function Dashboard() {
                                 dashboard ? <>dashboard</> :
                                     rooms ? <Rooms /> :
                                         cluster ? <Clusters /> :
-                                            setting ? <>setting</> :
+                                            setting ? <Settings /> :
                                                 <>{activeDashboard()}</>
                     }
                 </main>
