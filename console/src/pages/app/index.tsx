@@ -10,8 +10,9 @@ import Rooms from "./Rooms";
 import Clusters from "./Clusters";
 import Matches from "./Matches";
 import Settings from "./Settings";
+import Dashboard from "./Dashboard";
 
-export default function Dashboard() {
+export default function App() {
 
     const [users, setUsers] = useState(false);
     const [matches, setMatches] = useState(false);
@@ -112,7 +113,7 @@ export default function Dashboard() {
                     {
                         users ? <Users /> :
                             matches ? <Matches /> :
-                                dashboard ? <>dashboard</> :
+                                dashboard ? <Dashboard /> :
                                     rooms ? <Rooms /> :
                                         cluster ? <Clusters /> :
                                             setting ? <Settings /> :
