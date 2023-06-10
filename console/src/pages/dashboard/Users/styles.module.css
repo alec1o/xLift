@@ -1,29 +1,13 @@
-.TableID {
-    width: 20%;
-}
-
-.TableToken {
-    width: 70%;
-}
-
-.TableTime {
-    width: 10%;
-}
-
-.TableID,
-.TableToken,
-.TableTime {
-    font-size: 14px;
+.MainTableLine {
     background-color: #2050ce !important;
 }
 
-.TableID_Value,
-.TableToken_Value,
-.TableTime_Value {
-    font-size: 12px;
-    font-family: "Roboto", sans-serif;
-    text-transform: none;
-    cursor: copy;
+.NormalFont {
+    font-family: "Ubuntu", "Roboto";
+}
+
+.MainTableLine th {
+    font-size: 14px !important;
 }
 
 .Title {
@@ -191,6 +175,7 @@
 }
 
 .Table>tr>th {
+    font-size: 10px;
     padding: 10px;
     text-align: left;
     background-color: transparent;

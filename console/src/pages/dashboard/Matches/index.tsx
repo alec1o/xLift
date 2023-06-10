@@ -1,13 +1,13 @@
-import style from "./styles.module.css"
+import style from "../Users/styles.module.css"
 import mainStyle from "../styles.module.css"
 import { TbChevronLeft, TbChevronRight, TbChevronsLeft, TbChevronsRight, TbSearch } from "react-icons/tb"
-export default function Users() {
+export default function Matches() {
     return (
         <>
             <main className={style.Main}>
                 <section className={style.ResultSection}>
                     <section className={style.SearchSection}>
-                        <h2 className={`${style.Title} ${mainStyle.LED}`}>Users</h2>
+                        <h2 className={`${style.Title} ${mainStyle.LED}`}>Matches</h2>
                         <form className={style.FindUser}>
                             <input type="search" placeholder="Search" />
                             <button title="Enter JWT.sub" type="submit">
@@ -18,14 +18,18 @@ export default function Users() {
                     <section className={style.TableSection}>
                         <table className={style.Table}>
                             <tr className={style.MainTableLine}>
-                                <th style={{ width: "calc(100%/5)" }} title="User: ID - JWT.sub">ID</th>
-                                <th style={{ width: "calc(100%/2)" }} title="User: Token - JWT" >Token</th>
-                                <th style={{ width: "calc(100%/10)" }} title="User: Time - TIMER">Time</th>
+                                <th style={{ width: "calc(100%/5)" }}>ID</th>
+                                <th style={{ width: "calc(100%/2)" }}>Host</th>
+                                <th style={{ width: "calc(100%/8)" }}>Room</th>
+                                <th style={{ width: "calc(100%/10)" }}>User</th>
+                                <th style={{ width: "calc(100%/10)" }}>Time</th>
                             </tr>
                             <tr>
-                                <th title="Copy">123</th>
-                                <th className={style.NormalFont} title="Copy">ey...</th>
-                                <th title="Copy">1h</th>
+                                <th>123</th>
+                                <th className={style.NormalFont} >["udp: 127.0.0.1:2201", "tcp: 127.0.0.1:2202,"chat-tcp: 127.0.0.1:2203"]</th>
+                                <th>1v1</th>
+                                <th>2</th>
+                                <th>1h</th>
                             </tr>
                         </table>
 

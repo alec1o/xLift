@@ -8,6 +8,7 @@ import Link from "next/link"
 import Users from "./Users"
 import Rooms from "./Rooms"
 import Clusters from "./Clusters"
+import Matches from "./Matches"
 
 export default function Dashboard() {
 
@@ -109,7 +110,7 @@ export default function Dashboard() {
                 <main id={style.main}>
                     {
                         users ? <Users /> :
-                            matches ? <>matches</> :
+                            matches ? <Matches /> :
                                 dashboard ? <>dashboard</> :
                                     rooms ? <Rooms /> :
                                         cluster ? <Clusters /> :
