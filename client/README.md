@@ -48,3 +48,9 @@ sudo apt install nodejs -y && sudo apt install npm -y && sudo npm i -g yarn && e
   ```rb
   tcp        0      0 127.0.0.1:2375          0.0.0.0:*               LISTEN      3758/dockerd
   ```
+
+## Installing SISMA
+- #### clone repos ``repo will be saved in /opt/sisma``
+  ```
+   sudo git clone https://github.com/alec1o/sisma /opt/sisma
+  ```
