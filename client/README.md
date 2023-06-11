@@ -1,7 +1,14 @@
 ## INSTALL
 
 ### Dependencies 
+- ###### Git ``>= 2.x``
+```sh
+sudo apt install git
+```
 - ###### NodeJS ``>= 18.x`` 
+```sh
+sudo apt install nodejs -y && sudo apt install npm -y && sudo npm i -g yarn && echo "DONE"
+```
 - ###### Docker ``>= 20.x`` 
 
 ### Environment variables
