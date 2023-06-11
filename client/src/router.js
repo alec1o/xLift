@@ -35,6 +35,13 @@ const handler = async (req, res, method) => {
         data.data = e.response.data
     }
     finally {
+        if (data.status <= 0) {
+            data.status = 500
+            data.data = {
+                "code": 0,
+                "message": "docker connection isn't active"
+            }
+        }
         res.status(data.status).send(data.data)
     }
 }
