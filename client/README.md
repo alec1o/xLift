@@ -51,6 +51,6 @@ sudo apt install nodejs -y && sudo apt install npm -y && sudo npm i -g yarn && e
 
 ## Installing SISMA
 - #### clone repos ``repo will be saved in /opt/sisma``
-  ```
-   sudo git clone https://github.com/alec1o/sisma /opt/sisma
+  ```rb
+   sudo git clone "https://github.com/alec1o/sisma" /opt/sisma
   ```
