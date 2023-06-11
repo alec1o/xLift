@@ -97,6 +97,6 @@ sudo apt install nodejs -y && sudo apt install npm -y && sudo npm i -g yarn && e
   systemctl enable sisma-client.service
   ```
 - ##### Check status of sisma-client
-  ````sh
+  ```sh
   systemctl status sisma-client.service
   ```
