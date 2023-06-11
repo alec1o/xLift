@@ -35,5 +35,8 @@
 - ##### Verify that the change has gone through.
   ```rb
   sudo netstat -lntp | grep dockerd
+  ```
+  <sup>Output</sup>
+  ```rb
   tcp        0      0 127.0.0.1:2375          0.0.0.0:*               LISTEN      3758/dockerd
   ```
