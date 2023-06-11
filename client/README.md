@@ -8,5 +8,5 @@
 - ###### SISMA_KEY `` ``
 - ###### SISMA_HOST `` ``
 - ###### SISMA_PORT `` ``
-- ###### DOCKER_HOST `` ``
-- ###### DOCKER_PORT `` ``
+- ###### SISMA_DOCKER_HOST `` ``
+- ###### SISMA_DOCKER_PORT `` ``
