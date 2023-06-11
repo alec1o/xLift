@@ -7,7 +7,7 @@ After=network.target
 Environment="SISMA_KEY=<my-secret-key-here>"
 Environment="SISMA_HOST=0.0.0.0"
 Environment="SISMA_PORT=10101"
-Environment="SISMA_DOCKER_HOST=127.0.0.1"
+Environment="SISMA_DOCKER_HOST=http://127.0.0.1"
 Environment="SISMA_DOCKER_PORT=2375"
 
 # app entry point
