@@ -10,6 +10,7 @@ sudo apt install git
 sudo apt install nodejs -y && sudo apt install npm -y && sudo npm i -g yarn && echo "DONE"
 ```
 - ###### Docker ``>= 20.x`` 
+  #### [(Official) Docker installation](https://docs.docker.com/engine/install/)
 
 ### Environment variables
 - ###### SISMA_KEY `` ``
