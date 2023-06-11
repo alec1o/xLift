@@ -1,0 +1,126 @@
+.Header {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    height: 64px;
+    padding: 0 50px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: rgb(10, 20, 40);
+}
+
+.Logo {
+    font-size: 32px;
+    letter-spacing: 3px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: "SYN Nova", "Kiona", "Arial";
+}
+
+.HeaderLinks {
+    display: flex;
+}
+
+.HeaderLink {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.HeaderIcon {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+#main {
+    background-color: rgb(10, 15, 30);
+    width: 100vw;
+    min-height: 100vh;
+    height: auto;
+    padding: 96px 32px;
+}
+
+.Content {
+    display: flex;
+    align-items: start;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.Form,
+.FAQ {
+    overflow: hidden;
+    position: relative;
+    width: 60%;
+    height: auto;
+}
+
+.Form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: rgb(10, 20, 40);
+    align-items: center;
+    padding: 25px;
+    width: auto;
+}
+
+.Form input {
+    background-color: transparent;
+    height: 45px;
+    width: 360px;
+    color: white;
+    font-family: "Ubuntu", "Roboto", Arial;
+    border: 2px solid #2050ce;
+    margin: 10px;
+    border-top: none;
+    border-right: none;
+    padding-left: 10px;
+    cursor: text;
+}
+
+.Form input::placeholder {
+    font-family: "Kiona", Arial;
+    color: #aaaaaa;
+}
+
+.Form input[type="submit"] {
+    border: none;
+    margin-top: 32px;
+    background-color: #2050ce;
+    font-size: 18px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: "SYN Nova", "Kiona", Arial;
+    cursor: pointer;
+}
+
+.FAQ h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.FAQ p,
+.FAQ li {
+    overflow-wrap: break-word;
+    color: white;
+    padding: 5px;
+    font-size: 13px;
+    font-family: "Ubuntu", "Roboto", Arial;
+    letter-spacing: 1px;
+    word-spacing: 1px;
+
+}
+
+.SubList li {
+    list-style: inside;
+}
