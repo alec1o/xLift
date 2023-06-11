@@ -4,7 +4,7 @@ if (KEY) console.log(`SISMA_KEY: ${KEY}`)
 else throw new Error("SISMA_KEY, Not founded")
 
 function authMiddleware(req, res, next) {
-    const { SISMA_KEY } = req.headers
+    const SISMA_KEY = req.get("SISMA_KEY")
 
     if (SISMA_KEY == KEY) {
         return next()
