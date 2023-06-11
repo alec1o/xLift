@@ -1,8 +1,16 @@
 ## INSTALL
 
 ### Dependencies 
+- ###### Git ``>= 2.x``
+```sh
+sudo apt install git
+```
 - ###### NodeJS ``>= 18.x`` 
+```sh
+sudo apt install nodejs -y && sudo apt install npm -y && sudo npm i -g yarn && echo "DONE"
+```
 - ###### Docker ``>= 20.x`` 
+  #### [(Official) Docker installation](https://docs.docker.com/engine/install/)
 
 ### Environment variables
 - ###### SISMA_KEY `` ``
@@ -39,4 +47,13 @@
   <sup>Output</sup>
   ```rb
   tcp        0      0 127.0.0.1:2375          0.0.0.0:*               LISTEN      3758/dockerd
+  ```
+
+## Installing SISMA
+- ##### Clone repos ``repo will be saved in /opt/sisma``
+  ```rb
+   sudo git clone "https://github.com/alec1o/sisma" /opt/sisma
+  ```
+- #####
+  ```rb
   ```
