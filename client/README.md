@@ -90,7 +90,7 @@ sudo apt install nodejs -y && sudo apt install npm -y && sudo npm i -g yarn && e
   ```
 - ##### Whenever you change the settings it is necessary to restart the service for the new update to run.
   ```sh
-  `systemctl daemon-reload && systemctl restart sisma-client.service;
+  systemctl daemon-reload && systemctl restart sisma-client.service;
   ```
 - ##### Now the system is running at ``http://<your-host>:10101`` now we have to make sure that whenever the computer restarts the sisma-client also starts.
   ```sh
