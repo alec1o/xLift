@@ -3,11 +3,11 @@ const authMiddleware = require("./middleware/auth")
 const { default: axios } = require("axios")
 const router = express.Router()
 
-const DOCKER_HOST = process.env.DOCKER_HOST
-const DOCKER_PORT = process.env.DOCKER_PORT
+const DOCKER_HOST = process.env.SISMA_DOCKER_HOST
+const DOCKER_PORT = process.env.SISMA_DOCKER_PORT
 
-if (!DOCKER_HOST) throw new Error("DOCKER_HOST Not founded")
-if (!DOCKER_PORT) throw new Error("DOCKER_PORT Not founded")
+if (!DOCKER_HOST) throw new Error("SISMA_DOCKER_HOST Not founded")
+if (!DOCKER_PORT) throw new Error("SISMA_DOCKER_PORT Not founded")
 
 
 const handler = async (req, res, method) => {
