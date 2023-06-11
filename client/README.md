@@ -11,7 +11,7 @@
 - ###### SISMA_DOCKER_HOST `` ``
 - ###### SISMA_DOCKER_PORT `` ``
 
-### Configure docker remote access
+## Configure docker remote access
 ##### See official tutorial [here](https://docs.docker.com/config/daemon/remote-access/)
 - ##### Use the command sudo systemctl edit ``docker.service`` to open an override file for ``docker.service`` in a text editor.
   ```rb
