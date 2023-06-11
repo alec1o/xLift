@@ -54,6 +54,45 @@ sudo apt install nodejs -y && sudo apt install npm -y && sudo npm i -g yarn && e
   ```rb
    sudo git clone "https://github.com/alec1o/sisma" /opt/sisma
   ```
-- #####
+- ##### Create a symbolic link to the system service
   ```rb
+  ln -s /opt/sisma/client/service.sh /etc/systemd/system/sisma-client.service
+  ```
+- ##### Update SISMA_KEY credentials and other environment variables
+  <sup>using nano text editor</sup>
+  ```rb
+  nano /opt/sisma/client/service.sh
+  ```
+  <sup>Output: FILE CONTENT</sup>
+  ```sh
+  [Unit]
+  Description="Sisma client"
+  After=network.target
+
+  [Service]
+  # env
+  Environment="SISMA_KEY=<my-secret-key-here>"
+  Environment="SISMA_HOST=0.0.0.0"
+  Environment="SISMA_PORT=10101"
+  Environment="SISMA_DOCKER_HOST=http://127.0.0.1"
+  Environment="SISMA_DOCKER_PORT=2375"
+
+  # app entry point
+  ExecStartPre=yarn --cwd /opt/sisma/client/ install
+  ExecStart=yarn --cwd /opt/sisma/client/ start
+
+  # auto restart on error
+  Restart=on-failure
+  RestartSec=1s
+
+  [Install]
+  WantedBy=multi-user.target
+  ```
+- ##### Whenever you change the settings it is necessary to restart the service for the new update to run.
+  ```sh
+  `systemctl daemon-reload && systemctl restart sisma-client.service;
+  ```
+- ##### Now the system is running at ``http://<your-host>:10101`` now we have to make sure that whenever the computer restarts the sisma-client also starts.
+  ```sh
+  systemctl enable sisma-client.service
   ```
