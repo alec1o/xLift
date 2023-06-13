@@ -39,12 +39,12 @@
 <br>
 
 ##### Console
-> <sub>Console, is a web panel where you can observe the status and create rooms (modes). _Rooms are a prefab that will be used to create matches_.</sub>
+> <sub>Console, is a web panel where you can observe the status and create rooms</sub>
 <div align="center">
-    <image width="49%" src="https://github.com/alec1o/Sisma/assets/100610503/ed306784-398f-4802-94bd-bd230e113477" alt="sisma diagram architecture">
-    <image width="49%" src="https://github.com/alec1o/Sisma/assets/100610503/3cb143bb-f536-4371-b4a3-504e31e329e2" alt="sisma web - login" />
-    <image width="49%" src="https://github.com/alec1o/Sisma/assets/100610503/78ba0156-1c7c-40e9-9086-a6b90036cf72" alt="sisma web - root page create new room (mode)" />
-    <image width="49%" src="https://github.com/alec1o/Sisma/assets/100610503/5c30440e-70c9-4536-820b-ceb6a07807f8" alt="sisma web - root page update existent room (mode)" />
+    <img width="49%" src="t" alt="sisma console: create cluster (gif)" />
+    <img width="49%" src="" alt="sisma console: create room (gif)" />
+    <img width="49%" src="" alt="sisma console: dashboard" />
+    <img width="49%" src="https://github.com/alec1o/Sisma/assets/100610503/ed306784-398f-4802-94bd-bd230e113477" alt="sisma architecture />    
 </div>
 
 <br>
@@ -55,7 +55,7 @@
 - ###### What environment should it run in?
   > <sub>Linux, Windows, Mac. Where C# runs and has docker installed. Linux is the best.</sub>
 - ###### Does sisma run on multiple clusters?
-  > <sub>No. Sisma was designed to run on just one machine.</sub>
+  > <sub>Yes. The sisma core runs on one machine, but the sisma workers are designed to run on multiple machines to run containers.</sub>
 - ###### How to balance the game?
   > <sub>Sisma requires your player to enter an argument called "level" as a number in your jwt. so when your user wants to join a room, the user must be included in the room whose level is identical.</sub>
 - ###### How do I adjust my "level" so that the game is competitive?
