@@ -39,7 +39,7 @@
     <img width="49%" src="t" alt="sisma console: create cluster (gif)" />
     <img width="49%" src="" alt="sisma console: create room (gif)" />
     <img width="49%" src="" alt="sisma console: dashboard" />
-    <img width="49%" src="https://github.com/alec1o/Sisma/assets/100610503/ed306784-398f-4802-94bd-bd230e113477" alt="sisma architecture />    
+    <img width="49%" src="https://github.com/alec1o/Sisma/assets/100610503/ed306784-398f-4802-94bd-bd230e113477"  alt="sisma architecture" />    
 </div>
 
 <br>
