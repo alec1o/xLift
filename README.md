@@ -17,24 +17,19 @@
 <br>
   
 ##### Install
-> <sub>A guide how to install the system.</sub>
-- ###### Paths ``Configure environment variables``
-    ###### ``SISMA_ROOT_KEY`` Is the token you will use to communicate with the sisma web/console and run the root (admin) endpoint
-    ###### ``SISMA_JWT_KEY`` Is the jwt key that your server used to create client jwt, sisma needs the same key to verify user tokens that connect to sisma
-
-- ###### Console
-  ```sh
-  $ git clone "https://github.com/alec1o/sisma/"
-  $ cd sisma/src/web/
-  $ yarn dev --host "http://127.0.0.1:3000/"
-  ```
+> <sub>A guide how to install the system.</sub> 
+- ###### Client (worker)
+  <a href="/client" target="_blank"><sub>GO HERE</sub></a>
+  ###### ``SISMA_KEY`` this key is used when you register a new worker in sisma core using sisma console, this token is for validating requests it is a "firewall" blocking remote docker for any connection without this token in its http header SISMA_KEY
   
-- ###### Sisma
-  ```sh
-  $ git clone "https://github.com/alec1o/sisma/"
-  $ cd sisma/src/lib/
-  $ dotnet run 127.0.0.1 10101
-  ```
+- ###### Console (web dashboard)
+  <a href="/console" target="_blank"><sub>GO HERE</sub></a>
+
+- ###### Core (sisma core)
+  <a href="/core" target="_blank"><sub>GO HERE</sub></a>
+  ###### ``SISMA_KEY`` this token is for creating a root connection, after opening the connection for the connection you can: "create room, delete room, disconnect user, send events to users, see all games. etc." any connection logged using this token cannot join a match!
+  ###### ``SISMA_JWT`` is the token that your server (not sisma) uses to create the jwt token so that client connections (client api, not sisma worker), use the token when opening a connection with sisma core. after sisma core validates the client token the connection can: "join a game, send messages to other clients, check that no specific client is connected, ...) you cannot execute root commands like "create a room or disconnect a client"
+
   
 <br>
 
