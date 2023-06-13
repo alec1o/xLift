@@ -1,5 +1,5 @@
 <h6 align="end">IN DEVELOPMENT</h6>
-<h1 align="center"><a href="https://github.com/alec1o/sisma">Sisma</a></h1>
+<h1 align="center"><a href="https://github.com/alec1o/sisma">SISMA</a></h1>
 <h6 align="end"><sub><a href="https://github.com/alec1o/sisma">SISMA</a> or <a href="https://github.com/alec1o/sisma"><code>SI</code></a>MPLE GAME <a href="https://github.com/alec1o/sisma"><code>S</code></a>ERVER <a href="https://github.com/alec1o/sisma"><code>MA</code></a>NAGER</sub></h6>
   
 <h6 align="center"><sub>
