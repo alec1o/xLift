@@ -28,7 +28,7 @@
 - ###### Core (sisma core)
   <a href="/core" target="_blank"><sub>GO HERE</sub></a>
   ###### ``SISMA_KEY`` this token is for creating a root connection, after opening the connection for the connection you can: "create room, delete room, disconnect user, send events to users, see all games. etc." any connection logged using this token cannot join a match!
-  ###### ``SISMA_JWT`` is the token that your server (not sisma) uses to create the jwt token so that client connections (client api, not sisma worker), use the token when opening a connection with sisma core. after sisma core validates the client token the connection can: "join a game, send messages to other clients, check that no specific client is connected, ...) you cannot execute root commands like "create a room or disconnect a client"
+  ###### ``SISMA_JWT`` is the token that your server (not sisma) uses to create the jwt token so that client connections (client api, not sisma worker), use the token when opening a connection with sisma core. after sisma core validates the client token the connection can: "join a game, send messages to other clients, check specific client if is connected, ...) you cannot execute root commands like "create a room or disconnect a client"
 
   
 <br>
