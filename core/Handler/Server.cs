@@ -10,14 +10,16 @@ public class Server
     public readonly List<Room> Rooms;
     public readonly List<Match> Matches;
     public readonly List<Client> Clients;
+    public readonly List<Cluster> Clusters;
     public readonly WatsonWsServer Socket;
 
     public Server((string address, int port) host)
     {
         Host = host;
-        Rooms = RoomDatabase.Load() ?? new List<Room>();
+        Rooms = SismaDatabase.LoadRoom() ?? new List<Room>();
         Matches = new List<Match>();
         Clients = new List<Client>();
+        Clusters = SismaDatabase.LoadCluster() ?? new List<Cluster>();
         Socket = new WatsonWsServer(host.address, host.port, false);
 
         Socket.ClientConnected += (_, connection) =>
@@ -56,7 +58,7 @@ public class Server
         };
 
         Socket.Start();
-        
+
         // Start matchmaking system
         Matchmaking.Init(this);
 
