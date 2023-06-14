@@ -414,12 +414,12 @@ public class RootController
                                 Client.Server.Rooms.Remove(room);
 
                                 // REMOVE ROOM FROM DATABASE
-                                var rooms = RoomDatabase.Load();
+                                var rooms = SismaDatabase.LoadRoom();
 
                                 if (rooms != null)
                                 {
                                     rooms = rooms.Where(x => x.UID != result.uid).ToList();
-                                    RoomDatabase.Save(rooms);
+                                    SismaDatabase.SaveRoom(rooms);
                                 }
 
                                 break;
@@ -466,7 +466,7 @@ public class RootController
 
                 if (result.room != null && Room.IsValid(result.room))
                 {
-                    var rooms = RoomDatabase.Load();
+                    var rooms = SismaDatabase.LoadRoom();
 
                     if (rooms != null)
                     {
@@ -493,7 +493,7 @@ public class RootController
 
                         rooms.Add(result.room);
 
-                        if (RoomDatabase.Save(rooms))
+                        if (SismaDatabase.SaveRoom(rooms))
                         {
                             Client.Server.Rooms.Add(result.room);
                         }
