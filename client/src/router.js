@@ -86,7 +86,7 @@ async function info() {
         "storage_free": bytesToGb(storage.free),
         "storage_used": bytesToGb(storage.size - storage.free),
 
-        "cpu": cpu ? ((100 - cpu) / 100).toFixed(2) : 0,
+        "cpu": cpu ? Number.parseFloat(((100 - cpu) / 100).toFixed(4)) : 0,
     }
 
     console.log(data)
@@ -94,11 +94,11 @@ async function info() {
 }
 
 function mbToGb(mbs) {
-    return (mbs / 1024).toFixed(2)
+    return Number.parseFloat((mbs / 1024).toFixed(2))
 }
 
 function bytesToGb(bytes) {
-    return (((bytes / 1024 /*byte -> kb*/) / 1024 /* kb -> mb */) / 1024 /* mb -> gb */).toFixed(2)
+    return Number.parseFloat((((bytes / 1024 /*byte -> kb*/) / 1024 /* kb -> mb */) / 1024 /* mb -> gb */).toFixed(2))
 }
 
 info();
