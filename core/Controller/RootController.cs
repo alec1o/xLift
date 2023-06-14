@@ -4,6 +4,8 @@ using Sisma.Database;
 using Sisma.Handler;
 using Sisma.Models;
 using System.Text;
+using System.Net;
+using RestSharp;
 
 namespace Sisma.Controller;
 
@@ -63,6 +65,7 @@ public class RootController
                     // CLUSTER
                     case "CLUSTER.SHOW": return ClusterShow(ref buffer);
                     case "CLUSTER.SHOWALL": return ClusterShowAll(ref buffer);
+                    case "CLUSTER.ADD": return ClusterAdd(ref buffer);
                     case "CLUSTER.REMOVE": return ClusterRemove(ref buffer);
                 }
             }
@@ -200,6 +203,144 @@ public class RootController
 
             data.Add("ERROR".ToLower(), false);
             data.Add("ALERT".ToLower(), string.Empty);
+        }
+
+        Client.Send(JsonConvert.SerializeObject(data));
+        return true;
+    }
+
+    private bool ClusterAdd(ref byte[] buffer)
+    {
+        var data = new Dictionary<string, dynamic?>();
+        data.Add("SISMA".ToLower(), "CLUSTER.ADD");
+
+        var request = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(Encoding.UTF8.GetString(buffer));
+
+        if (request == null)
+        {
+            data.Add("DATA".ToLower(), null);
+            data.Add("SIZE".ToLower(), 0);
+
+            data.Add("ERROR".ToLower(), true);
+            data.Add("ALERT".ToLower(), DEFAULT_ERROR_MESSAGE);
+
+            Client.Send(JsonConvert.SerializeObject(data));
+            return false;
+        }
+
+        string host = request.FirstOrDefault(x => x.Key == "host").Value;
+        string key = request.FirstOrDefault(x => x.Key == "key").Value;
+        int port = 0;
+        try
+        {
+            port = (int)request.FirstOrDefault(x => x.Key == "port").Value;
+        }
+        catch (Exception e) { Output.Show(e); }
+
+        if (host == null || port <= 0 || key == null)
+        {
+            data.Add("DATA".ToLower(), null);
+            data.Add("SIZE".ToLower(), 0);
+
+            data.Add("ERROR".ToLower(), true);
+
+            var message = "data not found -> ";
+
+            if (string.IsNullOrWhiteSpace(host)) message += " {'host': 'string'}";
+
+            if (port <= 0) message += " {'port': 'int'}";
+
+            if (string.IsNullOrWhiteSpace(key)) message += " {'key': 'string'}";
+
+            data.Add("ALERT".ToLower(), message);
+
+            Client.Send(JsonConvert.SerializeObject(data));
+            return false;
+        }
+
+        host = host.Trim().ToLower();
+        key = key.Trim();
+
+        lock (clusterLock)
+        {
+            var target = Client.Server.Clusters.Find(x => x.host == host);
+
+            if (target == null)
+            {
+                // Try connect to sisma client and get ram and storage data
+
+                int ram = 0;
+                int storage = 0;
+                bool success = false;
+                string httpStatus = string.Empty;
+
+                var www = new RestClient($"http://{host}:{port}/sisma");
+                var req = new RestRequest(string.Empty, Method.Get);
+                req.AddOrUpdateHeader("SISMA_KEY", key);
+
+                var result = www.Execute(req);
+                httpStatus = result.StatusCode.ToString();
+
+                if (result != null && result.StatusCode == HttpStatusCode.OK)
+                {
+                    string json = result.Content ?? string.Empty;
+
+                    if (!string.IsNullOrWhiteSpace(json))
+                    {
+                        try
+                        {
+                            var dict = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(json);
+
+                            if (dict != null)
+                            {
+                                ram = (int)dict.FirstOrDefault(x => x.Key == "ram").Value;
+                                storage = (int)dict.FirstOrDefault(x => x.Key == "storage").Value;
+
+                                if (ram > 0 && storage > 0)
+                                {
+                                    success = true;
+                                }
+                            }
+                        }
+                        catch (Exception e) { Output.Show(e); }
+                    }
+                }
+
+                if (success)
+                {
+                    // Register new cluster
+
+                    Cluster cluster = new Cluster(Guid.NewGuid().ToString(), host, key, port, ram, storage);
+                    Client.Server.Clusters.Add(cluster);
+                    SismaDatabase.SaveCluster(Client.Server.Clusters);
+
+                    data.Add("ERROR".ToLower(), false);
+                    data.Add("ALERT".ToLower(), string.Empty);
+
+                    data.Add("DATA".ToLower(), cluster);
+                    data.Add("SIZE".ToLower(), 1);
+                }
+                else
+                {
+                    // Error on connect with sisma client
+
+                    data.Add("ERROR".ToLower(), true);
+                    data.Add("ALERT".ToLower(), "Error, unable to connect to client system http. check { 'host' : 'string', 'port': 'int', 'key': 'string (SISMA_KEY)'}" + $"\n http status: {httpStatus}");
+
+                    data.Add("DATA".ToLower(), null);
+                    data.Add("SIZE".ToLower(), 0);
+                }
+            }
+            else
+            {
+                // Cluster exists
+
+                data.Add("ERROR".ToLower(), true);
+                data.Add("ALERT".ToLower(), "the cluster is exists");
+
+                data.Add("DATA".ToLower(), target);
+                data.Add("SIZE".ToLower(), 1);
+            }
         }
 
         Client.Send(JsonConvert.SerializeObject(data));
