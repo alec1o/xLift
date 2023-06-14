@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="jose-jwt" Version="4.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="restsharp" Version="110.2.0" />
     <PackageReference Include="WatsonWebsocket" Version="4.0.9" />
   </ItemGroup>
 
