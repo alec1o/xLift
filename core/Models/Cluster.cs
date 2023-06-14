@@ -6,10 +6,10 @@ public class Cluster
     public string host;
     public string key;
     public int port;
-    public int ram;
-    public int storage;
+    public float ram;
+    public float storage;
 
-    public Cluster(string id, string host, string key, int port, int ram, int storage)
+    public Cluster(string id, string host, string key, int port, float ram, float storage)
     {
         this.id = id;
         this.host = host;

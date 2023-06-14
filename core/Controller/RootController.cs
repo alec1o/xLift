@@ -269,8 +269,8 @@ public class RootController
             {
                 // Try connect to sisma client and get ram and storage data
 
-                int ram = 0;
-                int storage = 0;
+                float ram = 0;
+                float storage = 0;
                 bool success = false;
                 string httpStatus = string.Empty;
 
@@ -284,6 +284,7 @@ public class RootController
                 if (result != null && result.StatusCode == HttpStatusCode.OK)
                 {
                     string json = result.Content ?? string.Empty;
+                    Output.Show(json);
 
                     if (!string.IsNullOrWhiteSpace(json))
                     {
@@ -293,14 +294,17 @@ public class RootController
 
                             if (dict != null)
                             {
-                                ram = (int)dict.FirstOrDefault(x => x.Key == "ram").Value;
-                                storage = (int)dict.FirstOrDefault(x => x.Key == "storage").Value;
+                                ram = (float)dict.FirstOrDefault(x => x.Key == "ram").Value;
+                                storage = (float)dict.FirstOrDefault(x => x.Key == "storage").Value;
 
                                 if (ram > 0 && storage > 0)
                                 {
                                     success = true;
                                 }
                             }
+
+                            Output.Show($"{nameof(ram)}: {ram}");
+                            Output.Show($"{nameof(storage)}: {storage}");
                         }
                         catch (Exception e) { Output.Show(e); }
                     }
