@@ -10,6 +10,7 @@ namespace Sisma.Controller;
 public class RootController
 {
     private readonly static object roomLock = new object();
+    private readonly static object clusterLock = new object();
     public readonly Client Client;
 
     private const string SISMA_KEY = "sisma";
@@ -62,6 +63,7 @@ public class RootController
                     // CLUSTER
                     case "CLUSTER.SHOW": return ClusterShow(ref buffer);
                     case "CLUSTER.SHOWALL": return ClusterShowAll(ref buffer);
+                    case "CLUSTER.REMOVE": return ClusterRemove(ref buffer);
                 }
             }
         }
@@ -139,6 +141,71 @@ public class RootController
         Client.Send(JsonConvert.SerializeObject(data));
         return true;
     }
+
+    private bool ClusterRemove(ref byte[] buffer)
+    {
+        var data = new Dictionary<string, dynamic?>();
+        data.Add("SISMA".ToLower(), "CLUSTER.REMOVE");
+
+        var request = JsonConvert.DeserializeObject<Dictionary<string, string>>(Encoding.UTF8.GetString(buffer));
+
+        if (request == null)
+        {
+            data.Add("DATA".ToLower(), null);
+            data.Add("SIZE".ToLower(), 0);
+
+            data.Add("ERROR".ToLower(), true);
+            data.Add("ALERT".ToLower(), DEFAULT_ERROR_MESSAGE);
+
+            Client.Send(JsonConvert.SerializeObject(data));
+            return false;
+        }
+
+        var id = request.FirstOrDefault(x => x.Key == "id").Value;
+
+        if (id == null || string.IsNullOrWhiteSpace(id))
+        {
+            data.Add("DATA".ToLower(), null);
+            data.Add("SIZE".ToLower(), 0);
+
+            data.Add("ERROR".ToLower(), true);
+            data.Add("ALERT".ToLower(), "data not found -> {'id': 'string'}");
+
+            Client.Send(JsonConvert.SerializeObject(data));
+            return false;
+        }
+
+        var cluster = Client.Server.Clusters.ToArray().FirstOrDefault(x => x.id == id);
+
+
+        if (cluster == null)
+        {
+            data.Add("DATA".ToLower(), null);
+            data.Add("SIZE".ToLower(), 0);
+
+            data.Add("ERROR".ToLower(), true);
+            data.Add("ALERT".ToLower(), "Cluster not found");
+        }
+        else
+        {
+            // REMOVE CLUSTER FROM LIST
+            lock (clusterLock)
+            {
+                Client.Server.Clusters.Remove(cluster);
+                SismaDatabase.SaveCluster(Client.Server.Clusters);
+            }
+
+            data.Add("DATA".ToLower(), cluster);
+            data.Add("SIZE".ToLower(), 1);
+
+            data.Add("ERROR".ToLower(), false);
+            data.Add("ALERT".ToLower(), string.Empty);
+        }
+
+        Client.Send(JsonConvert.SerializeObject(data));
+        return true;
+    }
+
     #region USER
 
     private bool User_Get(ref byte[] buffer)
