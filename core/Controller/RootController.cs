@@ -59,6 +59,8 @@ public class RootController
                     case "MATCH_DESTROY": return Match_Destroy();
                     case "MATCH_REGISTER": return Match_Register();
 #endif
+                    // CLUSTER
+                    case "CLUSTER.SHOWALL": return ClusterShowAll(ref buffer);
                 }
             }
         }
@@ -67,6 +69,23 @@ public class RootController
         return false;
     }
 
+
+    private bool ClusterShowAll(ref byte[] buffer)
+    {
+        var data = new Dictionary<string, dynamic?>();
+        data.Add("SISMA".ToLower(), "CLUSTER.SHOWALL");
+
+        var clusters = Client.Server.Clusters.ToArray();
+
+        data.Add("DATA".ToLower(), clusters);
+        data.Add("SIZE".ToLower(), clusters.Length);
+
+        data.Add("ERROR".ToLower(), false);
+        data.Add("ALERT".ToLower(), string.Empty);
+
+        Client.Send(JsonConvert.SerializeObject(data));
+        return true;
+    }
     #region USER
 
     private bool User_Get(ref byte[] buffer)
