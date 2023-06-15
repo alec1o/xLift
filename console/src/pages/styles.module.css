@@ -107,6 +107,9 @@
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    word-spacing: 4px;
 }
 
 .FAQ p,
@@ -114,10 +117,11 @@
     overflow-wrap: break-word;
     color: white;
     padding: 5px;
-    font-size: 13px;
-    font-family: "Ubuntu", "Roboto", Arial;
-    letter-spacing: 1px;
-    word-spacing: 1px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    word-spacing: 4px;
+    line-height: 20px;
+    font-weight: lighter !important;
 
 }
 
