@@ -42,21 +42,11 @@ export default function Home() {
                         <p>You don't need an SDK, the system communicates using websocket and with data in json format. see more in the documentation about!</p>
                     </li>
                     <li>
-                        <h2 className={mainStyle.LED}>how to configure my worker server?</h2>
-                        <ul className={style.SubList}>
-                            <li>Install docker in your worker server.</li>
-                            <li>You need to package your server in a docker image, using docker file, and expose the ports in your docker file.</li>
-                            <li>install/clone your server image on your worker machine.</li>
-                            <li>Install sisma_client and configure the environment variables that are the private keys so that your siama_client and sisma_core are validated!</li>
-                            <li>Create a room in the sisma console and configure the port bridge, reference the exported ports in the docker file</li>
-                        </ul>
-                    </li>
-                    <li>
                         <h2 className={mainStyle.LED}>What are the main features of sisma?</h2>
                         <p>The sisma has 2 main features which are:</p>
                         <ul className={style.SubList}>
                             <li>Matchmaking server and server orchestration</li>
-                            <li>Message-forward: you can have clients send message to each other, and also have your own server mode send an event message which is to run example logic. "you can send a message to your client to relogin or update the level in the account or join the players in a personalized room. the limit is your imagination"</li>
+                            <li>Message-forward: you can have clients send message to each other, and your own server can send an event message for any connected user, using JWT.sub (ID) as key. </li>
                         </ul>
                     </li>
                 </ul>
