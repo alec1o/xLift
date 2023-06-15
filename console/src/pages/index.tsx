@@ -53,7 +53,7 @@ export default function Home() {
                     </li>
                     <li>
                         <h2 className={mainStyle.LED}>What are the main features of sisma?</h2>
-                        <li>The sisma has 2 main features which are:</li>
+                        <p>The sisma has 2 main features which are:</p>
                         <ul className={style.SubList}>
                             <li>Matchmaking server and server orchestration</li>
                             <li>Message-forward: you can have clients send message to each other, and also have your own server mode send an event message which is to run example logic. "you can send a message to your client to relogin or update the level in the account or join the players in a personalized room. the limit is your imagination"</li>
