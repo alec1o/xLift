@@ -41,7 +41,7 @@ namespace Sisma.Handler
         {
             Dictionary<string, string> response = new Dictionary<string, string>();
 
-            string message = (User.SuperUser) ? "AUTH_ROOT" : "AUTH_USER";
+            string message = "AUTH." + (User.SuperUser ? "ROOT" : "USER");
 
             response.Add(KEY, message);
 

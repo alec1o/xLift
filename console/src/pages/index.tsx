@@ -1,9 +1,145 @@
 import Link from "next/link";
 import mainStyle from "./app/styles.module.css"
 import style from "./styles.module.css"
-import { SiGithub, SiGitbook } from "react-icons/si";
+import { SiGithub, SiGitbook, SiAbbott } from "react-icons/si";
+import { GetServerSideProps } from "next/types";
+import getRawBody from 'raw-body';
+import EventEmitter from "events";
+import { getCookie, setCookies } from "cookies-next";
 
-export default function Home() {
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+
+    let error: string[] = []
+
+    if (context.req.method && context.req.method.toLowerCase() == "POST".toLowerCase()) {
+
+        const result: { host: string, port: number, key: string } = { host: "", port: 0, key: "" }
+
+        try {
+            const body = (await getRawBody(context.req)).toString("utf-8")
+            // example: host=<value>&port=<value>&key=value
+
+            const parser = body.split("&")
+
+            let isFirst = true
+            let json = "{"
+
+            parser.forEach((e) => {
+                const v = e.split("=")
+                if (v) {
+                    json += `${isFirst ? '' : ","}"${v[0]}":"${v[1]}"`
+                    isFirst = false
+                }
+            })
+
+            json += "}"
+
+            const data = JSON.parse(json)
+
+            if (data.host) result.host = data.host
+            else error.push("host not found")
+
+            if (data.port) {
+                try {
+                    const value = Number.parseInt(data.port)
+                    result.port = value
+                }
+                catch { error.push("port is invalid") }
+            }
+            else error.push("port not found")
+
+            if (data.key) result.key = data.key
+            else error.push("key not found")
+
+        } catch (e) {
+            console.log(e)
+        }
+
+        console.log(result)
+
+        // try connect
+        if (error.length <= 0) {
+            let success = false
+
+            try {
+                const ws = new WebSocket(`ws://${result.host}:${result.port}/${result.key}`)
+
+                ws.onopen = (e) => {
+                    console.log("on open")
+                }
+
+                ws.onclose = (e) => {
+                    console.log("on close")
+                    bus.emit('unlocked');
+                }
+
+                ws.onmessage = (e) => {
+                    console.log("on message")
+                    const { sisma } = JSON.parse(e.data)
+
+                    if (sisma) {
+                        if (sisma == "AUTH.ROOT") {
+                            success = true
+                        }
+                        else {
+                            error.push(`Invalid token ROOT_TOKEN_ONLY: you current token is: ${sisma}`)
+                        }
+
+                        ws.close()
+                    }
+
+                    bus.emit('unlocked');
+                }
+
+                ws.onerror = (e) => {
+                    console.log("on error")
+                    error.push("error on connect")
+                    bus.emit('unlocked');
+                }
+            }
+            catch (e) {
+                error.push(`Error: ${e}`)
+            }
+
+            const bus = new EventEmitter();
+
+            await new Promise(resolve => bus.once('unlocked', resolve));
+            console.log("sucess" + success)
+
+            if (success) {
+                // save credentials on cookies
+                setCookies('auth', JSON.stringify(result), { req: context.req, res: context.res, maxAge: (60 * 60) /* 1 hour */ * (24 /* 1day */ * 30 /* 30 days*/) });
+
+                return {
+                    redirect: {
+                        destination: '/app',
+                        permanent: false
+                    },
+                    props: {}
+                }
+            }
+
+            return {
+                props: {
+                    error,
+                    success
+                }
+            }
+        }
+    }
+
+    return {
+        props: {
+            error,
+            sucess: false
+        }
+    }
+}
+
+
+
+export default function Home({ sucess, error }: { sucess: boolean, error: string[] }) {
     return (
         <main id={style.main}>
             <header className={style.Header}>
@@ -18,10 +154,18 @@ export default function Home() {
             </header>
 
             <div className={style.Content}>
-                <form className={style.Form}>
-                    <input required type="text" minLength={3} maxLength={1024} placeholder="host (ipv4, ipv6, domain)" />
-                    <input required type="number" min={1} maxLength={65535} placeholder="port" />
-                    <input required type="text" minLength={3} maxLength={1024} placeholder="SISMA_KEY (environment variable)" />
+                <form className={style.Form} action="/" method="post">
+                    {
+                        error.map((e) => {
+                            return <>
+                                <p style={{ color: "#ce2050" }}>{e}</p>
+                            </>
+                        })
+                    }
+
+                    <input required name="host" type="text" minLength={3} maxLength={1024} placeholder="host (ipv4, ipv6, domain)" />
+                    <input required name="port" type="number" min={1} maxLength={65535} placeholder="port" />
+                    <input required name="key" type="text" minLength={3} maxLength={1024} placeholder="SISMA_KEY (environment variable)" />
                     <input type="submit" value="enter" />
                 </form>
                 <ul className={style.FAQ}>
