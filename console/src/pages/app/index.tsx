@@ -95,7 +95,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         if (success) {
             return {
                 props: {
-                    result
+                    host: result.host,
+                    port: result.port,
+                    sisma_key: result.key,
                 }
             }
         }
@@ -121,7 +123,36 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
 }
 
-export default function App({ host, port, key }: { host: string, port: number, key: string }) {
+export default function App({ host, port, sisma_key }: { host: string, port: number, sisma_key: string }) {
+
+    // @ts-ignore
+    if (!global.ws) {
+
+        // @ts-ignore
+        global.ws = new WebSocket(`ws://${host}:${port}/${sisma_key}`)
+
+        // @ts-ignore
+        ws.onerror = (e) => {
+            alert(`$connection error: ${e}`)
+            window.location.href = "/"
+        }
+
+        // @ts-ignore
+        ws.onclose = (e) => {
+            alert(`"connection closed!"`)
+            window.location.href = "/"
+        }
+
+        // @ts-ignore
+        ws.onopen = (e) => {
+            console.log("connection open")
+        }
+
+        // @ts-ignore
+        ws.onmessage = (e) => {
+
+        }
+    }
 
     const [users, setUsers] = useState(false);
     const [matches, setMatches] = useState(false);
