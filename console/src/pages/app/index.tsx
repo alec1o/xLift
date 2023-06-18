@@ -11,8 +11,117 @@ import Clusters from "./Clusters";
 import Matches from "./Matches";
 import Settings from "./Settings";
 import Dashboard from "./Dashboard";
+import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from "next";
+import { getCookie, getCookies } from "cookies-next";
+import EventEmitter from "events";
 
-export default function App() {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+
+    const cookies = getCookie("auth", { req: context.req, res: context.res }) as string
+    console.log("auth: ", cookies)
+
+    // check exist auth on cookie
+    if (!cookies) {
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/"
+            },
+            props: {}
+        }
+    }
+
+    let result = {} as { host: string, port: number, key: string }
+
+    try {
+        result = JSON.parse(cookies) as { host: string, port: number, key: string }
+
+        if (!(result.host && result.key && result.port && result.port > 0 && result.port <= 65535)) {
+            throw new Error("invalid auth")
+        }
+    }
+    catch (e) {
+        console.log("json parser error:  ", e)
+
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/"
+            },
+            props: {}
+        }
+    }
+
+    console.log("result: ", result)
+
+    // try connect with server
+    try {
+        let success = false;
+
+        const ws = new WebSocket(`ws://${result.host}:${result.port}/${result.key}`)
+
+        ws.onopen = (e) => {
+            console.log("on open")
+        }
+
+        ws.onclose = (e) => {
+            console.log("on close")
+            bus.emit('unlocked');
+        }
+
+        ws.onmessage = (e) => {
+            console.log("on message")
+            const { sisma } = JSON.parse(e.data as string)
+
+            if (sisma) {
+                if (sisma == "AUTH.ROOT") {
+                    success = true
+                }
+                ws.close()
+            }
+
+            bus.emit('unlocked');
+        }
+
+        ws.onerror = (e) => {
+            console.log("on error")
+            bus.emit('unlocked');
+        }
+
+        const bus = new EventEmitter();
+
+        await new Promise(resolve => bus.once('unlocked', resolve));
+
+        if (success) {
+            return {
+                props: {
+                    result
+                }
+            }
+        }
+        else {
+            return {
+                redirect: {
+                    permanent: false,
+                    destination: "/"
+                },
+                props: {}
+            }
+        }
+    }
+    catch (e) {
+        console.log("error: ", e)
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/"
+            },
+            props: {}
+        }
+    }
+}
+
+export default function App({ host, port, key }: { host: string, port: number, key: string }) {
 
     const [users, setUsers] = useState(false);
     const [matches, setMatches] = useState(false);
