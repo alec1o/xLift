@@ -133,7 +133,7 @@
 .instance {
     cursor: pointer;
     background-color: rgba(32, 80, 206, .25);
-    height: 100px;
+    height: auto;
     margin: 10px;
     width: 100%;
     max-width: 300px;

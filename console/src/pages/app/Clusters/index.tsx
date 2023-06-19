@@ -19,12 +19,13 @@ export default function Clusters(props: any) {
                     </li>
                     {clusters.map((e) =>
                     (
-                        <li key={e.key}>
+                        <li key={`${e.host}:${e.port}`}>
                             <button className={style.instance}>
-                                <h1><span className={mainStyle.LED}>Cluster</span></h1>
+                                <h1 style={{ fontSize: "14px" }}><span className={mainStyle.LED}>{e.name || "Cluster"}</span></h1>
                                 <div className={style.info}>
                                     <p>{true ? <WifiOn className={style.createColor} /> : <WifiOff className={style.deleteColor} />} {e.host} : {e.port}</p>
                                     <p><RiCpuLine /> {e.ram} GB</p>
+                                    <p><RiCpuLine /> {e.storage} GB</p>
                                 </div>
                             </button>
                         </li>
@@ -41,8 +42,8 @@ export default function Clusters(props: any) {
                         <input required type="text" placeholder="worker name" minLength={3} />
                         <input required type="text" placeholder="ip address (ipv4/ipv6/domain)" minLength={3} />
                         <input required type="number" placeholder="port" min={1} />
-                        <input value="" type="number" placeholder="ram (mb)" />
-                        <input value="" type="number" placeholder="storage (bg)" />
+                        <input value="" type="number" placeholder="ram (gb)" />
+                        <input value="" type="number" placeholder="storage (gb)" />
                         <input type="submit" value="Register" />
                     </div>
                 </form >
