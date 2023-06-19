@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./styles.module.css";
 import { BiUserPin, BiJoystick, BiPackage } from "react-icons/bi";
 import { FiCpu } from "react-icons/fi";
@@ -14,6 +14,18 @@ import Dashboard from "./Dashboard";
 import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { getCookie, getCookies } from "cookies-next";
 import EventEmitter from "events";
+
+export interface ClusterProps {
+    id: string
+    ram: number
+    key: string
+    port: number
+    name: string
+    host: string
+    storage: number
+}
+
+
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
@@ -125,41 +137,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 export default function App({ host, port, sisma_key }: { host: string, port: number, sisma_key: string }) {
 
-    // @ts-ignore
-    if (!global.ws) {
-
-        // @ts-ignore
-        global.ws = new WebSocket(`ws://${host}:${port}/${sisma_key}`)
-
-        // @ts-ignore
-        ws.onerror = (e) => {
-            alert(`$connection error: ${e}`)
-            window.location.href = "/"
-        }
-
-        // @ts-ignore
-        ws.onclose = (e) => {
-            alert(`"connection closed!"`)
-            window.location.href = "/"
-        }
-
-        // @ts-ignore
-        ws.onopen = (e) => {
-            console.log("connection open")
-        }
-
-        // @ts-ignore
-        ws.onmessage = (e) => {
-
-        }
-    }
-
     const [users, setUsers] = useState(false);
     const [matches, setMatches] = useState(false);
     const [dashboard, setDashboard] = useState(false);
     const [rooms, setPrefabs] = useState(false);
     const [cluster, setCluster] = useState(false);
     const [setting, setSetting] = useState(false);
+
+    const [clustersList, setClustersList] = useState([] as {
+        id: string, ram: number, key: string, port: number, name: string, host: string, storage: number
+    }[])
 
     function activeUsers() {
         setUsers(true);
@@ -215,6 +202,52 @@ export default function App({ host, port, sisma_key }: { host: string, port: num
         setSetting(true);
     }
 
+    // @ts-ignore
+    useEffect(() => {
+
+        // @ts-ignore
+        const ws = (global.ws || new WebSocket(`ws://${host}:${port}/${sisma_key}`)) as WebSocket
+
+        ws.onerror = (e) => {
+            alert(`$connection error: ${e}`)
+            window.location.href = "/"
+        }
+
+        ws.onclose = (e) => {
+            alert(`"connection closed!"`)
+            window.location.href = "/"
+        }
+
+        ws.onopen = (e) => {
+            console.log("connection open")
+            ws.send(JSON.stringify({ sisma: "CLUSTER.SHOWALL" }))
+        }
+
+        ws.onmessage = (e) => {
+            try {
+                const buffer = JSON.parse(e.data as string)
+                console.log(buffer)
+                const { sisma } = buffer
+
+                if (sisma) {
+                    if (sisma == "CLUSTER.SHOWALL") {
+                        setTimeout(() => {
+
+                            // @ts-ignore
+                            console.log("on -> CLUSTER.SHOWALL")
+                            setClustersList(buffer.data)
+                        }, 7500)
+                    }
+                }
+            }
+            catch {
+
+            }
+        }
+        console.log("use effect")
+    }, [])
+
+
     return (
         <div id={style.init}>
             <menu id={style.menu}>
@@ -255,7 +288,7 @@ export default function App({ host, port, sisma_key }: { host: string, port: num
                             matches ? <Matches /> :
                                 dashboard ? <Dashboard /> :
                                     rooms ? <Rooms /> :
-                                        cluster ? <Clusters /> :
+                                        cluster ? <Clusters clusters={clustersList} /> :
                                             setting ? <Settings /> :
                                                 <>{activeDashboard()}</>
                     }
