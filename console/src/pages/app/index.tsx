@@ -14,6 +14,7 @@ import Dashboard from "./Dashboard";
 import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { getCookie, getCookies } from "cookies-next";
 import EventEmitter from "events";
+import { globalAgent } from "http";
 
 export interface ClusterProps {
     id: string
@@ -207,6 +208,8 @@ export default function App({ host, port, sisma_key }: { host: string, port: num
 
         // @ts-ignore
         const ws = (global.ws || new WebSocket(`ws://${host}:${port}/${sisma_key}`)) as WebSocket
+        // @ts-ignore
+        global.ws = ws
 
         ws.onerror = (e) => {
             alert(`$connection error: ${e}`)
@@ -231,12 +234,8 @@ export default function App({ host, port, sisma_key }: { host: string, port: num
 
                 if (sisma) {
                     if (sisma == "CLUSTER.SHOWALL") {
-                        setTimeout(() => {
-
-                            // @ts-ignore
-                            console.log("on -> CLUSTER.SHOWALL")
-                            setClustersList(buffer.data)
-                        }, 7500)
+                        console.log("on -> CLUSTER.SHOWALL")
+                        setClustersList(buffer.data)
                     }
                 }
             }

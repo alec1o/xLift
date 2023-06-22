@@ -230,6 +230,8 @@ public class RootController
 
         string host = request.FirstOrDefault(x => x.Key == "host").Value;
         string key = request.FirstOrDefault(x => x.Key == "key").Value;
+        string name = request.FirstOrDefault(x => x.Key == "name").Value;
+
         int port = 0;
         try
         {
@@ -237,7 +239,7 @@ public class RootController
         }
         catch (Exception e) { Output.Show(e); }
 
-        if (host == null || port <= 0 || key == null)
+        if (host == null || port <= 0 || key == null || name == null)
         {
             data.Add("DATA".ToLower(), null);
             data.Add("SIZE".ToLower(), 0);
@@ -251,6 +253,8 @@ public class RootController
             if (port <= 0) message += " {'port': 'int'}";
 
             if (string.IsNullOrWhiteSpace(key)) message += " {'key': 'string'}";
+
+            if (string.IsNullOrWhiteSpace(name)) message += " {'name': 'string'}";
 
             data.Add("ALERT".ToLower(), message);
 
@@ -314,7 +318,7 @@ public class RootController
                 {
                     // Register new cluster
 
-                    Cluster cluster = new Cluster(Guid.NewGuid().ToString(), host, key, port, ram, storage);
+                    Cluster cluster = new Cluster(Guid.NewGuid().ToString(), name, host, key, port, ram, storage);
                     Client.Server.Clusters.Add(cluster);
                     SismaDatabase.SaveCluster(Client.Server.Clusters);
 
@@ -329,7 +333,7 @@ public class RootController
                     // Error on connect with sisma client
 
                     data.Add("ERROR".ToLower(), true);
-                    data.Add("ALERT".ToLower(), "Error, unable to connect to client system http. check { 'host' : 'string', 'port': 'int', 'key': 'string (SISMA_KEY)'}" + $"\n http status: {httpStatus}");
+                    data.Add("ALERT".ToLower(), "Error, unable to connect to client system http. check { 'name': 'string', 'host' : 'string', 'port': 'int', 'key': 'string (SISMA_KEY)'}" + $"\n http status: {httpStatus}");
 
                     data.Add("DATA".ToLower(), null);
                     data.Add("SIZE".ToLower(), 0);
