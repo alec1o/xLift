@@ -5,7 +5,7 @@ namespace Sisma;
 
 public class Program
 {
-    private const string HELP_MESSAGE = "[ERROR]\n\nExample 1:\n\tdotnet net run <ip> <port>\n\nExample 2:\n\tdotnet net run dev\n";
+    private const string HELP_MESSAGE = "[ERROR]\n\nExample 1:\n\tdotnet run <ip> <port>\n\nExample 2:\n\tdotnet run dev\n";
 
     private static void Main(string[] args)
     {
