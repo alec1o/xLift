@@ -15,15 +15,15 @@
     outline: none;
     cursor: pointer;
     width: 100%;
-    margin: 10px 0;
-    padding: 22px 10px;
+    margin: 5px 0;
+    padding: 15px 10px;
     background-color: transparent;
     border: none;
     color: white;
     font-family: "Rawson";
-    font-size: 18px;
+    font-size: 14px;
     letter-spacing: 1px;
-    line-height: 0;
+    line-height: -1px;
     text-align: left;
     text-transform: capitalize;
     text-decoration: none;
@@ -34,12 +34,23 @@
 #copyright {
     text-transform: lowercase;
     text-align: center;
-    font-weight: bold;
-    font-size: 14px;
-    color: #2050ce;
+    font-weight: 600;
+    font-size: 10px;
     width: auto;
     height: auto;
     padding: 20px;
+    margin-top: 30px;
+    padding: 4px 6px;
+    border-radius: 0;
+    letter-spacing: 2px;
+    font-family: "Kiona";
+    background-color: #ce2050;
+transition: all 0.5s ease;
+}
+
+#copyright:hover {
+    color: white;
+    background-color: #2050ce;
 }
 
 .button:hover {
