@@ -5,7 +5,7 @@ export default function AppHeader() {
     return (
         <>
             <header id={styles.main}>
-                <Image id={styles.logo} src="/favicon.ico" alt="omninanny logo" width={0} height={0} />
+                <Image id={styles.logo} src="/www/image/omninanny.png" alt="omninanny logo" width={128} height={128} />
                 <h2 id={styles.title}>Omninanny</h2>
             </header>
         </>
