@@ -1,0 +1,51 @@
+#main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 180px;
+    border: none;
+    padding: 10px;
+    margin: 50px 10px 10px 50px;
+    background-color: transparent;
+
+}
+
+#copyright,
+.button {
+    outline: none;
+    cursor: pointer;
+    width: 100%;
+    margin: 10px 0;
+    padding: 22px 10px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-family: "Rawson";
+    font-size: 18px;
+    letter-spacing: 1px;
+    line-height: 0;
+    text-align: left;
+    text-transform: capitalize;
+    text-decoration: none;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#copyright {
+    text-transform: lowercase;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: #2050ce;
+    width: auto;
+    height: auto;
+    padding: 20px;
+}
+
+.button:hover {
+    background-color: #40404080;
+}
+
+.selected {
+    background-color: #404040;
+}
