@@ -1,9 +1,0 @@
-{
-  "extends": "next",
-  "rules": {
-    "indent": [
-      "error",
-      4
-    ]
-  }
-}
