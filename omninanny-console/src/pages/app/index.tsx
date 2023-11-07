@@ -4,7 +4,7 @@ import AppSideBar from "@/components/AppSideBar"
 import { useState } from "react"
 import MenuOptions from "@/utils/MenuOptions"
 import WorkerPage from "./WorkerPage"
-import InstancePage from "./InstancePage"
+import FleetPage from "./FleetPage"
 import StatusPage from "./StatusPage"
 import ServerPage from "./ServerPage"
 
@@ -16,7 +16,7 @@ export default function Index() {
             case MenuOptions.Server: return <ServerPage />
             case MenuOptions.Status: return <StatusPage />
             case MenuOptions.Worker: return <WorkerPage />
-            case MenuOptions.Instance: return <InstancePage />
+            case MenuOptions.Fleet: return <FleetPage />
             default:
                 return (
                     <>

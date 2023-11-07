@@ -1,7 +1,7 @@
-export default function InstancePage() {
+export default function FleetPage() {
     return (
         <>
-            <h1>Instances</h1>
+            <h1>Fleets</h1>
             <p>Descriptions...</p>
         </>
     )

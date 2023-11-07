@@ -2,7 +2,7 @@ enum MenuOptions {
     Server,
     Worker,
     Status,
-    Instance,
+    Fleet,
 }
 
 export default MenuOptions
