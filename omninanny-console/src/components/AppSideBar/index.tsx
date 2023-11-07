@@ -1,4 +1,4 @@
-import MenuOptions from "@/ultils/MenuOptions";
+import MenuOptions from "@/utils/MenuOptions";
 import styles from "./styles.module.css";
 import Link from "next/link";
 
