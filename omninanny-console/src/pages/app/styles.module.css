@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    
+
     /* local style */
     font-family: "Rawson";
     color: white;
@@ -15,6 +15,30 @@
     flex-wrap: nowrap;
     border: none;
     border-left: 0.5px solid #404040;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    max-height: calc(100vh - 64px);
+}
+
+/* width */
+#main::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+#main::-webkit-scrollbar-track {
+    background: #404040;
+}
+
+/* Handle */
+#main::-webkit-scrollbar-thumb {
+    background: white;
+}
+
+/* Handle on hover */
+#main::-webkit-scrollbar-thumb:hover {
+    background: whitesmoke;
 }
 
 
