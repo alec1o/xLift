@@ -1,0 +1,146 @@
+.worker {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    background-color: #404040;
+    height: 100px;
+    width: 400px;
+    margin: 10px;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.worker .container {
+    height: 100%;
+    width: 100%;
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.worker .label,
+.worker .name {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    padding: 1px;
+    margin: 1px;
+    font-weight: bold;
+    font-family: "Kiona";
+    color: white;
+}
+
+.worker .label .password {
+    font-size: 100%;
+    width: 100%;
+    max-width: 50%;
+    text-wrap: nowrap;
+    height: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    font-family: "Rawson";
+}
+
+.worker .label>svg {
+    padding: 1px;
+    margin: 0 10px 0 6px;
+    font-size: 14px;
+}
+
+.worker .name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Rawson";
+    line-height: 5px;
+    letter-spacing: 2px !important;
+    text-transform: uppercase;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 10px;
+    min-height: 25px;
+    font-size: 13px;
+    text-align: center !important;
+    align-self: center;
+    border-bottom: 1px solid #666565;
+}
+
+.worker .name>svg {
+    padding: 2px;
+}
+
+.worker .deleteIcon,
+.worker .onlineIcon,
+.worker .offlineIcon {
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    display: block;
+    margin: 5px;
+    padding: 5px;
+    font-size: 22px;
+    color: #1d1d1d;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.worker .deleteIcon:hover {
+    color: #ffffff80;
+}
+
+.worker .onlineIcon,
+.worker .offlineIcon {
+    cursor: grab;
+    right: 0;
+    top: 0;
+    bottom: auto;
+    left: auto;
+    margin: 2px 6px 0 0;
+    padding: 2.5px;
+    font-size: 20px;
+}
+
+.worker .onlineIcon {
+    color: #20ce7d !important;
+}
+
+.worker .offlineIcon {
+    color: #fa773b !important;
+}
+
+
+.copy {
+    font-size: 16px !important;
+    cursor: pointer !important;
+    padding: 2px !important;
+    transition: all 0.35s ease-in-out;
+    color: #2050ce;
+}
+
+.copy:hover{
+    color: #20ce7d;
+}
+
+/* width */
+.scroll::-webkit-scrollbar {
+    height: 5px;
+}
+
+/* Track */
+.scroll::-webkit-scrollbar-track {
+    background: white;
+}
+
+/* Handle */
+.scroll::-webkit-scrollbar-thumb {
+    background: #20ce7d;
+}
+
+/* Handle on hover */
+.scroll::-webkit-scrollbar-thumb:hover {
+    background: #20ce7d;
+}

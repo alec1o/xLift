@@ -42,7 +42,7 @@
 }
 
 
-#main h1 {
+#main > h1 {
     margin: 15px 0 20px 15px;
     font-size: 21px;
     font-weight: bolder;

@@ -7,6 +7,8 @@ import WorkerPage from "./WorkerPage"
 import FleetPage from "./FleetPage"
 import StatusPage from "./StatusPage"
 import ServerPage from "./ServerPage"
+import { InitNotification } from "@/utils/notifications"
+
 
 export default function Index() {
     const [page, setPage] = useState(MenuOptions.Status)
@@ -40,6 +42,7 @@ export default function Index() {
 
                 </main>
             </div>
+            <>{InitNotification}</>
         </>
     )
 }

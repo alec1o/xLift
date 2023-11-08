@@ -9,10 +9,13 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@types/uuid": "^9.0.6",
         "next": "14.0.1",
         "react": "^18",
         "react-dom": "^18",
-        "react-icons": "^4.11.0"
+        "react-icons": "^4.11.0",
+        "react-notifications": "^1.7.4",
+        "uuid": "^9.0.1"
     },
     "devDependencies": {
         "@types/node": "^20",

@@ -1,4 +1,5 @@
 import '@/styles/globals.css'
+import 'react-notifications/lib/notifications.css';
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 
