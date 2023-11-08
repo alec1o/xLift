@@ -1,4 +1,4 @@
-import { DeleteIcon, OfflineIcon, OnlineIcon, IpIcon, PortIcon, PasswordIcon, HiddenPasswordIcon, ShowPasswordIcon, CopyIcon } from "@/utils/icons"
+import { AddIcon, DeleteIcon, OfflineIcon, OnlineIcon, IpIcon, PortIcon, PasswordIcon, HiddenPasswordIcon, ShowPasswordIcon, CopyIcon } from "@/utils/icons"
 import styles from "./styles.module.css"
 import { FormEvent, FormEventHandler, useState } from "react"
 import { v1 as uuid } from 'uuid';
@@ -30,13 +30,13 @@ export default function WorkerPage() {
     const [name, setName] = useState("");
     const [password, setPassword] = useState(uuid().toString());
     const [_freshCount, _setRefreshCount] = useState(0)
+    const [registerWindow, setRegisterWindow] = useState(false)
 
     function forceRefreshComponents() {
         _setRefreshCount(_freshCount + 1)
     }
 
-    function createWorker(e: FormEvent<HTMLFormElement>) {
-        e.preventDefault()
+    function createWorker() {
         const m_worker = { id: uuid().toString(), password: password, name: name, port: port, ip: ip, status: { memory: 0, storage: 0, cpu: 0, online: true } } as IWorker
 
         setWorker([...worker, m_worker])
@@ -62,10 +62,11 @@ export default function WorkerPage() {
 
     return (
         <>
-            <h1>Workers</h1>
+            <h1>Workers <AddIcon className={styles.addIcon} onClick={() => setRegisterWindow(true)} /></h1>
             <p>Workers that will be used to run the server instances<br /></p>
-            <nav>
-                <form onSubmit={createWorker}>
+            <nav style={{ display: registerWindow ? "initial" : "none" }}>
+                <form className={styles.form} onSubmit={(e) => { e.preventDefault() }}>
+                    <button className={styles.closeRegisterButton} onClick={() => setRegisterWindow(false)}>x</button>
                     <label htmlFor="name">Name</label>
                     <input name="name" type="text" value={name} onChange={(e) => setName(e.target.value)} />
                     <label htmlFor="ip">IP</label>
@@ -74,7 +75,7 @@ export default function WorkerPage() {
                     <input name="port" type="number" value={(port <= 0 ? '' : port)} onChange={(e) => setPort(Number.parseInt(e.target.value))} />
                     <label htmlFor="key">Key</label>
                     <input type="text" name="key" value={password} onChange={e => setPassword(e.target.value)} />
-                    <input type="submit" value="Add" />
+                    <input type="submit" value="Add" onClick={createWorker} />
                 </form>
             </nav>
 

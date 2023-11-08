@@ -11,6 +11,7 @@ import { RiLockPasswordFill as PasswordIcon } from "react-icons/ri"
 import { BiSolidShow as ShowPasswordIcon } from "react-icons/bi"
 import { BiSolidHide as HiddenPasswordIcon } from "react-icons/bi"
 import { FaCopy as CopyIcon } from "react-icons/fa"
+import { MdOutlineAddCircle as AddIcon } from "react-icons/md"
 
 export {
     ServerIcon,
@@ -26,4 +27,5 @@ export {
     ShowPasswordIcon,
     HiddenPasswordIcon,
     CopyIcon,
+    AddIcon,
 }

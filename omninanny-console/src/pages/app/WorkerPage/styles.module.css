@@ -113,7 +113,8 @@
 }
 
 
-.copy {
+.copy,
+.addIcon {
     font-size: 16px !important;
     cursor: pointer !important;
     padding: 2px !important;
@@ -121,8 +122,16 @@
     color: #2050ce;
 }
 
-.copy:hover{
+.addIcon:hover,
+.copy:hover {
     color: #20ce7d;
+}
+
+.addIcon {
+    margin: 0 10px;
+    padding: 5px;
+    font-size: inherit !important;
+    color: #ce2050;
 }
 
 /* width */
@@ -143,4 +152,21 @@
 /* Handle on hover */
 .scroll::-webkit-scrollbar-thumb:hover {
     background: #20ce7d;
+}
+
+
+.form {
+    top: 65px;
+    right: 0;
+    margin: 10px 20px;
+    left: auto;
+    bottom: auto;
+    position: fixed;
+    width: 300px;
+    height: 400px;
+    background-color: #66656580;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    padding: 20px;
 }
