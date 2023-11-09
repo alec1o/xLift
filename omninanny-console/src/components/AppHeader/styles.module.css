@@ -9,6 +9,7 @@
     border: none;
     border-bottom: 0.5px solid #3b3b3b;
     padding: 5px 30px;
+    text-decoration: none;
 }
 
 
@@ -39,6 +40,7 @@
     align-items: center;
     height: 100%;
     width: auto;
+    text-decoration: none;
 }
 
 .link {
@@ -59,5 +61,25 @@
 }
 
 .link:hover:first-letter {
+    color: #2050ce;
+}
+
+#dashboard {
+    border: none;
+    background-color: #2050ce80;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    margin: 0 10px;
+}
+
+#dashboard::first-letter {
+    color: #50ce50;
+}
+
+#dashboard:hover {    
+    background-color: #50ce5080;
+}
+#dashboard:hover::first-letter{
     color: #2050ce;
 }

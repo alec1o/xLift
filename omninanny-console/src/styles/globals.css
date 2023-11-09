@@ -4,6 +4,7 @@
     margin: 0;
     outline: none;
     letter-spacing: .75px;
+    font-family: "Rawson";
 }
 
 html,
@@ -11,4 +12,24 @@ body {
     max-width: 100vw;
     overflow-x: hidden;      
     background-color: #1D1D1D;  
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #404040;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: white;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: whitesmoke;
 }

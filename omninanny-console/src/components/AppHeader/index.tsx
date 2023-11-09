@@ -6,11 +6,12 @@ export default function AppHeader() {
     return (
         <>
             <header id={styles.main}>
-                <div className={styles.container}>
+                <Link className={styles.container} href={"/"}>
                     <Image id={styles.logo} src="/www/image/omninanny.png" alt="omninanny logo" width={128} height={128} />
                     <h2 id={styles.title}>Omninanny</h2>
-                </div>
+                </Link>
                 <div className={styles.container}>
+                    <Link id={styles.dashboard} className={styles.link} target="_self" href="/app">Dashboard</Link>
                     <Link className={styles.link} target="_blank" href="https://omninanny.docs.kezero.com/">Docs</Link>
                     <Link className={styles.link} target="_blank" href="https://github.com/alec1o/omninanny/">GitHub</Link>
                 </div>
