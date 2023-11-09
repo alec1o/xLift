@@ -1,0 +1,16 @@
+{
+    "name": "omninanny-server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "main.js",
+    "scripts": {
+        "start": "node ./build/main.js",
+        "build": "npx tsc -b",
+        "dev": "npx tsc -b && npx concurrently \"npx tsc -w\" \"npx nodemon build/main.js\""
+    },
+    "dependencies": {
+        "concurrently": "^8.2.2",
+        "nodemon": "^3.0.1",
+        "typescript": "^5.2.2"
+    }
+}
