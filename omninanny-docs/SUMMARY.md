@@ -5,5 +5,7 @@
 ## API REF
 
 * [Reference: HTTP](api-ref/reference-http/README.md)
+  * [HTTP: Client Side](api-ref/reference-http/http-client-side.md)
   * [HTTP: Server Side](api-ref/reference-http/http-server-side.md)
-* [WebSocket Side](api-ref/websocket-side.md)
+* [Reference: WebSocket](api-ref/reference-websocket/README.md)
+  * [WebSocket: Client Side](api-ref/reference-websocket/websocket-client-side.md)
