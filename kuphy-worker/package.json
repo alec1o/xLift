@@ -3,7 +3,11 @@
     "version": "1.0.0",
     "description": "",
     "main": "main.js",
-    "scripts": {},
+    "scripts": {
+        "start": "node ./output/main.js",
+        "build": "npx tsc -b",
+        "dev": "npx tsc -b && npx concurrently \"npx tsc -w\" \"npx nodemon output/main.js\""
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/alec1o/kuphy.git"
@@ -21,6 +25,8 @@
     "devDependencies": {
         "@types/express": "^4.17.21",
         "@types/node": "^20.9.4",
+        "concurrently": "^8.2.2",
+        "nodemon": "^3.0.1",
         "typescript": "^5.3.2"
     }
 }
