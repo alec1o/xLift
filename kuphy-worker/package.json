@@ -1,0 +1,17 @@
+{
+    "name": "kuphy-worker",
+    "version": "1.0.0",
+    "description": "",
+    "main": "main.js",
+    "scripts": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/alec1o/kuphy.git"
+    },
+    "author": "Alec1o Furanze",
+    "license": "UNLICENSED",
+    "bugs": {
+        "url": "https://github.com/alec1o/kuphy/issues"
+    },
+    "homepage": "https://kuphy.kezero.com"
+}
