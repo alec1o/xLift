@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import StatusKey from "../../utils/StatusKey";
 
-class InstanceController {
+class FleetController {
 
     router: Router
 
@@ -23,4 +23,4 @@ class InstanceController {
 
 }
 
-export default InstanceController
+export default FleetController
