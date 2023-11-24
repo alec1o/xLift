@@ -14,7 +14,8 @@ const ENV = {
     APP_NAME: process.env.APP_NAME ?? "Kuphy Worker",
     API_KEY: process.env.API_KEY ?? "",
     PORT: Number.parseInt(process.env.PORT ?? "10101"),
-    HOST: process.env.HOST ?? "127.0.0.1"
+    HOST: process.env.HOST ?? "127.0.0.1",
+    APP_VERSION: Number.parseInt(process.env.APP_VERSION ?? "100")
 }
 
 export default ENV

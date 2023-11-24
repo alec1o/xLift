@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import StatusKey from "../../utils/StatusKey";
+import ENV from "../env";
 
 class SystemController {
 
@@ -12,6 +13,14 @@ class SystemController {
     get(req: Request, res: Response) {
 
         const data = {
+            "metadata": {
+                "name": "Kuphy",
+                "version": ENV.APP_VERSION,
+                "website": "https://kuphy.kezero.com",
+                "companny": "https://www.kezero.com",
+                "owner": "https://www.alec1o.com",
+                "docs": "https://kuphy.docs.kezero.com",
+            },
             "memory": {
                 "used": 0,
                 "free": 0,
