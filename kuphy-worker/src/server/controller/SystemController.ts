@@ -1,6 +1,8 @@
 import { Request, Response, Router } from "express";
 import StatusKey from "../../utils/StatusKey";
 import ENV from "../env";
+import os from "os"
+import Validator from "../../utils/Validator";
 
 class SystemController {
 
@@ -12,6 +14,10 @@ class SystemController {
 
     get(req: Request, res: Response) {
 
+        const totalMemory = Number.parseFloat((os.totalmem() / Validator.GB_NUMBER).toFixed(2))
+        const freeMemory = Number.parseFloat((os.freemem() / Validator.GB_NUMBER).toFixed(2))
+        const usedMemory = Number.parseFloat((totalMemory - freeMemory).toFixed(2))
+
         const data = {
             "metadata": {
                 "name": "Kuphy",
@@ -22,9 +28,9 @@ class SystemController {
                 "docs": "https://kuphy.docs.kezero.com",
             },
             "memory": {
-                "used": 0,
-                "free": 0,
-                "total": 0
+                "used": usedMemory,
+                "free": freeMemory,
+                "total": totalMemory
             },
             "storage": {
                 "used": 0,

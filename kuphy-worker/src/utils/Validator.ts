@@ -7,6 +7,8 @@ class Validator {
         // If api-key is empty, it will always all requests
         return true
     }
+
+    static GB_NUMBER: number = 1073741824
 }
 
 export default Validator
