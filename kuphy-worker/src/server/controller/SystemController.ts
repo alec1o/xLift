@@ -3,6 +3,7 @@ import StatusKey from "../../utils/StatusKey";
 import ENV from "../env";
 import os from "os"
 import Validator from "../../utils/Validator";
+import * as checkDiskSpace from "check-disk-space"
 
 class SystemController {
 
@@ -12,11 +13,21 @@ class SystemController {
         this.router = router
     }
 
-    get(req: Request, res: Response) {
+    async get(req: Request, res: Response) {
 
         const totalMemory = Number.parseFloat((os.totalmem() / Validator.GB_NUMBER).toFixed(2))
         const freeMemory = Number.parseFloat((os.freemem() / Validator.GB_NUMBER).toFixed(2))
         const usedMemory = Number.parseFloat((totalMemory - freeMemory).toFixed(2))
+
+        const diskPath =
+            os.platform().toLocaleLowerCase().trim() == "win32".toLocaleLowerCase().trim()
+                ? "C:"
+                : "/";
+
+        const storageInfo = await checkDiskSpace.default(diskPath)
+        const totalStorage = Number.parseFloat((storageInfo.size / Validator.GB_NUMBER).toFixed(2))
+        const freeStorage = Number.parseFloat((storageInfo.free / Validator.GB_NUMBER).toFixed(2))
+        const usedStorage = Number.parseFloat((totalStorage - freeStorage).toFixed(2))
 
         const data = {
             "metadata": {
@@ -33,9 +44,9 @@ class SystemController {
                 "total": totalMemory
             },
             "storage": {
-                "used": 0,
-                "free": 0,
-                "total": 0
+                "used": usedStorage,
+                "free": freeStorage,
+                "total": totalStorage
             },
             "fleet": {
                 "online": 0,
