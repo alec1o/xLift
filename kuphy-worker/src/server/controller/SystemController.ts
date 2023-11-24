@@ -10,7 +10,32 @@ class SystemController {
     }
 
     get(req: Request, res: Response) {
-        res.status(501).send(StatusKey.toJson(false, "not impl.", 501))
+
+        const data = {
+            "memory": {
+                "used": 0,
+                "free": 0,
+                "total": 0
+            },
+            "storage": {
+                "used": 0,
+                "free": 0,
+                "total": 0
+            },
+            "fleet": {
+                "online": 0,
+                "offline": 0,
+                "total": 0,
+            },
+            "server":
+            {
+                "length": 0
+            }
+        }
+
+        const status = 200
+
+        res.status(status).send(StatusKey.toJson(true, data, status))
     }
 }
 
