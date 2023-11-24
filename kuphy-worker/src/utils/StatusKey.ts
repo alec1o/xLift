@@ -1,17 +1,18 @@
 class StatusKey {
     static Ok: string = "ok"
-    static Message: string = "error"
+    static Data: string = "data"
     static Status: string = "status"
 
-    static toJson(ok: boolean, message: any, status: number) {
-        const json = 
-        `
+    static toJson(ok: boolean, data: any, status: number) {
+
+        let m_data = JSON.stringify(data)
+
+        const json = `
         {
             "${this.Ok}": ${ok},
-            "${this.Message}": ${message},
+            "${this.Data}": ${m_data},
             "${this.Status}": ${status}
-        }
-        `
+        }`
 
         return json
     }
