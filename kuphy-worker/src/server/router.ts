@@ -7,5 +7,4 @@ router.use(express.json())
 
 router.get("/", new RootController(router).all)
 
-
 export default router
