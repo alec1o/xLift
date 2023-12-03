@@ -3,18 +3,19 @@ import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import Link from 'next/link'
 import AppHeader from '@/components/AppHeader'
+import env from "@/env"
 
 export default function Home() {
     return (
         <>
             <Head>
-                <title>Omninanny - Home</title>
+                <title>{env.APP_NAME} - Home</title>
             </Head>
             <AppHeader />
 
             <main className={styles.main}>
                 <div className={styles.info}>
-                    <h1 className={styles.title}>Omninanny</h1>
+                    <h1 className={styles.title}>{env.APP_NAME}</h1>
                     <h2>Matchmaking, Game server manager with docker</h2>
                 </div>
 

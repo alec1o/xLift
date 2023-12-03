@@ -20,17 +20,32 @@
     margin: 0 10px;
 }
 
-.link,
+.link {
+    margin: 0 10px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    color: white;
+    text-decoration: none;
+    font-family: 'Kiona', 'SciFly', sans-serif;
+    letter-spacing: 1.5px;
+}
+
 #title {
     margin: 0 10px;
-    font-size: 22px;
-    font-weight: bolder;
+    font-size: 24px;
+    font-weight: normal;
     text-align: left;
     text-decoration: none;
     text-transform: uppercase;
     color: white;
-    font-family: "Kiona";
-    letter-spacing: 1.50px;
+    font-family: 'Stencilia-A', sans-serif;
+    letter-spacing: 5px;
+}
+
+#title::first-letter {
+    text-transform: lowercase;
+    letter-spacing: 10px;
 }
 
 .container {
@@ -77,9 +92,10 @@
     color: #50ce50;
 }
 
-#dashboard:hover {    
+#dashboard:hover {
     background-color: #50ce5080;
 }
-#dashboard:hover::first-letter{
+
+#dashboard:hover::first-letter {
     color: #2050ce;
 }

@@ -13,6 +13,10 @@ export default function App({ Component, pageProps }: AppProps) {
                 <link rel="icon" href="/favicon.ico" />
                 <link href="https://fonts.cdnfonts.com/css/kiona-2" rel="stylesheet" />
                 <link href="https://fonts.cdnfonts.com/css/rawson-alt" rel="stylesheet" />
+                <link href="https://fonts.cdnfonts.com/css/stencilia-a" rel="stylesheet" />
+                <link href="https://fonts.cdnfonts.com/css/scifly" rel="stylesheet" />
+                
+                
             </Head>
             <Component {...pageProps} />
         </>
