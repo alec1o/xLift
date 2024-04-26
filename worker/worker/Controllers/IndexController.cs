@@ -15,7 +15,7 @@ public class IndexController : Controller
         (
             Name: "xLift Worker",
             Version: "0.1.0",
-            Documentation: "/docs"
+            Documentation: "/swagger"
         );
     }
 }
